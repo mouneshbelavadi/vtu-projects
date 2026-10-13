@@ -8,17 +8,20 @@ export interface FormFieldProps {
   errorText?: string;
   required?: boolean;
   className?: string;
-  children: (props: {
-    id: string;
-    hasError: boolean;
-    "aria-describedby"?: string;
-    "aria-invalid"?: boolean;
-    required?: boolean;
-  }) => React.ReactNode;
+  children:
+    | React.ReactNode
+    | ((props: {
+        id: string;
+        hasError: boolean;
+        "aria-describedby"?: string;
+        "aria-invalid"?: boolean;
+        required?: boolean;
+      }) => React.ReactNode);
 }
 
 /**
  * FormField wrapper coordinating labels, accessible help text, and validation error messages.
+ * Supports both direct ReactNode children and a render function.
  */
 export const FormField: React.FC<FormFieldProps> = ({
   id,
@@ -45,13 +48,15 @@ export const FormField: React.FC<FormFieldProps> = ({
         )}
       </label>
 
-      {children({
-        id,
-        hasError,
-        "aria-describedby": describedBy,
-        "aria-invalid": hasError,
-        required,
-      })}
+      {typeof children === "function"
+        ? children({
+            id,
+            hasError,
+            "aria-describedby": describedBy,
+            "aria-invalid": hasError,
+            required,
+          })
+        : children}
 
       {errorText && (
         <p id={errorId} className="text-sm text-danger" role="alert">

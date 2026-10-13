@@ -3,9 +3,9 @@ import { NextRequest } from "next/server";
 import { middleware } from "@/middleware";
 
 describe("Security Headers via Middleware", () => {
-  it("attaches all required security headers and ensures X-Powered-By is absent", () => {
+  it("attaches all required security headers and ensures X-Powered-By is absent", async () => {
     const request = new NextRequest("http://localhost:3000/");
-    const response = middleware(request);
+    const response = await middleware(request);
 
     const headers = response.headers;
 

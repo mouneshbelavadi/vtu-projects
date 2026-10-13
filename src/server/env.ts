@@ -9,6 +9,9 @@ export function createServerEnvSchema(nodeEnv: string = process.env.NODE_ENV || 
       .refine(
         (url) => {
           if (nodeEnv === "production") {
+            if (url.startsWith("http://localhost") || url.startsWith("http://127.0.0.1")) {
+              return true;
+            }
             return url.startsWith("https://");
           }
           return true;

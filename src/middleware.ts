@@ -1,6 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { createServerClient } from "@supabase/ssr";
+import { validateSafeRedirect } from "./server/security/redirect";
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
   const isDev = process.env.NODE_ENV === "development";
 
@@ -29,14 +31,63 @@ export function middleware(request: NextRequest) {
   requestHeaders.set("x-nonce", nonce);
   requestHeaders.set("Content-Security-Policy", cspHeader);
 
-  const response = NextResponse.next({
+  let response = NextResponse.next({
     request: {
       headers: requestHeaders,
     },
   });
 
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  let user = null;
+
+  if (supabaseUrl && supabaseAnonKey) {
+    const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) =>
+            request.cookies.set(name, value)
+          );
+          response = NextResponse.next({
+            request: {
+              headers: requestHeaders,
+            },
+          });
+          cookiesToSet.forEach(({ name, value, options }) =>
+            response.cookies.set(name, value, options)
+          );
+        },
+      },
+    });
+
+    const { data } = await supabase.auth.getUser();
+    user = data.user;
+  }
+
+  const pathname = request.nextUrl.pathname;
+  const isProtectedPath =
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/account") ||
+    pathname.startsWith("/checkout");
+
+  if (isProtectedPath && !user) {
+    const rawTarget = pathname + (request.nextUrl.search || "");
+    const safeTarget = validateSafeRedirect(rawTarget, "/");
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("next", safeTarget);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  // Set all security headers
   response.headers.set("Content-Security-Policy", cspHeader);
-  response.headers.set("Strict-Transport-Security", "max-age=63072000; includeSubDomains");
+  response.headers.set(
+    "Strict-Transport-Security",
+    "max-age=63072000; includeSubDomains"
+  );
   response.headers.set("X-Content-Type-Options", "nosniff");
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
   response.headers.set(

@@ -136,5 +136,22 @@ describe("Security Utilities", () => {
       expect(res3.allowed).toBe(false);
       expect(res3.remaining).toBe(0);
     });
+
+    it("blocks the sixth code request in an hour (5 per hour limit)", async () => {
+      const email = "student@vtuadda.com";
+      const key = `auth_email_${email}`;
+      const limit = 5;
+      const windowSeconds = 3600;
+
+      for (let i = 1; i <= 5; i++) {
+        const res = await rateLimit(key, limit, windowSeconds);
+        expect(res.allowed).toBe(true);
+      }
+
+      // Sixth attempt must be blocked
+      const res6 = await rateLimit(key, limit, windowSeconds);
+      expect(res6.allowed).toBe(false);
+      expect(res6.remaining).toBe(0);
+    });
   });
 });

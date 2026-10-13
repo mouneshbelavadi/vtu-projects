@@ -1,9 +1,6 @@
 import "server-only";
 
-// NOTE: In-memory rate limiter store used only when NODE_ENV is development or test.
-// In production, this module will throw an AppError until the Postgres-backed atomic rate limiter
-// is implemented in Prompt 3.
-
+import { createAdminClient } from "@/server/supabase/admin";
 import { AppError } from "../errors";
 
 interface RateLimitRecord {
@@ -19,24 +16,11 @@ export interface RateLimitResult {
   resetAt: number;
 }
 
-/**
- * Checks whether an action key is within the allowed request rate.
- */
-export async function rateLimit(
+function memoryRateLimit(
   key: string,
   limit: number,
   windowSeconds: number
-): Promise<RateLimitResult> {
-  const isProd = process.env.NODE_ENV === "production";
-
-  if (isProd) {
-    throw new AppError(
-      "Postgres rate limiter is not yet configured for production mode. Scheduled for Prompt 3.",
-      "RATE_LIMIT_UNCONFIGURED",
-      500
-    );
-  }
-
+): RateLimitResult {
   const now = Date.now();
   const existing = memoryStore.get(key);
 
@@ -64,6 +48,62 @@ export async function rateLimit(
     remaining: limit - existing.count,
     resetAt: existing.resetAt,
   };
+}
+
+/**
+ * Checks whether an action key is within the allowed request rate.
+ * Uses atomic Postgres function rate_limit_hit in production, keeping in-memory for tests.
+ */
+export async function rateLimit(
+  key: string,
+  limit: number,
+  windowSeconds: number
+): Promise<RateLimitResult> {
+  // Use memory store for unit tests or if explicitly test env
+  if (process.env.NODE_ENV === "test") {
+    return memoryRateLimit(key, limit, windowSeconds);
+  }
+
+  try {
+    const admin = createAdminClient();
+    const { data: isHit, error } = await admin.rpc("rate_limit_hit", {
+      p_key: key,
+      p_limit: limit,
+      p_window_seconds: windowSeconds,
+    });
+
+    if (error) {
+      // In development, fallback to memory if migrations are not yet applied
+      if (process.env.NODE_ENV === "development") {
+        return memoryRateLimit(key, limit, windowSeconds);
+      }
+      throw new AppError(
+        "Rate limit verification failed",
+        "RATE_LIMIT_ERROR",
+        500
+      );
+    }
+
+    const allowed = !isHit;
+    const now = Date.now();
+    const resetAt = now + windowSeconds * 1000;
+
+    return {
+      allowed,
+      remaining: allowed ? 1 : 0,
+      resetAt,
+    };
+  } catch (err) {
+    if (err instanceof AppError) throw err;
+    if (process.env.NODE_ENV === "development") {
+      return memoryRateLimit(key, limit, windowSeconds);
+    }
+    throw new AppError(
+      "Rate limit service unavailable",
+      "RATE_LIMIT_UNAVAILABLE",
+      500
+    );
+  }
 }
 
 export function resetRateLimitStoreForTesting(): void {
