@@ -7,18 +7,32 @@ export const metadata = {
   title: "Admin Dashboard",
 };
 
+function formatAge(dateInput: string | Date): string {
+  const date = typeof dateInput === "string" ? new Date(dateInput) : dateInput;
+  const diffMs = Date.now() - date.getTime();
+  if (diffMs <= 0) return "Just now";
+  const mins = Math.floor(diffMs / (60 * 1000));
+  if (mins < 1) return "Just now";
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  return `${days}d ago`;
+}
+
 export default async function AdminDashboardPage() {
   await requireAdmin();
 
   const supabase = await createClient();
 
   // Read real database counts (never show invented numbers)
-  const [projectsRes, pendingOrdersRes] = await Promise.all([
+  const [projectsRes, pendingPaymentsRes] = await Promise.all([
     supabase.from("projects").select("status"),
     supabase
-      .from("orders")
-      .select("*", { count: "exact", head: true })
-      .eq("status", "pending_verification"),
+      .from("payments")
+      .select("id, submitted_at, created_at")
+      .eq("status", "pending_verification")
+      .order("submitted_at", { ascending: true, nullsFirst: false }),
   ]);
 
   const projects = projectsRes.data || [];
@@ -27,7 +41,12 @@ export default async function AdminDashboardPage() {
   const draftProjects = projects.filter((p) => p.status === "draft").length;
   const hiddenProjects = projects.filter((p) => p.status === "hidden").length;
 
-  const ordersAwaitingVerification = pendingOrdersRes.count || 0;
+  const pendingPayments = pendingPaymentsRes.data || [];
+  const paymentsWaiting = pendingPayments.length;
+  const oldestPayment = pendingPayments[0];
+  const oldestAgeText = oldestPayment
+    ? `Oldest: ${formatAge(oldestPayment.submitted_at || oldestPayment.created_at)}`
+    : "Queue clear";
 
   return (
     <div className="space-y-8">
@@ -65,6 +84,18 @@ export default async function AdminDashboardPage() {
 
         <Card className="p-4 bg-paper">
           <span className="text-xs font-mono uppercase tracking-wider text-ink-3">
+            Payments Waiting
+          </span>
+          <div className="mt-2 flex items-baseline justify-between">
+            <span className="text-3xl font-serif font-bold text-accent">
+              {paymentsWaiting}
+            </span>
+            <span className="text-xs text-ink-3 font-mono">{oldestAgeText}</span>
+          </div>
+        </Card>
+
+        <Card className="p-4 bg-paper">
+          <span className="text-xs font-mono uppercase tracking-wider text-ink-3">
             Hidden Projects
           </span>
           <div className="mt-2 flex items-baseline justify-between">
@@ -74,18 +105,6 @@ export default async function AdminDashboardPage() {
             <span className="text-xs text-ink-3 font-mono">Archived</span>
           </div>
         </Card>
-
-        <Card className="p-4 bg-paper">
-          <span className="text-xs font-mono uppercase tracking-wider text-ink-3">
-            Orders to Verify
-          </span>
-          <div className="mt-2 flex items-baseline justify-between">
-            <span className="text-3xl font-serif font-bold text-ink">
-              {ordersAwaitingVerification}
-            </span>
-            <span className="text-xs text-ink-3 font-mono">Awaiting admin</span>
-          </div>
-        </Card>
       </div>
 
       <div className="border-t border-rule pt-6">
@@ -93,7 +112,13 @@ export default async function AdminDashboardPage() {
           Quick Actions
         </h2>
         <div className="flex flex-wrap gap-3">
-          <LinkButton href="/admin/projects/new" variant="primary">
+          <LinkButton href="/admin/payments" variant="primary">
+            Verification queue ({paymentsWaiting})
+          </LinkButton>
+          <LinkButton href="/admin/orders" variant="secondary">
+            Manage orders
+          </LinkButton>
+          <LinkButton href="/admin/projects/new" variant="secondary">
             Create new project
           </LinkButton>
           <LinkButton href="/admin/projects" variant="secondary">

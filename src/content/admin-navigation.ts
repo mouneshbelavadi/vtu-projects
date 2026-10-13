@@ -6,11 +6,12 @@ export interface AdminNavItem {
 
 export const adminNavItems: AdminNavItem[] = [
   { label: "Dashboard", href: "/admin", status: "live" },
+  { label: "Payments", href: "/admin/payments", status: "live" },
+  { label: "Orders", href: "/admin/orders", status: "live" },
   { label: "Projects", href: "/admin/projects", status: "live" },
   { label: "Categories", href: "/admin/categories", status: "live" },
   { label: "Settings", href: "/admin/settings", status: "live" },
   { label: "Audit log", href: "/admin/audit", status: "live" },
-  { label: "Orders", href: "/admin/orders", status: "planned" },
   { label: "Requests", href: "/admin/requests", status: "planned" },
   { label: "Mentoring", href: "/admin/mentoring", status: "planned" },
   { label: "Reviews", href: "/admin/reviews", status: "planned" },

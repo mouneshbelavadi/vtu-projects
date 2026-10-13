@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { vi } from "vitest";
 
 const envLocal = path.resolve(__dirname, "../.env.local");
 if (fs.existsSync(envLocal)) {
@@ -17,3 +18,8 @@ if (fs.existsSync(envLocal)) {
     }
   }
 }
+
+vi.mock("next/cache", () => ({
+  revalidatePath: vi.fn(),
+  revalidateTag: vi.fn(),
+}));

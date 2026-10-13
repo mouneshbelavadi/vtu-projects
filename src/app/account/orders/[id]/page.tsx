@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { requireUser } from "@/server/auth";
 import { createClient } from "@/server/supabase/server";
-import { formatInr, formatDate } from "@/lib/format";
+import { formatInr, formatDate, formatBytes } from "@/lib/format";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Badge } from "@/components/ui/badge";
 import { ORDER_STATUS_LABELS } from "../page";
@@ -37,7 +37,7 @@ export default async function OrderDetailPage({
       total_inr,
       created_at,
       expires_at,
-      order_items(id, label, price_inr),
+      order_items(id, project_id, label, price_inr),
       payments(id, status, utr, attempt, submitted_at, verified_at, reject_reason, created_at)
     `
     )
@@ -47,6 +47,47 @@ export default async function OrderDetailPage({
 
   if (error || !order) {
     notFound();
+  }
+
+  // If paid, load download grants and deliverable files
+  let grantsWithFiles: Array<{
+    grant: {
+      id: string;
+      project_id: string;
+      max_downloads: number;
+      download_count: number;
+      expires_at: string | null;
+      revoked_at: string | null;
+    };
+    files: Array<{
+      id: string;
+      original_name: string;
+      kind: string;
+      size_bytes: number;
+    }>;
+  }> = [];
+
+  if (order.status === "paid") {
+    const { data: grants } = await supabase
+      .from("download_grants")
+      .select("id, project_id, max_downloads, download_count, expires_at, revoked_at")
+      .eq("order_id", order.id)
+      .eq("user_id", authUser.user.id);
+
+    if (grants && grants.length > 0) {
+      for (const grant of grants) {
+        const { data: files } = await supabase
+          .from("project_files")
+          .select("id, original_name, kind, size_bytes")
+          .eq("project_id", grant.project_id)
+          .eq("kind", "deliverable");
+
+        grantsWithFiles.push({
+          grant,
+          files: files || [],
+        });
+      }
+    }
   }
 
   const kitTitle = order.order_items?.[0]?.label || "VTU Project Kit Deliverables";
@@ -214,12 +255,135 @@ export default async function OrderDetailPage({
           )}
 
           {order.status === "paid" && (
-            <div className="text-xs text-ink-2 font-medium">
-              Deliverable files will unlock here once file downloads are activated.
+            <div className="flex items-center gap-2">
+              <form method="POST" action={`/api/orders/${order.id}/licence`}>
+                <button
+                  type="submit"
+                  className="inline-flex h-9 items-center justify-center rounded-md border border-rule px-4 text-xs font-semibold text-ink transition-colors duration-120 hover:bg-paper"
+                >
+                  Download licence slip
+                </button>
+              </form>
             </div>
           )}
         </div>
       </div>
+
+      {/* Deliverable Downloads Section for Paid Orders */}
+      {order.status === "paid" && (
+        <div className="space-y-6 pt-4 border-t border-rule">
+          <div>
+            <h2 className="text-lg font-serif font-bold text-ink">
+              Project Deliverables
+            </h2>
+            <p className="text-xs text-ink-2 mt-1">
+              Download your verified code repository, documentation, and report files. Downloads are tracked per project kit.
+            </p>
+          </div>
+
+          {grantsWithFiles.length === 0 ? (
+            <div className="rounded-md border border-rule bg-surface p-6 text-sm text-ink-2">
+              Your deliverables are being prepared. If your files do not appear shortly, please contact support.
+            </div>
+          ) : (
+            grantsWithFiles.map(({ grant, files }, idx) => {
+              const isRevoked = !!grant.revoked_at;
+              const isExpired = !!grant.expires_at && new Date(grant.expires_at) <= new Date();
+              const downloadsLeft = Math.max(0, grant.max_downloads - grant.download_count);
+              const isExhausted = downloadsLeft <= 0;
+              const canDownload = !isRevoked && !isExpired && !isExhausted;
+
+              return (
+                <div
+                  key={grant.id}
+                  className="rounded-md border border-rule bg-surface p-6 space-y-4"
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-rule pb-4">
+                    <div>
+                      <span className="font-mono text-xs uppercase tracking-wider text-ink-3">
+                        Kit Package #{idx + 1}
+                      </span>
+                      <h3 className="text-base font-semibold text-ink">
+                        {order.order_items?.[idx]?.label || "Academic Deliverables"}
+                      </h3>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      {isRevoked ? (
+                        <Badge variant="danger">Access Revoked</Badge>
+                      ) : isExpired ? (
+                        <Badge variant="warn">Access Expired</Badge>
+                      ) : (
+                        <span className="font-mono text-xs font-semibold text-ink-2 bg-paper px-2.5 py-1 rounded-sm border border-rule">
+                          Downloads left: {downloadsLeft} of {grant.max_downloads}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {files.length === 0 ? (
+                    <div className="py-4 text-xs text-ink-2">
+                      No files are currently attached to this project package.
+                    </div>
+                  ) : (
+                    <div className="divide-y divide-rule">
+                      {files.map((file) => (
+                        <div
+                          key={file.id}
+                          className="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                        >
+                          <div className="space-y-0.5 min-w-0">
+                            <div className="flex items-center gap-2">
+                              <span className="font-mono text-xs font-medium text-ink truncate">
+                                {file.original_name}
+                              </span>
+                              <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded-sm bg-paper text-ink-3 border border-rule">
+                                {file.kind}
+                              </span>
+                            </div>
+                            <div className="text-xs text-ink-3 font-mono">
+                              {formatBytes(file.size_bytes)}
+                            </div>
+                          </div>
+
+                          <div>
+                            <form
+                              method="POST"
+                              action={`/api/orders/${order.id}/download/${file.id}`}
+                            >
+                              <button
+                                type="submit"
+                                disabled={!canDownload}
+                                className={`inline-flex h-8 items-center justify-center rounded-md px-3 text-xs font-semibold transition-colors duration-120 ${
+                                  canDownload
+                                    ? "bg-accent text-surface hover:bg-accent-hover cursor-pointer"
+                                    : "bg-paper text-ink-3 border border-rule cursor-not-allowed"
+                                }`}
+                              >
+                                {isRevoked
+                                  ? "Revoked"
+                                  : isExpired
+                                    ? "Expired"
+                                    : isExhausted
+                                      ? "Limit reached"
+                                      : "Download file"}
+                              </button>
+                            </form>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="pt-2 text-[11px] text-ink-3 font-mono">
+                    Signed download links expire after 60 seconds. Each file download consumes 1 of your allocated download credits.
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+      )}
     </div>
   );
 }

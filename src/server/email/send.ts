@@ -8,21 +8,33 @@ import {
   paymentSubmittedAdminTemplate,
   paymentReceivedStudentTemplate,
   orderExpiredStudentTemplate,
+  paymentApprovedStudentTemplate,
+  paymentRejectedStudentTemplate,
+  refundRecordedStudentTemplate,
   type PaymentSubmittedAdminData,
   type PaymentReceivedStudentData,
   type OrderExpiredStudentData,
+  type PaymentApprovedStudentData,
+  type PaymentRejectedStudentData,
+  type RefundRecordedStudentData,
   type EmailRenderResult,
 } from "./templates";
 
 export type EmailTemplateName =
   | "payment_submitted_admin"
   | "payment_received_student"
-  | "order_expired_student";
+  | "order_expired_student"
+  | "payment_approved_student"
+  | "payment_rejected_student"
+  | "refund_recorded_student";
 
 export interface TemplateDataMap {
   payment_submitted_admin: PaymentSubmittedAdminData;
   payment_received_student: PaymentReceivedStudentData;
   order_expired_student: OrderExpiredStudentData;
+  payment_approved_student: PaymentApprovedStudentData;
+  payment_rejected_student: PaymentRejectedStudentData;
+  refund_recorded_student: RefundRecordedStudentData;
 }
 
 export async function sendEmail<T extends EmailTemplateName>(
@@ -50,6 +62,15 @@ export async function sendEmail<T extends EmailTemplateName>(
         break;
       case "order_expired_student":
         rendered = orderExpiredStudentTemplate(data as OrderExpiredStudentData);
+        break;
+      case "payment_approved_student":
+        rendered = paymentApprovedStudentTemplate(data as PaymentApprovedStudentData);
+        break;
+      case "payment_rejected_student":
+        rendered = paymentRejectedStudentTemplate(data as PaymentRejectedStudentData);
+        break;
+      case "refund_recorded_student":
+        rendered = refundRecordedStudentTemplate(data as RefundRecordedStudentData);
         break;
       default:
         logger.warn("Unknown email template requested", { template });
