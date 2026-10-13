@@ -87,3 +87,173 @@ export function detectProjectFileSignature(buffer: Buffer): ProjectFileSignature
 
   return null;
 }
+
+const BANNED_EXTENSIONS = new Set([
+  "exe", "dll", "bat", "cmd", "sh", "com", "msi", "scr", "bin", "vbs", "ps1", "jar", "py", "php", "pl", "cgi", "html", "htm", "svg"
+]);
+
+function isExecutableSignature(buffer: Buffer): boolean {
+  if (buffer.length >= 2 && buffer[0] === 0x4d && buffer[1] === 0x5a) {
+    // Windows PE / DOS 'MZ'
+    return true;
+  }
+  if (buffer.length >= 4 && buffer[0] === 0x7f && buffer[1] === 0x45 && buffer[2] === 0x4c && buffer[3] === 0x46) {
+    // Linux ELF
+    return true;
+  }
+  if (buffer.length >= 4 && buffer[0] === 0xca && buffer[1] === 0xfe && buffer[2] === 0xba && buffer[3] === 0xbe) {
+    // Mach-O / Java class
+    return true;
+  }
+  return false;
+}
+
+export interface FileValidationResult {
+  valid: boolean;
+  contentType: string;
+  error?: string;
+}
+
+export function validateCustomReferenceFile(buffer: Buffer, originalName: string): FileValidationResult {
+  const MAX_SIZE = 3 * 1024 * 1024; // 3 MB
+  if (buffer.length > MAX_SIZE) {
+    return { valid: false, contentType: "", error: "File exceeds 3 MB limit" };
+  }
+  if (buffer.length < 4) {
+    return { valid: false, contentType: "", error: "File is empty or corrupt" };
+  }
+
+  const ext = originalName.split(".").pop()?.toLowerCase() || "";
+  if (BANNED_EXTENSIONS.has(ext)) {
+    return { valid: false, contentType: "", error: "Executable or unsafe file extension is prohibited" };
+  }
+
+  if (isExecutableSignature(buffer)) {
+    return { valid: false, contentType: "", error: "Executable binary signatures are strictly prohibited" };
+  }
+
+  if (ext === "png") {
+    if (detectImageSignature(buffer) === "png") {
+      return { valid: true, contentType: "image/png" };
+    }
+    return { valid: false, contentType: "", error: "PNG magic byte signature verification failed" };
+  }
+
+  if (ext === "jpeg" || ext === "jpg") {
+    if (detectImageSignature(buffer) === "jpeg") {
+      return { valid: true, contentType: "image/jpeg" };
+    }
+    return { valid: false, contentType: "", error: "JPEG magic byte signature verification failed" };
+  }
+
+  if (ext === "pdf") {
+    if (detectProjectFileSignature(buffer) === "pdf") {
+      return { valid: true, contentType: "application/pdf" };
+    }
+    return { valid: false, contentType: "", error: "PDF magic byte signature verification failed" };
+  }
+
+  if (ext === "docx") {
+    if (detectProjectFileSignature(buffer) === "zip") {
+      return {
+        valid: true,
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      };
+    }
+    return { valid: false, contentType: "", error: "DOCX archive signature verification failed" };
+  }
+
+  if (ext === "txt") {
+    if (detectProjectFileSignature(buffer) === "text") {
+      // Disallow HTML disguised as text
+      const sample = buffer.subarray(0, Math.min(buffer.length, 512)).toString("utf8").toLowerCase();
+      if (sample.includes("<html") || sample.includes("<script") || sample.includes("<!doctype")) {
+        return { valid: false, contentType: "", error: "HTML or script content disguised as text is forbidden" };
+      }
+      return { valid: true, contentType: "text/plain" };
+    }
+    return { valid: false, contentType: "", error: "Text file contains binary or invalid characters" };
+  }
+
+  return { valid: false, contentType: "", error: "Allowed reference formats: pdf, docx, png, jpeg, txt" };
+}
+
+export function validateBuilderDeliverableFile(buffer: Buffer, originalName: string): FileValidationResult {
+  const MAX_SIZE = 200 * 1024 * 1024; // 200 MB
+  if (buffer.length > MAX_SIZE) {
+    return { valid: false, contentType: "", error: "File exceeds 200 MB limit" };
+  }
+  if (buffer.length < 4) {
+    return { valid: false, contentType: "", error: "File is empty or corrupt" };
+  }
+
+  const ext = originalName.split(".").pop()?.toLowerCase() || "";
+  if (BANNED_EXTENSIONS.has(ext)) {
+    return { valid: false, contentType: "", error: "Executable or unsafe file extension is prohibited" };
+  }
+
+  if (isExecutableSignature(buffer)) {
+    return { valid: false, contentType: "", error: "Executable binary signatures are strictly prohibited" };
+  }
+
+  if (ext === "zip") {
+    if (detectProjectFileSignature(buffer) === "zip") {
+      return { valid: true, contentType: "application/zip" };
+    }
+    return { valid: false, contentType: "", error: "ZIP archive signature verification failed" };
+  }
+
+  if (ext === "pdf") {
+    if (detectProjectFileSignature(buffer) === "pdf") {
+      return { valid: true, contentType: "application/pdf" };
+    }
+    return { valid: false, contentType: "", error: "PDF magic byte signature verification failed" };
+  }
+
+  if (ext === "docx") {
+    if (detectProjectFileSignature(buffer) === "zip") {
+      return {
+        valid: true,
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      };
+    }
+    return { valid: false, contentType: "", error: "DOCX archive signature verification failed" };
+  }
+
+  if (ext === "pptx") {
+    if (detectProjectFileSignature(buffer) === "zip") {
+      return {
+        valid: true,
+        contentType: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      };
+    }
+    return { valid: false, contentType: "", error: "PPTX archive signature verification failed" };
+  }
+
+  if (ext === "png") {
+    if (detectImageSignature(buffer) === "png") {
+      return { valid: true, contentType: "image/png" };
+    }
+    return { valid: false, contentType: "", error: "PNG magic byte signature verification failed" };
+  }
+
+  if (ext === "jpeg" || ext === "jpg") {
+    if (detectImageSignature(buffer) === "jpeg") {
+      return { valid: true, contentType: "image/jpeg" };
+    }
+    return { valid: false, contentType: "", error: "JPEG magic byte signature verification failed" };
+  }
+
+  if (ext === "txt") {
+    if (detectProjectFileSignature(buffer) === "text") {
+      const sample = buffer.subarray(0, Math.min(buffer.length, 512)).toString("utf8").toLowerCase();
+      if (sample.includes("<html") || sample.includes("<script") || sample.includes("<!doctype")) {
+        return { valid: false, contentType: "", error: "HTML or script content disguised as text is forbidden" };
+      }
+      return { valid: true, contentType: "text/plain" };
+    }
+    return { valid: false, contentType: "", error: "Text file contains binary or invalid characters" };
+  }
+
+  return { valid: false, contentType: "", error: "Allowed deliverable formats: zip, pdf, docx, pptx, png, jpeg, txt" };
+}

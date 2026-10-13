@@ -266,6 +266,33 @@ async function run() {
       .select()
       .single();
 
+    const { data: milestoneB } = await adminClient
+      .from("milestones")
+      .insert({
+        request_id: customReqB?.id,
+        position: 1,
+        title: "Test Milestone",
+        needs_student_input: true,
+        status: "pending",
+      })
+      .select()
+      .single();
+
+    const { data: requestFileB } = await adminClient
+      .from("request_files")
+      .insert({
+        request_id: customReqB?.id,
+        uploaded_by: idB,
+        kind: "student_reference",
+        storage_path: `requests/${customReqB?.id}/ref_test.pdf`,
+        original_name: "ref_test.pdf",
+        size_bytes: 1024,
+        content_type: "application/pdf",
+        is_final: false,
+      })
+      .select()
+      .single();
+
     if (
       !liveProj ||
       !draftProj ||
@@ -274,7 +301,9 @@ async function run() {
       !grantB ||
       !paymentB ||
       !customReqB ||
-      !messageB
+      !messageB ||
+      !milestoneB ||
+      !requestFileB
     ) {
       throw new Error("Fixture seeding failed.");
     }
@@ -468,6 +497,56 @@ async function run() {
     assert(
       !adminAal1Settings.data || adminAal1Settings.data.length === 0,
       "Admin session below AAL2 cannot read site_settings"
+    );
+
+    // Assertion 16: Student A cannot select Student B's milestones
+    const milestonesBByStudentA = await clientA
+      .from("milestones")
+      .select("*")
+      .eq("id", milestoneB.id);
+    assert(
+      !milestonesBByStudentA.data || milestonesBByStudentA.data.length === 0,
+      "Student A cannot select Student B's milestones"
+    );
+
+    // Assertion 17: Student A cannot select Student B's request files
+    const filesBByStudentA = await clientA
+      .from("request_files")
+      .select("*")
+      .eq("id", requestFileB.id);
+    assert(
+      !filesBByStudentA.data || filesBByStudentA.data.length === 0,
+      "Student A cannot select Student B's request files"
+    );
+
+    // Assertion 18: Student cannot insert into custom_request_allowed_transitions
+    const transitionInsertByStudent = await clientA
+      .from("custom_request_allowed_transitions")
+      .insert({ from_status: "submitted", to_status: "completed" });
+    assert(
+      Boolean(transitionInsertByStudent.error),
+      "Student cannot insert into custom_request_allowed_transitions"
+    );
+
+    // Assertion 19: Anon cannot update or delete custom_request_allowed_transitions
+    const transitionUpdateByAnon = await anonClient
+      .from("custom_request_allowed_transitions")
+      .delete()
+      .eq("from_status", "submitted");
+    assert(
+      Boolean(transitionUpdateByAnon.error),
+      "Anon cannot delete from custom_request_allowed_transitions"
+    );
+
+    // Assertion 20: Student cannot directly invoke transition_custom_request RPC
+    const transitionRpcByStudent = await clientA.rpc("transition_custom_request", {
+      p_request_id: customReqB.id,
+      p_target_status: "completed",
+      p_actor_id: idA,
+    });
+    assert(
+      Boolean(transitionRpcByStudent.error),
+      "Student cannot execute transition_custom_request function"
     );
   } finally {
     console.log("\nCleaning up test fixtures and temporary users...");

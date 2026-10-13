@@ -58,6 +58,57 @@ export interface RefundRecordedStudentData {
   refundReference: string;
 }
 
+export interface RequestReceivedData {
+  studentDisplayName: string;
+  requestTitle: string;
+  requestUrl: string;
+}
+
+export interface QuoteSentData {
+  studentDisplayName: string;
+  requestTitle: string;
+  totalPriceInr: number;
+  depositAmountInr: number;
+  validUntilText: string;
+  requestUrl: string;
+}
+
+export interface RequestDeclinedData {
+  studentDisplayName: string;
+  requestTitle: string;
+  reason: string;
+  requestUrl: string;
+}
+
+export interface MilestoneInputNeededData {
+  studentDisplayName: string;
+  requestTitle: string;
+  milestoneTitle: string;
+  instructions: string;
+  requestUrl: string;
+}
+
+export interface NewMessageData {
+  recipientDisplayName: string;
+  senderName: string;
+  requestTitle: string;
+  messageSnippet: string;
+  requestUrl: string;
+}
+
+export interface FinalFilesReadyData {
+  studentDisplayName: string;
+  requestTitle: string;
+  balanceAmountInr: number;
+  requestUrl: string;
+}
+
+export interface RequestCompletedData {
+  studentDisplayName: string;
+  requestTitle: string;
+  requestUrl: string;
+}
+
 export function paymentSubmittedAdminTemplate(
   data: PaymentSubmittedAdminData
 ): EmailRenderResult {
@@ -464,4 +515,382 @@ export function refundRecordedStudentTemplate(
 
   return { subject, text, html };
 }
+
+export function requestReceivedTemplate(
+  data: RequestReceivedData
+): EmailRenderResult {
+  const safeName = escapeHtml(data.studentDisplayName || "Student");
+  const safeTitle = escapeHtml(data.requestTitle);
+
+  const subject = `Custom project request received: ${data.requestTitle}`;
+
+  const text = [
+    `Hello ${data.studentDisplayName || "Student"},`,
+    ``,
+    `We have received your custom project request for "${data.requestTitle}".`,
+    ``,
+    `Our engineering team is reviewing your brief and project requirements. You will receive a written scope, timeline, and quote shortly.`,
+    ``,
+    `You can track your request status and review details at:`,
+    data.requestUrl,
+  ].join("\n");
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>${subject}</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #17191C; background-color: #FFFFFF; margin: 0; padding: 24px; line-height: 1.5;">
+  <div style="max-width: 560px; margin: 0 auto; border: 1px solid #DDD9D0; border-radius: 6px; padding: 24px;">
+    <h2 style="font-size: 18px; font-weight: 700; margin: 0 0 16px 0; color: #17191C;">Custom request received</h2>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Hello ${safeName},
+    </p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      We have received your custom project request for <strong>${safeTitle}</strong>.
+    </p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Our team is reviewing your brief and requirements. We will send a written scope of work and quote for your approval.
+    </p>
+    <p style="margin: 0 0 12px 0; font-size: 14px; color: #4A5058;">
+      View your request status:
+    </p>
+    <p style="margin: 0; font-size: 14px; word-break: break-all;">
+      <a href="${escapeHtml(data.requestUrl)}" style="color: #0B5D4B; text-decoration: underline;">${escapeHtml(data.requestUrl)}</a>
+    </p>
+  </div>
+</body>
+</html>`;
+
+  return { subject, text, html };
+}
+
+export function quoteSentTemplate(
+  data: QuoteSentData
+): EmailRenderResult {
+  const safeName = escapeHtml(data.studentDisplayName || "Student");
+  const safeTitle = escapeHtml(data.requestTitle);
+  const formattedTotal = formatInr(data.totalPriceInr);
+  const formattedDeposit = formatInr(data.depositAmountInr);
+
+  const subject = `Quote ready for your project: ${data.requestTitle}`;
+
+  const text = [
+    `Hello ${data.studentDisplayName || "Student"},`,
+    ``,
+    `A quote has been prepared for your custom project "${data.requestTitle}".`,
+    ``,
+    `Total Price: ${formattedTotal}`,
+    `Deposit Required: ${formattedDeposit}`,
+    `Valid Until: ${data.validUntilText}`,
+    ``,
+    `Review the full milestone breakdown, scope text, and accept the quote at:`,
+    data.requestUrl,
+  ].join("\n");
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>${subject}</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #17191C; background-color: #FFFFFF; margin: 0; padding: 24px; line-height: 1.5;">
+  <div style="max-width: 560px; margin: 0 auto; border: 1px solid #DDD9D0; border-radius: 6px; padding: 24px;">
+    <h2 style="font-size: 18px; font-weight: 700; margin: 0 0 16px 0; color: #1E6B3C;">Project quote ready</h2>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Hello ${safeName},
+    </p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      We have prepared a project scope and milestone timeline for <strong>${safeTitle}</strong>.
+    </p>
+    <table style="width: 512px; border-collapse: collapse; margin-bottom: 20px; font-size: 14px;">
+      <tr>
+        <td style="padding: 8px 0; color: #5F6670; border-bottom: 1px solid #DDD9D0;">Total Price:</td>
+        <td style="padding: 8px 0; font-weight: 600; text-align: right; border-bottom: 1px solid #DDD9D0;">${formattedTotal}</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; color: #5F6670; border-bottom: 1px solid #DDD9D0;">Deposit to Begin:</td>
+        <td style="padding: 8px 0; font-weight: 600; text-align: right; border-bottom: 1px solid #DDD9D0;">${formattedDeposit}</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; color: #5F6670; border-bottom: 1px solid #DDD9D0;">Valid Until:</td>
+        <td style="padding: 8px 0; font-family: monospace; text-align: right; border-bottom: 1px solid #DDD9D0;">${escapeHtml(data.validUntilText)}</td>
+      </tr>
+    </table>
+    <p style="margin: 0 0 12px 0; font-size: 14px; color: #4A5058;">
+      Review the written milestones and accept your quote:
+    </p>
+    <p style="margin: 0; font-size: 14px; word-break: break-all;">
+      <a href="${escapeHtml(data.requestUrl)}" style="color: #0B5D4B; text-decoration: underline; font-weight: 600;">${escapeHtml(data.requestUrl)}</a>
+    </p>
+  </div>
+</body>
+</html>`;
+
+  return { subject, text, html };
+}
+
+export function requestDeclinedTemplate(
+  data: RequestDeclinedData
+): EmailRenderResult {
+  const safeName = escapeHtml(data.studentDisplayName || "Student");
+  const safeTitle = escapeHtml(data.requestTitle);
+  const safeReason = escapeHtml(data.reason);
+
+  const subject = `Update regarding custom project: ${data.requestTitle}`;
+
+  const text = [
+    `Hello ${data.studentDisplayName || "Student"},`,
+    ``,
+    `Thank you for submitting your custom project request for "${data.requestTitle}".`,
+    ``,
+    `Unfortunately, we are unable to accept this request at this time.`,
+    `Reason: ${data.reason}`,
+    ``,
+    `You can review your request details at:`,
+    data.requestUrl,
+  ].join("\n");
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>${subject}</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #17191C; background-color: #FFFFFF; margin: 0; padding: 24px; line-height: 1.5;">
+  <div style="max-width: 560px; margin: 0 auto; border: 1px solid #DDD9D0; border-radius: 6px; padding: 24px;">
+    <h2 style="font-size: 18px; font-weight: 700; margin: 0 0 16px 0; color: #A12B2B;">Custom request update</h2>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Hello ${safeName},
+    </p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      We reviewed your request for <strong>${safeTitle}</strong>, but we are unable to take on this project.
+    </p>
+    <div style="margin: 0 0 16px 0; padding: 12px; background-color: #FBE9E7; border: 1px solid #DDD9D0; border-radius: 4px; font-size: 14px; color: #A12B2B;">
+      <strong>Reason:</strong> ${safeReason}
+    </div>
+    <p style="margin: 0 0 12px 0; font-size: 14px; color: #4A5058;">
+      View request details:
+    </p>
+    <p style="margin: 0; font-size: 14px; word-break: break-all;">
+      <a href="${escapeHtml(data.requestUrl)}" style="color: #0B5D4B; text-decoration: underline;">${escapeHtml(data.requestUrl)}</a>
+    </p>
+  </div>
+</body>
+</html>`;
+
+  return { subject, text, html };
+}
+
+export function milestoneInputNeededTemplate(
+  data: MilestoneInputNeededData
+): EmailRenderResult {
+  const safeName = escapeHtml(data.studentDisplayName || "Student");
+  const safeTitle = escapeHtml(data.requestTitle);
+  const safeMilestone = escapeHtml(data.milestoneTitle);
+  const safeInstructions = escapeHtml(data.instructions);
+
+  const subject = `Action needed on milestone: ${data.milestoneTitle}`;
+
+  const text = [
+    `Hello ${data.studentDisplayName || "Student"},`,
+    ``,
+    `Your custom project "${data.requestTitle}" requires your input to proceed.`,
+    ``,
+    `Milestone: ${data.milestoneTitle}`,
+    `Requested Input: ${data.instructions}`,
+    ``,
+    `Please log in to your account and submit the required details:`,
+    data.requestUrl,
+  ].join("\n");
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>${subject}</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #17191C; background-color: #FFFFFF; margin: 0; padding: 24px; line-height: 1.5;">
+  <div style="max-width: 560px; margin: 0 auto; border: 1px solid #DDD9D0; border-radius: 6px; padding: 24px;">
+    <h2 style="font-size: 18px; font-weight: 700; margin: 0 0 16px 0; color: #6B4700;">Student input needed</h2>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Hello ${safeName},
+    </p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Your assigned builder has reached a milestone on <strong>${safeTitle}</strong> that requires your input:
+    </p>
+    <div style="margin: 0 0 16px 0; padding: 12px; background-color: #FFF4D6; border: 1px solid #DDD9D0; border-radius: 4px; font-size: 14px; color: #6B4700;">
+      <strong>${safeMilestone}:</strong> ${safeInstructions}
+    </div>
+    <p style="margin: 0 0 12px 0; font-size: 14px; color: #4A5058;">
+      Submit your response in your project dashboard:
+    </p>
+    <p style="margin: 0; font-size: 14px; word-break: break-all;">
+      <a href="${escapeHtml(data.requestUrl)}" style="color: #0B5D4B; text-decoration: underline; font-weight: 600;">${escapeHtml(data.requestUrl)}</a>
+    </p>
+  </div>
+</body>
+</html>`;
+
+  return { subject, text, html };
+}
+
+export function newMessageTemplate(
+  data: NewMessageData
+): EmailRenderResult {
+  const safeRecipient = escapeHtml(data.recipientDisplayName || "User");
+  const safeSender = escapeHtml(data.senderName || "Project collaborator");
+  const safeTitle = escapeHtml(data.requestTitle);
+  const safeSnippet = escapeHtml(data.messageSnippet);
+
+  const subject = `New message on project: ${data.requestTitle}`;
+
+  const text = [
+    `Hello ${data.recipientDisplayName || "User"},`,
+    ``,
+    `${data.senderName} sent a new message on "${data.requestTitle}":`,
+    ``,
+    `"${data.messageSnippet}"`,
+    ``,
+    `View the full discussion thread at:`,
+    data.requestUrl,
+  ].join("\n");
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>${subject}</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #17191C; background-color: #FFFFFF; margin: 0; padding: 24px; line-height: 1.5;">
+  <div style="max-width: 560px; margin: 0 auto; border: 1px solid #DDD9D0; border-radius: 6px; padding: 24px;">
+    <h2 style="font-size: 18px; font-weight: 700; margin: 0 0 16px 0; color: #17191C;">New message received</h2>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Hello ${safeRecipient},
+    </p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      <strong>${safeSender}</strong> posted a message on <strong>${safeTitle}</strong>:
+    </p>
+    <div style="margin: 0 0 16px 0; padding: 12px; background-color: #FBFAF7; border: 1px solid #DDD9D0; border-radius: 4px; font-size: 14px; color: #17191C;">
+      ${safeSnippet}
+    </div>
+    <p style="margin: 0 0 12px 0; font-size: 14px; color: #4A5058;">
+      Open the conversation thread:
+    </p>
+    <p style="margin: 0; font-size: 14px; word-break: break-all;">
+      <a href="${escapeHtml(data.requestUrl)}" style="color: #0B5D4B; text-decoration: underline;">${escapeHtml(data.requestUrl)}</a>
+    </p>
+  </div>
+</body>
+</html>`;
+
+  return { subject, text, html };
+}
+
+export function finalFilesReadyTemplate(
+  data: FinalFilesReadyData
+): EmailRenderResult {
+  const safeName = escapeHtml(data.studentDisplayName || "Student");
+  const safeTitle = escapeHtml(data.requestTitle);
+  const formattedBalance = formatInr(data.balanceAmountInr);
+
+  const subject = `Deliverables completed for project: ${data.requestTitle}`;
+
+  const text = [
+    `Hello ${data.studentDisplayName || "Student"},`,
+    ``,
+    `Great news. Your assigned builder has uploaded the final deliverables for "${data.requestTitle}".`,
+    ``,
+    `Balance Due: ${formattedBalance}`,
+    ``,
+    `Final files are released immediately after the balance payment is verified.`,
+    ``,
+    `Review your project and complete the balance payment at:`,
+    data.requestUrl,
+  ].join("\n");
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>${subject}</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #17191C; background-color: #FFFFFF; margin: 0; padding: 24px; line-height: 1.5;">
+  <div style="max-width: 560px; margin: 0 auto; border: 1px solid #DDD9D0; border-radius: 6px; padding: 24px;">
+    <h2 style="font-size: 18px; font-weight: 700; margin: 0 0 16px 0; color: #1E6B3C;">Final files ready</h2>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Hello ${safeName},
+    </p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      All milestones and deliverable files for <strong>${safeTitle}</strong> have been completed by your builder.
+    </p>
+    <table style="width: 512px; border-collapse: collapse; margin-bottom: 20px; font-size: 14px;">
+      <tr>
+        <td style="padding: 8px 0; color: #5F6670; border-bottom: 1px solid #DDD9D0;">Project:</td>
+        <td style="padding: 8px 0; font-weight: 600; text-align: right; border-bottom: 1px solid #DDD9D0;">${safeTitle}</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; color: #5F6670; border-bottom: 1px solid #DDD9D0;">Balance Due:</td>
+        <td style="padding: 8px 0; font-weight: 600; text-align: right; border-bottom: 1px solid #DDD9D0;">${formattedBalance}</td>
+      </tr>
+    </table>
+    <p style="margin: 0 0 12px 0; font-size: 14px; color: #4A5058;">
+      Pay the remaining balance to download your deliverables:
+    </p>
+    <p style="margin: 0; font-size: 14px; word-break: break-all;">
+      <a href="${escapeHtml(data.requestUrl)}" style="color: #0B5D4B; text-decoration: underline; font-weight: 600;">${escapeHtml(data.requestUrl)}</a>
+    </p>
+  </div>
+</body>
+</html>`;
+
+  return { subject, text, html };
+}
+
+export function requestCompletedTemplate(
+  data: RequestCompletedData
+): EmailRenderResult {
+  const safeName = escapeHtml(data.studentDisplayName || "Student");
+  const safeTitle = escapeHtml(data.requestTitle);
+
+  const subject = `Project completed: ${data.requestTitle}`;
+
+  const text = [
+    `Hello ${data.studentDisplayName || "Student"},`,
+    ``,
+    `Your balance payment has been verified and your custom project "${data.requestTitle}" is now complete.`,
+    ``,
+    `Your final deliverables and licence slip are now unlocked and ready for download in your project dashboard:`,
+    data.requestUrl,
+  ].join("\n");
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>${subject}</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #17191C; background-color: #FFFFFF; margin: 0; padding: 24px; line-height: 1.5;">
+  <div style="max-width: 560px; margin: 0 auto; border: 1px solid #DDD9D0; border-radius: 6px; padding: 24px;">
+    <h2 style="font-size: 18px; font-weight: 700; margin: 0 0 16px 0; color: #1E6B3C;">Project completed</h2>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Hello ${safeName},
+    </p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Your balance payment for <strong>${safeTitle}</strong> has been confirmed. Your final project files and licence slip are now unlocked.
+    </p>
+    <p style="margin: 0 0 12px 0; font-size: 14px; color: #4A5058;">
+      Download your completed project deliverables:
+    </p>
+    <p style="margin: 0; font-size: 14px; word-break: break-all;">
+      <a href="${escapeHtml(data.requestUrl)}" style="color: #0B5D4B; text-decoration: underline; font-weight: 600;">${escapeHtml(data.requestUrl)}</a>
+    </p>
+  </div>
+</body>
+</html>`;
+
+  return { subject, text, html };
+}
+
 

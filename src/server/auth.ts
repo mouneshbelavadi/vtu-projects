@@ -106,3 +106,23 @@ export async function requireAdmin(): Promise<AuthenticatedUser> {
 
   return authUser;
 }
+
+/**
+ * Requires a builder user with verified Two-Factor Authentication (AAL2).
+ * If the user is not builder, throws 403.
+ * If the session is not at AAL2, redirects to /admin/mfa.
+ */
+export async function requireBuilder(nextPath = "/builder"): Promise<AuthenticatedUser> {
+  const authUser = await requireRole("builder", nextPath);
+
+  const supabase = await createClient();
+  const { data: aalData, error: aalError } =
+    await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+
+  if (aalError || !aalData || aalData.currentLevel !== "aal2") {
+    redirect("/admin/mfa");
+  }
+
+  return authUser;
+}
+

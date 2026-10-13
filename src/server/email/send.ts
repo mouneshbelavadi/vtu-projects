@@ -11,12 +11,26 @@ import {
   paymentApprovedStudentTemplate,
   paymentRejectedStudentTemplate,
   refundRecordedStudentTemplate,
+  requestReceivedTemplate,
+  quoteSentTemplate,
+  requestDeclinedTemplate,
+  milestoneInputNeededTemplate,
+  newMessageTemplate,
+  finalFilesReadyTemplate,
+  requestCompletedTemplate,
   type PaymentSubmittedAdminData,
   type PaymentReceivedStudentData,
   type OrderExpiredStudentData,
   type PaymentApprovedStudentData,
   type PaymentRejectedStudentData,
   type RefundRecordedStudentData,
+  type RequestReceivedData,
+  type QuoteSentData,
+  type RequestDeclinedData,
+  type MilestoneInputNeededData,
+  type NewMessageData,
+  type FinalFilesReadyData,
+  type RequestCompletedData,
   type EmailRenderResult,
 } from "./templates";
 
@@ -26,7 +40,14 @@ export type EmailTemplateName =
   | "order_expired_student"
   | "payment_approved_student"
   | "payment_rejected_student"
-  | "refund_recorded_student";
+  | "refund_recorded_student"
+  | "request_received"
+  | "quote_sent"
+  | "request_declined"
+  | "milestone_input_needed"
+  | "new_message"
+  | "final_files_ready"
+  | "request_completed";
 
 export interface TemplateDataMap {
   payment_submitted_admin: PaymentSubmittedAdminData;
@@ -35,6 +56,13 @@ export interface TemplateDataMap {
   payment_approved_student: PaymentApprovedStudentData;
   payment_rejected_student: PaymentRejectedStudentData;
   refund_recorded_student: RefundRecordedStudentData;
+  request_received: RequestReceivedData;
+  quote_sent: QuoteSentData;
+  request_declined: RequestDeclinedData;
+  milestone_input_needed: MilestoneInputNeededData;
+  new_message: NewMessageData;
+  final_files_ready: FinalFilesReadyData;
+  request_completed: RequestCompletedData;
 }
 
 export async function sendEmail<T extends EmailTemplateName>(
@@ -71,6 +99,27 @@ export async function sendEmail<T extends EmailTemplateName>(
         break;
       case "refund_recorded_student":
         rendered = refundRecordedStudentTemplate(data as RefundRecordedStudentData);
+        break;
+      case "request_received":
+        rendered = requestReceivedTemplate(data as RequestReceivedData);
+        break;
+      case "quote_sent":
+        rendered = quoteSentTemplate(data as QuoteSentData);
+        break;
+      case "request_declined":
+        rendered = requestDeclinedTemplate(data as RequestDeclinedData);
+        break;
+      case "milestone_input_needed":
+        rendered = milestoneInputNeededTemplate(data as MilestoneInputNeededData);
+        break;
+      case "new_message":
+        rendered = newMessageTemplate(data as NewMessageData);
+        break;
+      case "final_files_ready":
+        rendered = finalFilesReadyTemplate(data as FinalFilesReadyData);
+        break;
+      case "request_completed":
+        rendered = requestCompletedTemplate(data as RequestCompletedData);
         break;
       default:
         logger.warn("Unknown email template requested", { template });
@@ -140,3 +189,5 @@ export async function sendEmail<T extends EmailTemplateName>(
     return false;
   }
 }
+
+export const dispatchEmail = sendEmail;

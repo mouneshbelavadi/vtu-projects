@@ -286,6 +286,7 @@ export interface RequestFile {
   original_name: string;
   size_bytes: number;
   content_type: string;
+  is_final: boolean;
   created_at: string;
 }
 
