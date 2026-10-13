@@ -2,7 +2,7 @@ import * as React from "react";
 import { AlertCircle, CheckCircle, Info, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export type AlertVariant = "info" | "warning" | "error" | "success";
+export type AlertVariant = "info" | "warning" | "error" | "danger" | "success";
 
 export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: AlertVariant;
@@ -19,6 +19,10 @@ const variantStyles: Record<AlertVariant, { container: string; icon: React.Eleme
     icon: AlertTriangle,
   },
   error: {
+    container: "bg-danger-bg border-danger-bg text-danger",
+    icon: AlertCircle,
+  },
+  danger: {
     container: "bg-danger-bg border-danger-bg text-danger",
     icon: AlertCircle,
   },

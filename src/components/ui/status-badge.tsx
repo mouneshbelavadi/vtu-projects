@@ -23,7 +23,11 @@ export type SystemStatus =
   // Mentoring & booking statuses
   | "open"
   | "held"
-  | "confirmed";
+  | "confirmed"
+  // Project statuses
+  | "draft"
+  | "live"
+  | "hidden";
 
 interface StatusConfig {
   label: string;
@@ -39,6 +43,11 @@ const statusMap: Record<SystemStatus, StatusConfig> = {
   expired: { label: "Expired", variant: "default" },
   refunded: { label: "Refunded", variant: "danger" },
   cancelled: { label: "Cancelled", variant: "default" },
+
+  // Projects
+  draft: { label: "Draft", variant: "default" },
+  live: { label: "Live", variant: "success" },
+  hidden: { label: "Hidden", variant: "warn" },
 
   // Custom requests
   submitted: { label: "Submitted", variant: "accent" },

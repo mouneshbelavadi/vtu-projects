@@ -37,3 +37,5 @@ export const Badge: React.FC<BadgeProps> = ({
     </span>
   );
 };
+
+export { StatusBadge, type StatusBadgeProps, type SystemStatus } from "./status-badge";

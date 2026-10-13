@@ -1,19 +1,111 @@
 import { requireAdmin } from "@/server/auth";
+import { createClient } from "@/server/supabase/server";
+import { Card } from "@/components/ui/card";
+import { LinkButton } from "@/components/ui/button";
 
 export const metadata = {
-  title: "Admin",
+  title: "Admin Dashboard",
 };
 
-export default async function AdminPage() {
-  const authUser = await requireAdmin();
+export default async function AdminDashboardPage() {
+  await requireAdmin();
+
+  const supabase = await createClient();
+
+  // Read real database counts (never show invented numbers)
+  const [projectsRes, pendingOrdersRes] = await Promise.all([
+    supabase.from("projects").select("status"),
+    supabase
+      .from("orders")
+      .select("*", { count: "exact", head: true })
+      .eq("status", "pending_verification"),
+  ]);
+
+  const projects = projectsRes.data || [];
+  const totalProjects = projects.length;
+  const liveProjects = projects.filter((p) => p.status === "live").length;
+  const draftProjects = projects.filter((p) => p.status === "draft").length;
+  const hiddenProjects = projects.filter((p) => p.status === "hidden").length;
+
+  const ordersAwaitingVerification = pendingOrdersRes.count || 0;
 
   return (
-    <div className="mx-auto max-w-4xl py-12 px-4 sm:px-6">
-      <div className="border border-rule bg-surface p-8">
-        <h1 className="text-2xl font-serif font-semibold text-ink">Admin</h1>
-        <p className="mt-2 text-sm text-ink-2">
-          Signed in as: <span className="font-mono text-ink">{authUser.user.email}</span>
+    <div className="space-y-8">
+      <div>
+        <h1 className="text-2xl font-serif font-bold text-ink">Dashboard</h1>
+        <p className="mt-1 text-sm text-ink-2">
+          Overview of catalogue inventory and orders awaiting verification.
         </p>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card className="p-4 bg-paper">
+          <span className="text-xs font-mono uppercase tracking-wider text-ink-3">
+            Live Projects
+          </span>
+          <div className="mt-2 flex items-baseline justify-between">
+            <span className="text-3xl font-serif font-bold text-accent">
+              {liveProjects}
+            </span>
+            <span className="text-xs text-ink-3 font-mono">Published</span>
+          </div>
+        </Card>
+
+        <Card className="p-4 bg-paper">
+          <span className="text-xs font-mono uppercase tracking-wider text-ink-3">
+            Draft Projects
+          </span>
+          <div className="mt-2 flex items-baseline justify-between">
+            <span className="text-3xl font-serif font-bold text-ink">
+              {draftProjects}
+            </span>
+            <span className="text-xs text-ink-3 font-mono">In preparation</span>
+          </div>
+        </Card>
+
+        <Card className="p-4 bg-paper">
+          <span className="text-xs font-mono uppercase tracking-wider text-ink-3">
+            Hidden Projects
+          </span>
+          <div className="mt-2 flex items-baseline justify-between">
+            <span className="text-3xl font-serif font-bold text-ink-2">
+              {hiddenProjects}
+            </span>
+            <span className="text-xs text-ink-3 font-mono">Archived</span>
+          </div>
+        </Card>
+
+        <Card className="p-4 bg-paper">
+          <span className="text-xs font-mono uppercase tracking-wider text-ink-3">
+            Orders to Verify
+          </span>
+          <div className="mt-2 flex items-baseline justify-between">
+            <span className="text-3xl font-serif font-bold text-ink">
+              {ordersAwaitingVerification}
+            </span>
+            <span className="text-xs text-ink-3 font-mono">Awaiting admin</span>
+          </div>
+        </Card>
+      </div>
+
+      <div className="border-t border-rule pt-6">
+        <h2 className="text-base font-serif font-semibold text-ink mb-4">
+          Quick Actions
+        </h2>
+        <div className="flex flex-wrap gap-3">
+          <LinkButton href="/admin/projects/new" variant="primary">
+            Create new project
+          </LinkButton>
+          <LinkButton href="/admin/projects" variant="secondary">
+            Manage projects ({totalProjects})
+          </LinkButton>
+          <LinkButton href="/admin/categories" variant="secondary">
+            Manage categories
+          </LinkButton>
+          <LinkButton href="/admin/settings" variant="secondary">
+            Payment & site settings
+          </LinkButton>
+        </div>
       </div>
     </div>
   );
