@@ -74,25 +74,22 @@ check("legalReviewedOn set", () => {
 
 // 3. favicon, apple-touch-icon and Open Graph image files exist
 check("favicon, apple-touch-icon, and Open Graph image exist", () => {
-  const iconPaths = [
-    path.join(process.cwd(), "src", "app", "favicon.ico"),
-    path.join(process.cwd(), "public", "favicon.ico"),
-    path.join(process.cwd(), "src", "app", "icon.svg"),
-    path.join(process.cwd(), "src", "app", "apple-icon.png"),
-    path.join(process.cwd(), "public", "apple-touch-icon.png"),
-    path.join(process.cwd(), "public", "og-image.png"),
-    path.join(process.cwd(), "src", "app", "opengraph-image.png"),
-  ];
+  const hasFavicon =
+    fs.existsSync(path.join(process.cwd(), "src", "app", "favicon.ico")) ||
+    fs.existsSync(path.join(process.cwd(), "public", "favicon.ico"));
+  const hasAppleIcon =
+    fs.existsSync(path.join(process.cwd(), "src", "app", "apple-icon.png")) ||
+    fs.existsSync(path.join(process.cwd(), "public", "apple-touch-icon.png"));
+  const hasIconSvg = fs.existsSync(path.join(process.cwd(), "src", "app", "icon.svg"));
 
-  const hasAnyIcon = iconPaths.some((p) => fs.existsSync(p));
-  if (!hasAnyIcon) {
+  if (!hasFavicon || !hasAppleIcon || !hasIconSvg) {
     return {
       pass: false,
       laterPrompt: 2,
-      details: "Favicon, Apple touch icon and OG image will be created in Prompt 2 and Prompt 11.",
+      details: "favicon.ico, apple-icon.png, and icon.svg are required.",
     };
   }
-  return { pass: true, details: "Icon assets present." };
+  return { pass: true, details: "favicon.ico, icon.svg, and apple-icon.png exist." };
 });
 
 // 4. privacy and terms routes exist and are non-empty

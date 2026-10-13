@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
+  <rect width="180" height="180" rx="34" fill="#0B5D4B" />
+  <text
+    x="50%"
+    y="54%"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    fill="#FFFFFF"
+    font-family="'Source Serif 4', Georgia, serif"
+    font-weight="700"
+    font-size="96"
+    letter-spacing="-2"
+  >VA</text>
+</svg>

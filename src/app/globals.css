@@ -1,3 +1,56 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --color-paper: #fbfaf7;
+  --color-surface: #ffffff;
+  --color-ink: #17191c;
+  --color-ink-2: #4a5058;
+  --color-ink-3: #5f6670;
+  --color-rule: #ddd9d0;
+  --color-rule-strong: #b9b4a8;
+  --color-accent: #0b5d4b;
+  --color-accent-hover: #084a3c;
+  --color-accent-weak: #e4f0ec;
+  --color-warn-text: #6b4700;
+  --color-warn-bg: #fff4d6;
+  --color-danger: #a12b2b;
+  --color-danger-bg: #fbe9e7;
+  --color-success: #1e6b3c;
+  --color-success-bg: #e6f3ea;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-ibm-plex-sans), system-ui, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-source-serif), Georgia, serif;
+    color: var(--color-ink);
+  }
+
+  /* Universal focus visible outline: 2px accent with 2px offset */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+/* Restricted motion: 120ms color/opacity transitions only; disabled under prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
