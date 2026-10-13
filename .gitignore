@@ -1,0 +1,32 @@
+# Dependencies
+/node_modules
+
+# Next.js build output
+/.next
+/out
+
+# TypeScript build cache
+*.tsbuildinfo
+
+# Environment files - ignore all except .env.example
+.env*
+!.env.example
+
+# Testing and coverage reports
+/coverage
+/test-results
+/playwright-report
+/blob-report
+
+# Vercel
+/.vercel
+
+# Debug and system logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
