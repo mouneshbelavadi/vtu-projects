@@ -5,7 +5,7 @@ export interface NavItem {
 }
 
 export const navigationItems: NavItem[] = [
-  { label: "Projects", href: "/projects", status: "planned" },
+  { label: "Projects", href: "/projects", status: "live" },
   { label: "Request a project", href: "/request", status: "planned" },
   { label: "Mentoring", href: "/mentoring", status: "planned" },
   { label: "How it works", href: "/how-it-works", status: "planned" },
