@@ -1,6 +1,8 @@
 import "server-only";
 import { env } from "@/server/env";
 
+export * from "./email/index";
+
 export interface SendSecurityEmailParams {
   to: string[];
   subject: string;

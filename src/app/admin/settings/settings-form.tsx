@@ -183,6 +183,21 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
             />
           </FormField>
 
+          <FormField
+            id="verification_time_text"
+            label="Verification Time Notice"
+            helpText="Free text shown to students on the checkout payment page (up to 120 characters, optional)."
+          >
+            <Input
+              id="verification_time_text"
+              name="verification_time_text"
+              type="text"
+              maxLength={120}
+              defaultValue={initialSettings.verification_time_text ?? ""}
+              placeholder="e.g. Payments are checked within 30 minutes during daytime."
+            />
+          </FormField>
+
           <Button type="submit" variant="secondary" isLoading={isGeneralPending}>
             Save operational settings
           </Button>

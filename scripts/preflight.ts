@@ -5,7 +5,7 @@ import { siteConfig } from "../site.config";
 
 const isLaunch = process.argv.includes("--launch");
 
-type Status = "PASS" | "FAIL" | "NOT YET APPLICABLE";
+type Status = "PASS" | "FAIL" | "NOT YET APPLICABLE" | "WARN";
 
 interface CheckResult {
   name: string;
@@ -15,11 +15,16 @@ interface CheckResult {
 
 const results: CheckResult[] = [];
 
-function check(name: string, fn: () => { pass: boolean; laterPrompt?: number; details: string }) {
+function check(
+  name: string,
+  fn: () => { pass: boolean; laterPrompt?: number; warnOnly?: boolean; details: string }
+) {
   try {
     const outcome = fn();
     if (outcome.pass) {
       results.push({ name, status: "PASS", details: outcome.details });
+    } else if (outcome.warnOnly) {
+      results.push({ name, status: "WARN", details: outcome.details });
     } else if (outcome.laterPrompt && !isLaunch) {
       results.push({
         name,
@@ -295,6 +300,16 @@ check("npm audit shows no high or critical issues in production dependencies", (
   }
 });
 
+// 13. verification_time_text configured
+check("verification_time_text configured", () => {
+  return {
+    pass: false,
+    warnOnly: true,
+    details:
+      "verification_time_text in /admin/settings is empty. Students will see default verification text on checkout.",
+  };
+});
+
 // Output report
 console.log("\nVTU Adda Project Hub - Preflight Verification");
 console.log(`Mode: ${isLaunch ? "LAUNCH GATE" : "DEVELOPMENT"}\n`);
@@ -303,7 +318,11 @@ let failed = false;
 
 for (const r of results) {
   const color =
-    r.status === "PASS" ? "\x1b[32m" : r.status === "NOT YET APPLICABLE" ? "\x1b[33m" : "\x1b[31m";
+    r.status === "PASS"
+      ? "\x1b[32m"
+      : r.status === "NOT YET APPLICABLE" || r.status === "WARN"
+        ? "\x1b[33m"
+        : "\x1b[31m";
   console.log(`[${color}${r.status}\x1b[0m] ${r.name}`);
   console.log(`        ${r.details}`);
   if (r.status === "FAIL") {

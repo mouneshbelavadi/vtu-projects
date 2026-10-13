@@ -9,7 +9,7 @@ interface PlainDescriptionProps {
 /**
  * Plain text description renderer.
  * Formats paragraphs on blank lines and bullet lists on lines starting with '- '.
- * Absolutely no HTML parsing and no dangerouslySetInnerHTML.
+ * Absolutely no HTML parsing and no raw HTML injection.
  */
 export function PlainDescription({ content, className }: PlainDescriptionProps) {
   if (!content || !content.trim()) {

@@ -90,7 +90,7 @@ export function KitDetailView({
   whatsappNumber,
   supabaseUrl,
   previewBanner,
-  isCheckoutLive = false,
+  isCheckoutLive = true,
 }: KitDetailViewProps) {
   const branches = categories.filter((c) => c.kind === "branch");
   const semesters = categories.filter((c) => c.kind === "semester");
@@ -166,7 +166,7 @@ export function KitDetailView({
               </div>
             ) : isCheckoutLive ? (
               <Link
-                href={`/checkout/start?project=${project.id}`}
+                href={`/checkout/start?project=${project.slug}`}
                 className="block w-full text-center py-3 rounded-md bg-accent text-surface text-sm font-semibold hover:bg-accent-hover transition-colors"
               >
                 Buy this kit

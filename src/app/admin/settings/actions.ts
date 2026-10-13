@@ -20,6 +20,12 @@ const generalSettingsSchema = z.object({
     .max(365)
     .nullable()
     .optional(),
+  verification_time_text: z
+    .string()
+    .trim()
+    .max(120, "Verification time text must be at most 120 characters")
+    .nullable()
+    .optional(),
 });
 
 const upiSettingsSchema = z.object({
@@ -58,6 +64,7 @@ export async function updateGeneralSettings(
     order_expiry_hours: formData.get("order_expiry_hours"),
     max_downloads_default: formData.get("max_downloads_default"),
     proof_retention_days: formData.get("proof_retention_days") || null,
+    verification_time_text: formData.get("verification_time_text") || null,
   });
 
   if (!parse.success) {
@@ -68,7 +75,8 @@ export async function updateGeneralSettings(
   }
 
   const adminClient = createAdminClient();
-  const { order_expiry_hours, max_downloads_default, proof_retention_days } = parse.data;
+  const { order_expiry_hours, max_downloads_default, proof_retention_days, verification_time_text } =
+    parse.data;
 
   const now = new Date().toISOString();
   const upserts = [
@@ -81,6 +89,12 @@ export async function updateGeneralSettings(
     {
       key: "max_downloads_default",
       value: max_downloads_default,
+      updated_by: authUser.user.id,
+      updated_at: now,
+    },
+    {
+      key: "verification_time_text",
+      value: verification_time_text || "",
       updated_by: authUser.user.id,
       updated_at: now,
     },
@@ -112,6 +126,7 @@ export async function updateGeneralSettings(
       order_expiry_hours,
       max_downloads_default,
       proof_retention_days,
+      verification_time_text: verification_time_text || "",
     },
   });
 

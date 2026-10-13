@@ -64,6 +64,17 @@ export const Header: React.FC<HeaderProps> = ({ user = null }) => {
             {user ? (
               <div className="flex items-center gap-3">
                 <Link
+                  href="/account/orders"
+                  className={cn(
+                    "inline-flex h-9 min-h-[36px] items-center justify-center rounded-md border border-rule px-3 text-sm font-medium text-ink",
+                    "transition-colors duration-120 hover:border-ink-2 hover:bg-paper",
+                    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                  )}
+                >
+                  My orders
+                </Link>
+
+                <Link
                   href="/account"
                   className={cn(
                     "inline-flex h-9 min-h-[36px] max-w-[150px] sm:max-w-[200px] truncate items-center justify-center rounded-md border border-rule px-3 text-sm font-medium text-ink",

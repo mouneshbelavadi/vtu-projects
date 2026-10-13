@@ -7,6 +7,7 @@ export interface SystemSettings {
   order_expiry_hours: number;
   max_downloads_default: number;
   proof_retention_days: number | null;
+  verification_time_text: string | null;
 }
 
 export async function getSystemSettings(): Promise<SystemSettings> {
@@ -32,5 +33,9 @@ export async function getSystemSettings(): Promise<SystemSettings> {
       typeof settingsMap.max_downloads_default === "number" ? settingsMap.max_downloads_default : 5,
     proof_retention_days:
       typeof settingsMap.proof_retention_days === "number" ? settingsMap.proof_retention_days : null,
+    verification_time_text:
+      typeof settingsMap.verification_time_text === "string"
+        ? settingsMap.verification_time_text
+        : null,
   };
 }

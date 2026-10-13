@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LinkButton } from "@/components/ui/button";
+import { JsonLd } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = {
   title: "VTU Adda Projects | Engineering Kits for VTU Students",
@@ -59,14 +60,9 @@ export default function HomePage() {
     })),
   };
 
-  const safeJsonLd = JSON.stringify(faqSchema).replace(/</g, "\\u003c");
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: safeJsonLd }}
-      />
+      <JsonLd data={faqSchema} />
 
       <div className="mx-auto max-w-container px-4 py-12 sm:px-6 sm:py-16 space-y-16">
         {/* Hero Section */}

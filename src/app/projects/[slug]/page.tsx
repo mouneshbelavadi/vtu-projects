@@ -5,6 +5,7 @@ import { createAdminClient } from "@/server/supabase/admin";
 import { publicEnv } from "@/lib/public-env";
 import { siteConfig } from "../../../../site.config";
 import { KitDetailView } from "@/components/catalogue/kit-detail-view";
+import { JsonLd } from "@/components/seo/json-ld";
 import { getLiveProjects } from "@/server/projects/catalogue";
 import type {
   Project,
@@ -225,22 +226,10 @@ export default async function ProjectDetailPage({
     ],
   };
 
-  const safeProductJsonLd = JSON.stringify(productJsonLd).replace(/</g, "\\u003c");
-  const safeBreadcrumbJsonLd = JSON.stringify(breadcrumbJsonLd).replace(
-    /</g,
-    "\\u003c"
-  );
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: safeProductJsonLd }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: safeBreadcrumbJsonLd }}
-      />
+      <JsonLd data={productJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
 
       <KitDetailView
         project={project}
