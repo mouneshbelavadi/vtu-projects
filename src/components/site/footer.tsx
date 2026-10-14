@@ -10,21 +10,21 @@ interface FooterLink {
 }
 
 const storeLinks: FooterLink[] = [
-  { label: "Projects", href: "/projects", status: "planned" },
-  { label: "Request a project", href: "/request", status: "planned" },
-  { label: "Mentoring", href: "/mentoring", status: "planned" },
+  { label: "Projects", href: "/projects", status: "live" },
+  { label: "Request a project", href: "/request", status: "live" },
+  { label: "Mentoring", href: "/mentoring", status: "live" },
 ];
 
 const helpLinks: FooterLink[] = [
-  { label: "How it works", href: "/how-it-works", status: "planned" },
-  { label: "Contact", href: "/contact", status: "planned" },
-  { label: "Refund policy", href: "/refund", status: "planned" },
-  { label: "Academic integrity", href: "/how-it-works#academic-integrity", status: "planned" },
+  { label: "How it works", href: "/how-it-works", status: "live" },
+  { label: "Contact", href: "/contact", status: "live" },
+  { label: "Refund policy", href: "/refund", status: "live" },
+  { label: "Academic integrity", href: "/academic-integrity", status: "live" },
 ];
 
 const legalLinks: FooterLink[] = [
-  { label: "Privacy policy", href: "/privacy", status: "planned" },
-  { label: "Terms and conditions", href: "/terms", status: "planned" },
+  { label: "Privacy policy", href: "/privacy", status: "live" },
+  { label: "Terms and conditions", href: "/terms", status: "live" },
 ];
 
 const vtuAddaLinks: FooterLink[] = [

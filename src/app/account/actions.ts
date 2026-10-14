@@ -68,3 +68,57 @@ export async function updateProfile(
     message: "Profile updated successfully.",
   };
 }
+
+export async function requestAccountDeletionAction(reason: string) {
+  const authUser = await requireUser("/account");
+  const email = authUser.user.email || "";
+
+  const { createAdminClient } = await import("@/server/supabase/admin");
+  const { sendEmail } = await import("@/server/email/send");
+  const { siteConfig } = await import("../../../site.config");
+
+  const adminClient = createAdminClient();
+  const { data: ticket, error } = await adminClient
+    .from("tickets")
+    .insert({
+      user_id: authUser.user.id,
+      email,
+      name: authUser.profile?.display_name || "Student",
+      kind: "deletion_request",
+      subject: "Account Deletion Request",
+      body: `User ${authUser.user.id} requested account deletion.\nReason: ${reason || "No reason provided"}`,
+      status: "open",
+    })
+    .select("id")
+    .single();
+
+  if (error || !ticket) {
+    return { success: false, errorMessage: "Failed to submit deletion request." };
+  }
+
+  // Send email to user and admin
+  try {
+    await sendEmail("ticket_received", email, {
+      recipientName: authUser.profile?.display_name || "Student",
+      ticketId: ticket.id,
+      subject: "Account Deletion Request",
+      messageSnippet: "Your account deletion request has been registered and will be processed within 30 days.",
+    });
+
+    if (siteConfig.supportEmail) {
+      await sendEmail("ticket_admin", siteConfig.supportEmail, {
+        ticketId: ticket.id,
+        senderName: authUser.profile?.display_name || "Student",
+        senderEmail: email,
+        subject: "Account Deletion Request",
+        messageSnippet: `User requested deletion: ${reason || "None specified"}`,
+        ticketUrl: `${siteConfig.siteUrl || "http://localhost:3000"}/admin/tickets`,
+      });
+    }
+  } catch {
+    // Non-fatal
+  }
+
+  revalidatePath("/account");
+  return { success: true };
+}

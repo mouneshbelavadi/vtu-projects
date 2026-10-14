@@ -1132,4 +1132,161 @@ export function sessionReminderTemplate(
   return { subject, text, html };
 }
 
+// Prompt 10: Support Ticket Email Templates
+
+export interface TicketReceivedData {
+  recipientName: string;
+  ticketId: string;
+  subject: string;
+  messageSnippet: string;
+  orderCode?: string | null;
+}
+
+export interface TicketAdminData {
+  ticketId: string;
+  senderName: string;
+  senderEmail: string;
+  subject: string;
+  messageSnippet: string;
+  orderCode?: string | null;
+  ticketUrl: string;
+}
+
+export function ticketReceivedTemplate(
+  data: TicketReceivedData
+): EmailRenderResult {
+  const safeName = escapeHtml(data.recipientName || "there");
+  const safeSubject = escapeHtml(data.subject);
+  const safeSnippet = escapeHtml(data.messageSnippet);
+  const safeOrderCode = data.orderCode ? escapeHtml(data.orderCode) : null;
+  const safeTicketId = escapeHtml(data.ticketId);
+
+  const subject = `Support ticket received: ${data.subject}`;
+
+  const text = [
+    `Hello ${data.recipientName || "there"},`,
+    ``,
+    `Thank you for contacting VTU Adda Projects. We have received your support request.`,
+    ``,
+    `Ticket ID: ${data.ticketId}`,
+    `Subject: ${data.subject}`,
+    safeOrderCode ? `Order Code: ${data.orderCode}` : ``,
+    ``,
+    `Your message:`,
+    data.messageSnippet,
+    ``,
+    `Our team typically replies within 24 to 48 business hours.`,
+    ``,
+    `Regards,`,
+    `VTU Adda Support Team`,
+  ].filter(Boolean).join("\n");
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>${subject}</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #17191C; background-color: #FFFFFF; margin: 0; padding: 24px; line-height: 1.5;">
+  <div style="max-width: 560px; margin: 0 auto; border: 1px solid #DDD9D0; border-radius: 6px; padding: 24px;">
+    <h2 style="font-size: 18px; font-weight: 700; margin: 0 0 16px 0; color: #17191C;">Support request received</h2>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Hello ${safeName},
+    </p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      We have received your message and opened a support ticket.
+    </p>
+    <div style="background-color: #FBFAF7; border: 1px solid #DDD9D0; border-radius: 6px; padding: 16px; margin: 0 0 16px 0;">
+      <p style="margin: 0 0 8px 0; font-size: 14px; color: #17191C;">
+        <strong>Ticket ID:</strong> <span style="font-family: monospace;">${safeTicketId}</span>
+      </p>
+      <p style="margin: 0 0 8px 0; font-size: 14px; color: #17191C;">
+        <strong>Subject:</strong> ${safeSubject}
+      </p>
+      ${
+        safeOrderCode
+          ? `<p style="margin: 0 0 8px 0; font-size: 14px; color: #17191C;"><strong>Order Code:</strong> <span style="font-family: monospace;">${safeOrderCode}</span></p>`
+          : ""
+      }
+      <p style="margin: 0; font-size: 13px; color: #4A5058; white-space: pre-wrap;">${safeSnippet}</p>
+    </div>
+    <p style="margin: 0; font-size: 14px; color: #4A5058;">
+      Our team typically reviews and replies within 24 to 48 business hours.
+    </p>
+  </div>
+</body>
+</html>`;
+
+  return { subject, text, html };
+}
+
+export function ticketAdminTemplate(
+  data: TicketAdminData
+): EmailRenderResult {
+  const safeSender = escapeHtml(data.senderName || "Guest");
+  const safeEmail = escapeHtml(data.senderEmail);
+  const safeSubject = escapeHtml(data.subject);
+  const safeSnippet = escapeHtml(data.messageSnippet);
+  const safeOrderCode = data.orderCode ? escapeHtml(data.orderCode) : null;
+  const safeTicketId = escapeHtml(data.ticketId);
+  const safeUrl = escapeHtml(data.ticketUrl);
+
+  const subject = `[Support Ticket] ${data.subject}`;
+
+  const text = [
+    `New support ticket submitted`,
+    ``,
+    `Ticket ID: ${data.ticketId}`,
+    `From: ${data.senderName || "Guest"} (${data.senderEmail})`,
+    `Subject: ${data.subject}`,
+    safeOrderCode ? `Order Code: ${data.orderCode}` : ``,
+    ``,
+    `Message:`,
+    data.messageSnippet,
+    ``,
+    `View in admin dashboard:`,
+    data.ticketUrl,
+  ].filter(Boolean).join("\n");
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>${subject}</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #17191C; background-color: #FFFFFF; margin: 0; padding: 24px; line-height: 1.5;">
+  <div style="max-width: 560px; margin: 0 auto; border: 1px solid #DDD9D0; border-radius: 6px; padding: 24px;">
+    <h2 style="font-size: 18px; font-weight: 700; margin: 0 0 16px 0; color: #17191C;">New support ticket</h2>
+    <table style="width: 512px; border-collapse: collapse; margin-bottom: 16px; font-size: 14px;">
+      <tr>
+        <td style="padding: 6px 0; color: #5F6670;">Ticket ID:</td>
+        <td style="padding: 6px 0; font-family: monospace; font-weight: 600; text-align: right;">${safeTicketId}</td>
+      </tr>
+      <tr>
+        <td style="padding: 6px 0; color: #5F6670;">From:</td>
+        <td style="padding: 6px 0; font-weight: 600; text-align: right;">${safeSender} (&lt;${safeEmail}&gt;)</td>
+      </tr>
+      <tr>
+        <td style="padding: 6px 0; color: #5F6670;">Subject:</td>
+        <td style="padding: 6px 0; font-weight: 600; text-align: right;">${safeSubject}</td>
+      </tr>
+      ${
+        safeOrderCode
+          ? `<tr><td style="padding: 6px 0; color: #5F6670;">Order Code:</td><td style="padding: 6px 0; font-family: monospace; text-align: right;">${safeOrderCode}</td></tr>`
+          : ""
+      }
+    </table>
+    <div style="background-color: #FBFAF7; border: 1px solid #DDD9D0; border-radius: 6px; padding: 16px; margin: 0 0 16px 0;">
+      <p style="margin: 0; font-size: 13px; color: #17191C; white-space: pre-wrap;">${safeSnippet}</p>
+    </div>
+    <p style="margin: 0; font-size: 14px; word-break: break-all;">
+      <a href="${safeUrl}" style="color: #0B5D4B; text-decoration: underline; font-weight: 600;">Open ticket in admin portal</a>
+    </p>
+  </div>
+</body>
+</html>`;
+
+  return { subject, text, html };
+}
+
 

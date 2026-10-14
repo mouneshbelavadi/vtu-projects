@@ -6,6 +6,7 @@ import { formatInr, formatDate, formatBytes } from "@/lib/format";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Badge } from "@/components/ui/badge";
 import { ORDER_STATUS_LABELS } from "../page";
+import { OrderReviewForm } from "./order-review-form";
 
 export const metadata = {
   title: "Order Details | VTU Adda Projects",
@@ -67,7 +68,21 @@ export default async function OrderDetailPage({
     }>;
   }> = [];
 
+  let reviewsByProjectId = new Map<string, { id: string; rating: number; body: string; status: string }>();
+
   if (order.status === "paid") {
+    const { data: userReviews } = await supabase
+      .from("reviews")
+      .select("id, project_id, rating, body, status")
+      .eq("user_id", authUser.user.id)
+      .eq("order_id", order.id);
+
+    if (userReviews) {
+      for (const r of userReviews) {
+        reviewsByProjectId.set(r.project_id, r);
+      }
+    }
+
     const { data: grants } = await supabase
       .from("download_grants")
       .select("id, project_id, max_downloads, download_count, expires_at, revoked_at")
@@ -378,6 +393,43 @@ export default async function OrderDetailPage({
                   <div className="pt-2 text-[11px] text-ink-3 font-mono">
                     Signed download links expire after 60 seconds. Each file download consumes 1 of your allocated download credits.
                   </div>
+
+                  {/* Verified Review Section */}
+                  {(() => {
+                    const existingReview = reviewsByProjectId.get(grant.project_id);
+                    const hasDownloaded = grant.download_count > 0;
+
+                    if (existingReview) {
+                      return (
+                        <div className="pt-3 border-t border-rule mt-4 space-y-1 bg-paper p-3 rounded-md">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-semibold text-ink">Your Review</span>
+                            <Badge variant={existingReview.status === "approved" ? "success" : "warn"}>
+                              {existingReview.status === "approved" ? "Approved & Verified" : "Pending Moderation"}
+                            </Badge>
+                          </div>
+                          <div className="text-xs text-amber-700">Rating: {existingReview.rating} of 5</div>
+                          <p className="text-xs text-ink-2 italic">&quot;{existingReview.body}&quot;</p>
+                        </div>
+                      );
+                    }
+
+                    if (hasDownloaded) {
+                      return (
+                        <OrderReviewForm
+                          orderId={order.id}
+                          projectId={grant.project_id}
+                          kitTitle={order.order_items?.[idx]?.label || "Academic Deliverables"}
+                        />
+                      );
+                    }
+
+                    return (
+                      <div className="pt-3 border-t border-rule mt-4 text-[11px] text-ink-3">
+                        Download at least one deliverable file above to unlock verified review submission.
+                      </div>
+                    );
+                  })()}
                 </div>
               );
             })

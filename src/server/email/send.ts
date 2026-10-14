@@ -22,6 +22,8 @@ import {
   bookingConfirmedTemplate,
   bookingCancelledTemplate,
   sessionReminderTemplate,
+  ticketReceivedTemplate,
+  ticketAdminTemplate,
   type PaymentSubmittedAdminData,
   type PaymentReceivedStudentData,
   type OrderExpiredStudentData,
@@ -39,6 +41,8 @@ import {
   type BookingConfirmedData,
   type BookingCancelledData,
   type SessionReminderData,
+  type TicketReceivedData,
+  type TicketAdminData,
   type EmailRenderResult,
 } from "./templates";
 
@@ -59,7 +63,9 @@ export type EmailTemplateName =
   | "booking_received"
   | "booking_confirmed"
   | "booking_cancelled"
-  | "session_reminder";
+  | "session_reminder"
+  | "ticket_received"
+  | "ticket_admin";
 
 export interface TemplateDataMap {
   payment_submitted_admin: PaymentSubmittedAdminData;
@@ -79,6 +85,8 @@ export interface TemplateDataMap {
   booking_confirmed: BookingConfirmedData;
   booking_cancelled: BookingCancelledData;
   session_reminder: SessionReminderData;
+  ticket_received: TicketReceivedData;
+  ticket_admin: TicketAdminData;
 }
 
 export async function sendEmail<T extends EmailTemplateName>(
@@ -148,6 +156,12 @@ export async function sendEmail<T extends EmailTemplateName>(
         break;
       case "session_reminder":
         rendered = sessionReminderTemplate(data as SessionReminderData);
+        break;
+      case "ticket_received":
+        rendered = ticketReceivedTemplate(data as TicketReceivedData);
+        break;
+      case "ticket_admin":
+        rendered = ticketAdminTemplate(data as TicketAdminData);
         break;
       default:
         logger.warn("Unknown email template requested", { template });

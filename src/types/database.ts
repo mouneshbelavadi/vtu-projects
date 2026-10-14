@@ -356,6 +356,9 @@ export interface Review {
   rating: number;
   body: string;
   status: ReviewStatus;
+  admin_reason?: string | null;
+  reviewed_at?: string | null;
+  reviewed_by?: string | null;
   created_at: string;
 }
 
@@ -383,10 +386,14 @@ export interface Ticket {
   id: string;
   user_id: string | null;
   email: string;
+  name?: string;
+  order_code?: string | null;
+  internal_note?: string | null;
   kind: TicketKind;
   subject: string;
   body: string;
   status: TicketStatus;
+  updated_at?: string;
   created_at: string;
 }
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Price } from "@/components/ui/price";
+import { Badge } from "@/components/ui/badge";
 import { PlainDescription } from "@/components/ui/plain-description";
 import { ScreenshotGallery } from "./screenshot-gallery";
 import { DemoVideoPlayer } from "./demo-video-player";
@@ -333,11 +334,14 @@ export function KitDetailView({
             {reviews.map((rev) => (
               <div key={rev.id} className="p-4 rounded-md border border-rule bg-surface space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-semibold text-ink">{rev.reviewer_first_name}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-ink">{rev.reviewer_first_name}</span>
+                    <Badge variant="accent">Verified buyer</Badge>
+                  </div>
                   <span className="text-ink-2">{formatDate(rev.created_at)}</span>
                 </div>
                 <div className="text-xs text-accent font-bold">
-                  {rev.rating}/5 rating
+                  Rating: {rev.rating} of 5
                 </div>
                 <p className="text-sm text-ink-2 leading-relaxed">
                   {rev.body}

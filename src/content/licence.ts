@@ -21,6 +21,6 @@ export function generateLicenceSlip(data: LicenceSlipData): string {
     "Terms of Use:",
     LICENCE_TERMS_TEXT,
     "",
-    "VTU Adda - Academic Project Deliverables",
+    "VTU Adda: Academic Project Deliverables",
   ].join("\n");
 }

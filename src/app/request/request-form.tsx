@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { submitCustomRequestForm, type SubmitRequestState } from "./actions";
 import { COURSE_TYPES } from "@/types/database";
@@ -275,6 +276,17 @@ export function RequestForm() {
             I will follow my college and VTU rules, I will take part in each milestone, and I will be able to explain the project myself.
           </span>
         </label>
+        <p className="mt-2 text-[12px] text-[#5F6670] border-t border-[#DDD9D0] pt-2">
+          By submitting a request, you agree to our{" "}
+          <Link href="/terms" className="text-[#0B5D4B] underline">
+            Terms and Conditions
+          </Link>{" "}
+          and{" "}
+          <Link href="/privacy" className="text-[#0B5D4B] underline">
+            Privacy Policy
+          </Link>
+          .
+        </p>
       </div>
 
       {/* Submit Button */}

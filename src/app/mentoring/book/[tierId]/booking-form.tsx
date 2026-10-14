@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
+import Link from "next/link";
 import { bookSlotAction, type BookSlotState } from "./actions";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
@@ -154,7 +155,15 @@ export function BookingForm({
         </div>
 
         <p className="text-xs text-ink-3">
-          Note: Selecting a time holds the slot for 2 hours while you complete UPI payment. The meeting link is released once our team verifies your payment.
+          Note: Selecting a time holds the slot for 2 hours while you complete UPI payment. The meeting link is released once our team verifies your payment. By booking a slot, you agree to our{" "}
+          <Link href="/terms" className="text-accent underline font-semibold">
+            Terms and Conditions
+          </Link>{" "}
+          and{" "}
+          <Link href="/privacy" className="text-accent underline font-semibold">
+            Privacy Policy
+          </Link>
+          .
         </p>
       </div>
 

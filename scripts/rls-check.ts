@@ -343,6 +343,46 @@ async function run() {
       .select()
       .single();
 
+    const { data: ticketB } = await adminClient
+      .from("tickets")
+      .insert({
+        user_id: idB,
+        email: userEmails.studentB,
+        name: "Student B",
+        subject: "Test Ticket B",
+        body: "Hello support team, I need help.",
+        kind: "support",
+        status: "open",
+      })
+      .select()
+      .single();
+
+    const { data: approvedReview } = await adminClient
+      .from("reviews")
+      .insert({
+        user_id: idB,
+        project_id: liveProj?.id,
+        order_id: orderB?.id,
+        rating: 5,
+        body: "Great kit for project viva, very clear documentation and code.",
+        status: "approved",
+      })
+      .select()
+      .single();
+
+    const { data: pendingReview } = await adminClient
+      .from("reviews")
+      .insert({
+        user_id: idB,
+        project_id: draftProj?.id,
+        order_id: orderB?.id,
+        rating: 4,
+        body: "Pending review test content with at least twenty characters.",
+        status: "pending",
+      })
+      .select()
+      .single();
+
     if (
       !liveProj ||
       !draftProj ||
@@ -357,7 +397,10 @@ async function run() {
       !activeTier ||
       !inactiveTier ||
       !slotBuilder ||
-      !bookingB
+      !bookingB ||
+      !ticketB ||
+      !approvedReview ||
+      !pendingReview
     ) {
       throw new Error("Fixture seeding failed.");
     }
@@ -661,6 +704,45 @@ async function run() {
     assert(
       !anonSlots.data || anonSlots.data.length === 0,
       "Anon cannot select mentor_slots directly"
+    );
+
+    // Assertion 26: Student A cannot select Student B's tickets
+    const ticketBByStudentA = await clientA
+      .from("tickets")
+      .select("*")
+      .eq("id", ticketB.id);
+    assert(
+      !ticketBByStudentA.data || ticketBByStudentA.data.length === 0,
+      "Student A cannot select Student B's tickets"
+    );
+
+    // Assertion 27: Public/Anon can read approved reviews, but not pending reviews
+    const approvedByAnon = await anonClient
+      .from("reviews")
+      .select("*")
+      .eq("id", approvedReview.id);
+    assert(
+      Boolean(approvedByAnon.data && approvedByAnon.data.length === 1),
+      "Anon can select approved reviews"
+    );
+
+    const pendingByAnon = await anonClient
+      .from("reviews")
+      .select("*")
+      .eq("id", pendingReview.id);
+    assert(
+      !pendingByAnon.data || pendingByAnon.data.length === 0,
+      "Anon cannot select pending reviews"
+    );
+
+    // Assertion 28: Student A cannot select Student B's pending review
+    const pendingByStudentA = await clientA
+      .from("reviews")
+      .select("*")
+      .eq("id", pendingReview.id);
+    assert(
+      !pendingByStudentA.data || pendingByStudentA.data.length === 0,
+      "Student A cannot select other student's pending reviews"
     );
   } finally {
     console.log("\nCleaning up test fixtures and temporary users...");

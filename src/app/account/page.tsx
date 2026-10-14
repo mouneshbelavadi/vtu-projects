@@ -2,6 +2,7 @@ import Link from "next/link";
 import { requireUser } from "@/server/auth";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ProfileForm } from "./profile-form";
+import { AccountDataTools } from "./account-data-tools";
 
 export const metadata = {
   title: "My Account",
@@ -48,6 +49,8 @@ export default async function AccountPage() {
         email={authUser.user.email || ""}
         initialProfile={authUser.profile}
       />
+
+      <AccountDataTools />
     </div>
   );
 }
