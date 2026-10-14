@@ -38,6 +38,11 @@ export function HowItWorksContent() {
           <strong>Download deliverables:</strong> Once verified, your deliverables unlock immediately. You receive the complete source code archive, draft project report, installation readme, viva questions, and your personalized licence slip. Each file allows up to 10 downloads.
         </li>
       </ol>
+      <p className="pt-2">
+        <Link href="/projects" className="text-accent underline font-semibold">
+          Browse ready project kits &rarr;
+        </Link>
+      </p>
 
       <h2>Path 2: Custom Project Development</h2>
       <p>
@@ -60,6 +65,11 @@ export function HowItWorksContent() {
           <strong>Balance and final delivery:</strong> Review the project demonstration, clear the remaining balance, and download the finished source code, report, and documentation.
         </li>
       </ol>
+      <p className="pt-2">
+        <Link href="/request" className="text-accent underline font-semibold">
+          Submit a custom project request &rarr;
+        </Link>
+      </p>
 
       <h2>Path 3: One-on-One Technical Mentoring</h2>
       <p>
@@ -82,6 +92,11 @@ export function HowItWorksContent() {
           <strong>Attend session:</strong> Join the live video call with your mentor at the scheduled time. We send an email reminder 24 hours prior to your session.
         </li>
       </ol>
+      <p className="pt-2">
+        <Link href="/mentoring" className="text-accent underline font-semibold">
+          Explore mentoring tiers &rarr;
+        </Link>
+      </p>
 
       <h2>Transparent and Reliable</h2>
       <p>

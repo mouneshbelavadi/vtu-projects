@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 export const academicIntegrityLastUpdated = "14 October 2026";
 
@@ -50,6 +51,18 @@ export function AcademicIntegrityContent() {
       <p className="font-semibold text-ink">
         We are not affiliated with VTU or any college.
       </p>
+
+      <div className="pt-6 border-t border-rule mt-6 flex flex-wrap gap-4 text-xs font-semibold">
+        <Link href="/projects" className="text-accent hover:underline">
+          Browse project kits &rarr;
+        </Link>
+        <Link href="/how-it-works" className="text-accent hover:underline">
+          How our store works &rarr;
+        </Link>
+        <Link href="/contact" className="text-accent hover:underline">
+          Contact support team &rarr;
+        </Link>
+      </div>
     </>
   );
 }

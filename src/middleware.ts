@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
     ? `'self' 'nonce-${nonce}' 'strict-dynamic' 'unsafe-eval'`
     : `'self' 'nonce-${nonce}' 'strict-dynamic'`;
 
-  const styleSrc = isDev ? `'self' 'nonce-${nonce}' 'unsafe-inline'` : `'self' 'nonce-${nonce}'`;
+  const styleSrc = `'self' 'unsafe-inline'`;
 
   const cspHeader = [
     `default-src 'self'`,

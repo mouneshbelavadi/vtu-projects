@@ -86,6 +86,18 @@ export function RefundContent() {
         <li>Approved refund requests are initiated within 5 to 7 business days following administrative approval.</li>
         <li>Once processed, our team records the bank UTR refund reference on your order record and sends an email confirmation.</li>
       </ul>
+
+      <div className="pt-6 border-t border-rule mt-6 flex flex-wrap gap-4 text-xs font-semibold">
+        <Link href="/account/orders" className="text-accent hover:underline">
+          View your orders &rarr;
+        </Link>
+        <Link href="/contact" className="text-accent hover:underline">
+          Submit refund request &rarr;
+        </Link>
+        <Link href="/terms" className="text-accent hover:underline">
+          Terms and conditions &rarr;
+        </Link>
+      </div>
     </>
   );
 }

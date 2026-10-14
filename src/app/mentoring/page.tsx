@@ -130,8 +130,18 @@ export default async function MentoringPage() {
         <p className="text-sm text-ink-2 leading-relaxed">
           Choose a session, choose a time, pay by UPI, and we confirm the booking and send the meeting link after we verify your payment.
         </p>
-        <div className="mt-4 pt-4 border-t border-rule text-xs text-ink-3">
-          Cancellation policy: Cancellation requests must be submitted at least 24 hours before your scheduled session. All times are scheduled in Indian Standard Time (IST).
+        <div className="mt-4 pt-4 border-t border-rule text-xs text-ink-3 flex flex-wrap items-center justify-between gap-2">
+          <span>
+            All sessions are held in Indian Standard Time (IST). Sessions must be booked at least 12 hours in advance.
+          </span>
+          <div className="flex gap-4">
+            <Link href="/refund" className="text-accent underline font-medium">
+              Cancellation & refund policy &rarr;
+            </Link>
+            <Link href="/contact" className="text-accent underline font-medium">
+              Contact support &rarr;
+            </Link>
+          </div>
         </div>
       </div>
     </div>

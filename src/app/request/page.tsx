@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getUserOrNull } from "@/server/auth";
 import { RequestForm } from "./request-form";
@@ -88,7 +89,11 @@ export default async function RequestPage() {
           What we do not take
         </h2>
         <p className="mt-1 text-[13px] text-[#A12B2B]">
-          In accordance with VTU academic regulations and our academic integrity policy, we strictly decline:
+          In accordance with VTU academic regulations and our{" "}
+          <Link href="/academic-integrity" className="underline font-semibold hover:text-[#17191C]">
+            academic integrity policy
+          </Link>
+          , we strictly decline:
         </p>
         <ul className="mt-3 list-disc space-y-1 pl-5 text-[13px] text-[#4A5058]">
           <li>Exam answers or live assessment help</li>
