@@ -198,6 +198,22 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
             />
           </FormField>
 
+          <FormField
+            id="mentoring_min_notice_hours"
+            label="Mentoring Minimum Notice (Hours)"
+            helpText="Minimum notice required before a student can book a session slot (1 to 168 hours, default 12)."
+          >
+            <Input
+              id="mentoring_min_notice_hours"
+              name="mentoring_min_notice_hours"
+              type="number"
+              min={1}
+              max={168}
+              required
+              defaultValue={initialSettings.mentoring_min_notice_hours ?? 12}
+            />
+          </FormField>
+
           <Button type="submit" variant="secondary" isLoading={isGeneralPending}>
             Save operational settings
           </Button>

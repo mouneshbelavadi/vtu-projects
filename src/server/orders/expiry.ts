@@ -32,11 +32,23 @@ export function verifyCronAuthorization(req: Request): boolean {
  * updates their status to expired, dispatches notifications, and returns the total expired count.
  * Never touches pending_verification orders.
  */
-export async function expireOverdueOrders(): Promise<{ expired_count: number }> {
+export async function expireOverdueOrders(): Promise<{
+  expired_count: number;
+  released_slots_count?: number;
+}> {
   const adminClient = createAdminClient();
   const now = new Date().toISOString();
 
-  // Find overdue awaiting_payment orders
+  // 1. Release overdue held slots and cancel related awaiting_payment bookings
+  let releasedSlotsCount = 0;
+  try {
+    const { data: slotCount } = await adminClient.rpc("expire_held_slots");
+    releasedSlotsCount = Number(slotCount) || 0;
+  } catch (slotErr) {
+    logger.warn("Failed to expire held slots during hourly job", { error: slotErr });
+  }
+
+  // 2. Find overdue awaiting_payment orders
   const { data: overdueOrders, error } = await adminClient
     .from("orders")
     .select("id, order_code, user_id, order_items(label)")
@@ -44,7 +56,7 @@ export async function expireOverdueOrders(): Promise<{ expired_count: number }> 
     .lte("expires_at", now);
 
   if (error || !overdueOrders || overdueOrders.length === 0) {
-    return { expired_count: 0 };
+    return { expired_count: 0, released_slots_count: releasedSlotsCount };
   }
 
   let expiredCount = 0;
@@ -92,5 +104,5 @@ export async function expireOverdueOrders(): Promise<{ expired_count: number }> 
     }
   }
 
-  return { expired_count: expiredCount };
+  return { expired_count: expiredCount, released_slots_count: releasedSlotsCount };
 }

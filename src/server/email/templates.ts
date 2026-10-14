@@ -893,4 +893,243 @@ export function requestCompletedTemplate(
   return { subject, text, html };
 }
 
+// Prompt 9: Mentoring Bookings Email Templates
+
+export interface BookingReceivedData {
+  studentDisplayName: string;
+  tierName: string;
+  sessionTimeIst: string;
+  orderCode: string;
+  checkoutUrl: string;
+}
+
+export interface BookingConfirmedData {
+  studentDisplayName: string;
+  tierName: string;
+  sessionTimeIst: string;
+  meetUrl: string;
+  bookingsUrl: string;
+}
+
+export interface BookingCancelledData {
+  studentDisplayName: string;
+  tierName: string;
+  sessionTimeIst: string;
+  reason?: string | null;
+}
+
+export interface SessionReminderData {
+  recipientDisplayName: string;
+  tierName: string;
+  sessionTimeIst: string;
+  meetUrl?: string | null;
+  role: "student" | "mentor";
+  sessionUrl: string;
+}
+
+export function bookingReceivedTemplate(
+  data: BookingReceivedData
+): EmailRenderResult {
+  const safeName = escapeHtml(data.studentDisplayName || "Student");
+  const safeTier = escapeHtml(data.tierName);
+  const safeTime = escapeHtml(data.sessionTimeIst);
+  const safeCode = escapeHtml(data.orderCode);
+  const safeUrl = escapeHtml(data.checkoutUrl);
+
+  const subject = `Booking hold created: ${data.tierName}`;
+
+  const text = [
+    `Hello ${data.studentDisplayName || "Student"},`,
+    ``,
+    `Your mentoring session hold for "${data.tierName}" has been reserved for ${data.sessionTimeIst}.`,
+    `Order reference: ${data.orderCode}`,
+    ``,
+    `This slot is held for 2 hours while you complete your UPI payment.`,
+    `Please complete payment and submit your 12-digit UTR at:`,
+    data.checkoutUrl,
+  ].join("\n");
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>${subject}</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #17191C; background-color: #FFFFFF; margin: 0; padding: 24px; line-height: 1.5;">
+  <div style="max-width: 560px; margin: 0 auto; border: 1px solid #DDD9D0; border-radius: 6px; padding: 24px;">
+    <h2 style="font-size: 18px; font-weight: 700; margin: 0 0 16px 0; color: #17191C;">Mentoring session reserved</h2>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Hello ${safeName},
+    </p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Your session for <strong>${safeTier}</strong> is reserved for <strong>${safeTime}</strong> under order <strong>${safeCode}</strong>.
+    </p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      This slot is held for 2 hours. Please scan the UPI QR and submit your 12-digit UTR to secure your booking:
+    </p>
+    <p style="margin: 0; font-size: 14px; word-break: break-all;">
+      <a href="${safeUrl}" style="color: #0B5D4B; text-decoration: underline; font-weight: 600;">${safeUrl}</a>
+    </p>
+  </div>
+</body>
+</html>`;
+
+  return { subject, text, html };
+}
+
+export function bookingConfirmedTemplate(
+  data: BookingConfirmedData
+): EmailRenderResult {
+  const safeName = escapeHtml(data.studentDisplayName || "Student");
+  const safeTier = escapeHtml(data.tierName);
+  const safeTime = escapeHtml(data.sessionTimeIst);
+  const safeMeet = escapeHtml(data.meetUrl);
+  const safeBookingsUrl = escapeHtml(data.bookingsUrl);
+
+  const subject = `Booking confirmed: ${data.tierName} (${data.sessionTimeIst})`;
+
+  const text = [
+    `Hello ${data.studentDisplayName || "Student"},`,
+    ``,
+    `Your payment for "${data.tierName}" has been verified and your booking is confirmed!`,
+    ``,
+    `Session time: ${data.sessionTimeIst}`,
+    `Meeting link: ${data.meetUrl}`,
+    ``,
+    `View all your bookings in your account:`,
+    data.bookingsUrl,
+  ].join("\n");
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>${subject}</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #17191C; background-color: #FFFFFF; margin: 0; padding: 24px; line-height: 1.5;">
+  <div style="max-width: 560px; margin: 0 auto; border: 1px solid #DDD9D0; border-radius: 6px; padding: 24px;">
+    <h2 style="font-size: 18px; font-weight: 700; margin: 0 0 16px 0; color: #1E6B3C;">Booking confirmed</h2>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Hello ${safeName},
+    </p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Your payment for <strong>${safeTier}</strong> has been verified and your session is confirmed.
+    </p>
+    <div style="background-color: #FBFAF7; border: 1px solid #DDD9D0; border-radius: 6px; padding: 16px; margin: 0 0 16px 0;">
+      <p style="margin: 0 0 8px 0; font-size: 14px; color: #17191C;">
+        <strong>Time:</strong> ${safeTime}
+      </p>
+      <p style="margin: 0; font-size: 14px; color: #17191C; word-break: break-all;">
+        <strong>Meeting link:</strong> <a href="${safeMeet}" style="color: #0B5D4B; text-decoration: underline;">${safeMeet}</a>
+      </p>
+    </div>
+    <p style="margin: 0; font-size: 14px; word-break: break-all;">
+      <a href="${safeBookingsUrl}" style="color: #0B5D4B; text-decoration: underline; font-weight: 600;">View in your account</a>
+    </p>
+  </div>
+</body>
+</html>`;
+
+  return { subject, text, html };
+}
+
+export function bookingCancelledTemplate(
+  data: BookingCancelledData
+): EmailRenderResult {
+  const safeName = escapeHtml(data.studentDisplayName || "Student");
+  const safeTier = escapeHtml(data.tierName);
+  const safeTime = escapeHtml(data.sessionTimeIst);
+  const safeReason = data.reason ? escapeHtml(data.reason) : "Slot hold expired or cancelled by administrator.";
+
+  const subject = `Booking cancelled: ${data.tierName}`;
+
+  const text = [
+    `Hello ${data.studentDisplayName || "Student"},`,
+    ``,
+    `Your booking for "${data.tierName}" scheduled for ${data.sessionTimeIst} has been cancelled.`,
+    ``,
+    `Reason: ${data.reason || "Slot hold expired or cancelled by administrator."}`,
+  ].join("\n");
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>${subject}</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #17191C; background-color: #FFFFFF; margin: 0; padding: 24px; line-height: 1.5;">
+  <div style="max-width: 560px; margin: 0 auto; border: 1px solid #DDD9D0; border-radius: 6px; padding: 24px;">
+    <h2 style="font-size: 18px; font-weight: 700; margin: 0 0 16px 0; color: #A12B2B;">Booking cancelled</h2>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Hello ${safeName},
+    </p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Your session for <strong>${safeTier}</strong> scheduled for <strong>${safeTime}</strong> has been cancelled.
+    </p>
+    <p style="margin: 0; font-size: 14px; color: #4A5058;">
+      <strong>Reason:</strong> ${safeReason}
+    </p>
+  </div>
+</body>
+</html>`;
+
+  return { subject, text, html };
+}
+
+export function sessionReminderTemplate(
+  data: SessionReminderData
+): EmailRenderResult {
+  const safeName = escapeHtml(data.recipientDisplayName || "there");
+  const safeTier = escapeHtml(data.tierName);
+  const safeTime = escapeHtml(data.sessionTimeIst);
+  const safeMeet = data.meetUrl ? escapeHtml(data.meetUrl) : null;
+  const safeUrl = escapeHtml(data.sessionUrl);
+
+  const subject = `Reminder: Upcoming session tomorrow for ${data.tierName}`;
+
+  const text = [
+    `Hello ${data.recipientDisplayName || "there"},`,
+    ``,
+    `This is a reminder that your mentoring session for "${data.tierName}" is scheduled for tomorrow at ${data.sessionTimeIst}.`,
+    data.meetUrl ? `Meeting link: ${data.meetUrl}` : `Meeting link will be provided in your dashboard before the session.`,
+    ``,
+    `Session dashboard:`,
+    data.sessionUrl,
+  ].join("\n");
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>${subject}</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #17191C; background-color: #FFFFFF; margin: 0; padding: 24px; line-height: 1.5;">
+  <div style="max-width: 560px; margin: 0 auto; border: 1px solid #DDD9D0; border-radius: 6px; padding: 24px;">
+    <h2 style="font-size: 18px; font-weight: 700; margin: 0 0 16px 0; color: #17191C;">Session reminder</h2>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Hello ${safeName},
+    </p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #4A5058;">
+      Your mentoring session for <strong>${safeTier}</strong> is scheduled for tomorrow:
+    </p>
+    <div style="background-color: #FBFAF7; border: 1px solid #DDD9D0; border-radius: 6px; padding: 16px; margin: 0 0 16px 0;">
+      <p style="margin: 0 0 8px 0; font-size: 14px; color: #17191C;">
+        <strong>Time:</strong> ${safeTime}
+      </p>
+      ${
+        safeMeet
+          ? `<p style="margin: 0; font-size: 14px; color: #17191C; word-break: break-all;"><strong>Meeting link:</strong> <a href="${safeMeet}" style="color: #0B5D4B; text-decoration: underline;">${safeMeet}</a></p>`
+          : `<p style="margin: 0; font-size: 14px; color: #4A5058;">Meeting link will be posted in your dashboard before the start time.</p>`
+      }
+    </div>
+    <p style="margin: 0; font-size: 14px; word-break: break-all;">
+      <a href="${safeUrl}" style="color: #0B5D4B; text-decoration: underline; font-weight: 600;">Open session dashboard</a>
+    </p>
+  </div>
+</body>
+</html>`;
+
+  return { subject, text, html };
+}
+
 

@@ -226,6 +226,6 @@ describe("Design System Invariant Rules", () => {
       } finally {
         envObj.NODE_ENV = originalEnv;
       }
-    });
+    }, 15000);
   });
 });

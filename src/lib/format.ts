@@ -44,3 +44,59 @@ export function formatBytes(bytes: number): string {
   const val = bytes / Math.pow(1024, i);
   return `${val.toFixed(val >= 10 || i === 0 ? 0 : 1)} ${units[i]}`;
 }
+
+/**
+ * Formats a time in IST with the required 'IST' label (e.g., '10:30 AM IST').
+ */
+export function formatISTTime(dateInput: string | Date): string {
+  const date = typeof dateInput === "string" ? new Date(dateInput) : dateInput;
+  if (isNaN(date.getTime())) return "";
+  const timeStr = new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(date);
+  return `${timeStr} IST`;
+}
+
+/**
+ * Formats date and time in IST with the required 'IST' label (e.g., '13 Oct 2026, 10:30 AM IST').
+ */
+export function formatISTDateTime(dateInput: string | Date): string {
+  const date = typeof dateInput === "string" ? new Date(dateInput) : dateInput;
+  if (isNaN(date.getTime())) return "";
+  const datePart = formatDate(date);
+  const timePart = new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(date);
+  return `${datePart}, ${timePart} IST`;
+}
+
+/**
+ * Formats start and end times in IST with hyphen and 'IST' label (e.g., '10:30 AM - 11:30 AM IST').
+ */
+export function formatISTSlotRange(
+  startsAtInput: string | Date,
+  endsAtInput: string | Date
+): string {
+  const start = typeof startsAtInput === "string" ? new Date(startsAtInput) : startsAtInput;
+  const end = typeof endsAtInput === "string" ? new Date(endsAtInput) : endsAtInput;
+  if (isNaN(start.getTime()) || isNaN(end.getTime())) return "";
+  const startStr = new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(start);
+  const endStr = new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(end);
+  return `${startStr} - ${endStr} IST`;
+}

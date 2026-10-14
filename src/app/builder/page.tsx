@@ -36,11 +36,21 @@ export default async function BuilderDashboardPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 space-y-6">
-      <div className="border-b border-[#DDD9D0] pb-4">
-        <h1 className="text-[22px] font-bold text-[#17191C]">Builder Workspace</h1>
-        <p className="mt-1 text-[13px] text-[#5F6670]">
-          Manage your assigned custom engineering projects, milestone tasks, and deliverable releases.
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-[#DDD9D0] pb-4">
+        <div>
+          <h1 className="text-[22px] font-bold text-[#17191C]">Builder Workspace</h1>
+          <p className="mt-1 text-[13px] text-[#5F6670]">
+            Manage your assigned custom engineering projects, milestone tasks, and deliverable releases.
+          </p>
+        </div>
+        <div>
+          <Link
+            href="/builder/sessions"
+            className="inline-flex items-center text-[13px] font-semibold text-[#0B5D4B] hover:underline"
+          >
+            Mentoring Sessions &rarr;
+          </Link>
+        </div>
       </div>
 
       {!requests || requests.length === 0 ? (

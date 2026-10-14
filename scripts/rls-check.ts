@@ -293,6 +293,56 @@ async function run() {
       .select()
       .single();
 
+    const { data: activeTier } = await adminClient
+      .from("mentoring_tiers")
+      .insert({
+        name: "Active Test Tier",
+        description: "Test description",
+        price_inr: 999,
+        session_count: 1,
+        session_minutes: 30,
+        active: true,
+      })
+      .select()
+      .single();
+
+    const { data: inactiveTier } = await adminClient
+      .from("mentoring_tiers")
+      .insert({
+        name: "Inactive Test Tier",
+        description: "Inactive description",
+        price_inr: 1999,
+        session_count: 1,
+        session_minutes: 60,
+        active: false,
+      })
+      .select()
+      .single();
+
+    const { data: slotBuilder } = await adminClient
+      .from("mentor_slots")
+      .insert({
+        mentor_id: idBuilder,
+        starts_at: new Date(Date.now() + 86400000 * 5).toISOString(),
+        ends_at: new Date(Date.now() + 86400000 * 5 + 3600000).toISOString(),
+        status: "booked",
+      })
+      .select()
+      .single();
+
+    const { data: bookingB } = await adminClient
+      .from("bookings")
+      .insert({
+        user_id: idB,
+        tier_id: activeTier?.id,
+        slot_id: slotBuilder?.id,
+        order_id: orderB?.id,
+        status: "confirmed",
+        meet_url: "https://meet.google.com/test-room",
+      })
+      .select()
+      .single();
+
     if (
       !liveProj ||
       !draftProj ||
@@ -303,7 +353,11 @@ async function run() {
       !customReqB ||
       !messageB ||
       !milestoneB ||
-      !requestFileB
+      !requestFileB ||
+      !activeTier ||
+      !inactiveTier ||
+      !slotBuilder ||
+      !bookingB
     ) {
       throw new Error("Fixture seeding failed.");
     }
@@ -547,6 +601,66 @@ async function run() {
     assert(
       Boolean(transitionRpcByStudent.error),
       "Student cannot execute transition_custom_request function"
+    );
+
+    // Assertion 21: Public/Anon can read active mentoring tiers, but inactive are hidden
+    const anonActiveTiers = await anonClient
+      .from("mentoring_tiers")
+      .select("id, active")
+      .eq("id", activeTier.id);
+    assert(
+      Boolean(anonActiveTiers.data && anonActiveTiers.data.length === 1),
+      "Anon can select active mentoring tiers"
+    );
+
+    const anonInactiveTiers = await anonClient
+      .from("mentoring_tiers")
+      .select("id, active")
+      .eq("id", inactiveTier.id);
+    assert(
+      !anonInactiveTiers.data || anonInactiveTiers.data.length === 0,
+      "Anon cannot select inactive mentoring tiers"
+    );
+
+    // Assertion 22: Student A cannot select Student B's booking
+    const bookingBByStudentA = await clientA
+      .from("bookings")
+      .select("*")
+      .eq("id", bookingB.id);
+    assert(
+      !bookingBByStudentA.data || bookingBByStudentA.data.length === 0,
+      "Student A cannot select Student B's booking"
+    );
+
+    // Assertion 23: Builder can select booking for their assigned mentor slot
+    const bookingBByBuilder = await clientBuilder
+      .from("bookings")
+      .select("*")
+      .eq("id", bookingB.id);
+    assert(
+      Boolean(bookingBByBuilder.data && bookingBByBuilder.data.length === 1),
+      "Builder can select bookings for their mentor slots"
+    );
+
+    // Assertion 24: Student cannot insert into mentoring_tiers directly
+    const tierInsertByStudent = await clientA
+      .from("mentoring_tiers")
+      .insert({
+        name: "Hacked Tier",
+        price_inr: 0,
+        session_count: 1,
+        session_minutes: 60,
+      });
+    assert(
+      Boolean(tierInsertByStudent.error),
+      "Student cannot insert into mentoring_tiers"
+    );
+
+    // Assertion 25: Anon cannot select mentor_slots
+    const anonSlots = await anonClient.from("mentor_slots").select("*");
+    assert(
+      !anonSlots.data || anonSlots.data.length === 0,
+      "Anon cannot select mentor_slots directly"
     );
   } finally {
     console.log("\nCleaning up test fixtures and temporary users...");

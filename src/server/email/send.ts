@@ -18,6 +18,10 @@ import {
   newMessageTemplate,
   finalFilesReadyTemplate,
   requestCompletedTemplate,
+  bookingReceivedTemplate,
+  bookingConfirmedTemplate,
+  bookingCancelledTemplate,
+  sessionReminderTemplate,
   type PaymentSubmittedAdminData,
   type PaymentReceivedStudentData,
   type OrderExpiredStudentData,
@@ -31,6 +35,10 @@ import {
   type NewMessageData,
   type FinalFilesReadyData,
   type RequestCompletedData,
+  type BookingReceivedData,
+  type BookingConfirmedData,
+  type BookingCancelledData,
+  type SessionReminderData,
   type EmailRenderResult,
 } from "./templates";
 
@@ -47,7 +55,11 @@ export type EmailTemplateName =
   | "milestone_input_needed"
   | "new_message"
   | "final_files_ready"
-  | "request_completed";
+  | "request_completed"
+  | "booking_received"
+  | "booking_confirmed"
+  | "booking_cancelled"
+  | "session_reminder";
 
 export interface TemplateDataMap {
   payment_submitted_admin: PaymentSubmittedAdminData;
@@ -63,6 +75,10 @@ export interface TemplateDataMap {
   new_message: NewMessageData;
   final_files_ready: FinalFilesReadyData;
   request_completed: RequestCompletedData;
+  booking_received: BookingReceivedData;
+  booking_confirmed: BookingConfirmedData;
+  booking_cancelled: BookingCancelledData;
+  session_reminder: SessionReminderData;
 }
 
 export async function sendEmail<T extends EmailTemplateName>(
@@ -120,6 +136,18 @@ export async function sendEmail<T extends EmailTemplateName>(
         break;
       case "request_completed":
         rendered = requestCompletedTemplate(data as RequestCompletedData);
+        break;
+      case "booking_received":
+        rendered = bookingReceivedTemplate(data as BookingReceivedData);
+        break;
+      case "booking_confirmed":
+        rendered = bookingConfirmedTemplate(data as BookingConfirmedData);
+        break;
+      case "booking_cancelled":
+        rendered = bookingCancelledTemplate(data as BookingCancelledData);
+        break;
+      case "session_reminder":
+        rendered = sessionReminderTemplate(data as SessionReminderData);
         break;
       default:
         logger.warn("Unknown email template requested", { template });

@@ -26,6 +26,7 @@ const generalSettingsSchema = z.object({
     .max(120, "Verification time text must be at most 120 characters")
     .nullable()
     .optional(),
+  mentoring_min_notice_hours: z.coerce.number().int().min(1).max(168).default(12),
 });
 
 const upiSettingsSchema = z.object({
@@ -75,8 +76,13 @@ export async function updateGeneralSettings(
   }
 
   const adminClient = createAdminClient();
-  const { order_expiry_hours, max_downloads_default, proof_retention_days, verification_time_text } =
-    parse.data;
+  const {
+    order_expiry_hours,
+    max_downloads_default,
+    proof_retention_days,
+    verification_time_text,
+    mentoring_min_notice_hours,
+  } = parse.data;
 
   const now = new Date().toISOString();
   const upserts = [
@@ -95,6 +101,12 @@ export async function updateGeneralSettings(
     {
       key: "verification_time_text",
       value: verification_time_text || "",
+      updated_by: authUser.user.id,
+      updated_at: now,
+    },
+    {
+      key: "mentoring_min_notice_hours",
+      value: mentoring_min_notice_hours,
       updated_by: authUser.user.id,
       updated_at: now,
     },
@@ -127,6 +139,7 @@ export async function updateGeneralSettings(
       max_downloads_default,
       proof_retention_days,
       verification_time_text: verification_time_text || "",
+      mentoring_min_notice_hours,
     },
   });
 

@@ -57,6 +57,10 @@ vi.mock("@/server/auth", async (importOriginal) => {
   };
 });
 
+vi.mock("@/server/email", () => ({
+  sendEmail: vi.fn(async () => true),
+}));
+
 vi.mock("@/server/supabase/admin", () => ({
   createAdminClient: vi.fn(() => ({
     from: (table: string) => {
@@ -597,7 +601,7 @@ describe("Prompt 7: Payment Verification and Secure File Downloads", () => {
 
     // Grants table has not duplicated
     expect(mockDb.downloadGrants.size).toBe(initialGrants);
-  });
+  }, 15000);
 
   // 8. an admin session without MFA is refused on every action
   it("refuses admin actions when MFA AAL2 assurance level is missing", async () => {

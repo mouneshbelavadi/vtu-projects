@@ -329,6 +329,8 @@ export interface MentorSlot {
   starts_at: string;
   ends_at: string;
   status: MentorSlotStatus;
+  held_until: string | null;
+  held_by: string | null;
   created_at: string;
 }
 
@@ -341,6 +343,8 @@ export interface Booking {
   status: BookingStatus;
   meet_url: string | null;
   notes: string | null;
+  reminder_sent_at: string | null;
+  cancelled_reason: string | null;
   created_at: string;
 }
 

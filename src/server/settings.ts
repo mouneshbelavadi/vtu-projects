@@ -8,6 +8,7 @@ export interface SystemSettings {
   max_downloads_default: number;
   proof_retention_days: number | null;
   verification_time_text: string | null;
+  mentoring_min_notice_hours: number;
 }
 
 export async function getSystemSettings(): Promise<SystemSettings> {
@@ -37,5 +38,9 @@ export async function getSystemSettings(): Promise<SystemSettings> {
       typeof settingsMap.verification_time_text === "string"
         ? settingsMap.verification_time_text
         : null,
+    mentoring_min_notice_hours:
+      typeof settingsMap.mentoring_min_notice_hours === "number"
+        ? settingsMap.mentoring_min_notice_hours
+        : 12,
   };
 }

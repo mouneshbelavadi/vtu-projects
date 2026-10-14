@@ -13,7 +13,7 @@ export const adminNavItems: AdminNavItem[] = [
   { label: "Settings", href: "/admin/settings", status: "live" },
   { label: "Audit log", href: "/admin/audit", status: "live" },
   { label: "Requests", href: "/admin/requests", status: "live" },
-  { label: "Mentoring", href: "/admin/mentoring", status: "planned" },
+  { label: "Mentoring", href: "/admin/mentoring", status: "live" },
   { label: "Reviews", href: "/admin/reviews", status: "planned" },
   { label: "Tickets", href: "/admin/tickets", status: "planned" },
 ];

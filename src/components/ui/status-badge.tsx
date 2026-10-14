@@ -23,6 +23,7 @@ export type SystemStatus =
   // Mentoring & booking statuses
   | "open"
   | "held"
+  | "booked"
   | "confirmed"
   // Project statuses
   | "draft"
@@ -60,9 +61,10 @@ const statusMap: Record<SystemStatus, StatusConfig> = {
   completed: { label: "Completed", variant: "success" },
   declined: { label: "Declined", variant: "danger" },
 
-  // Bookings
+  // Bookings & slots
   open: { label: "Open", variant: "default" },
   held: { label: "Held", variant: "warn" },
+  booked: { label: "Booked", variant: "accent" },
   confirmed: { label: "Confirmed", variant: "success" },
 };
 
