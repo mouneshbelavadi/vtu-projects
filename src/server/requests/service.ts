@@ -9,6 +9,7 @@ import { logger } from "@/server/log";
 import { dispatchEmail } from "@/server/email/send";
 import { validateCustomReferenceFile } from "@/server/storage/file-signatures";
 import { COURSE_TYPES, type CourseType } from "@/types/database";
+import { publicEnv } from "@/lib/public-env";
 
 const createRequestSchema = z.object({
   title: z
@@ -235,7 +236,7 @@ export async function createRequestAction(
     .single();
 
   const studentName = profile?.display_name || "Student";
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const siteUrl = publicEnv.NEXT_PUBLIC_SITE_URL;
   const requestUrl = `${siteUrl}/account/requests/${requestId}`;
 
   // 9. Dispatch emails: to student and to admin

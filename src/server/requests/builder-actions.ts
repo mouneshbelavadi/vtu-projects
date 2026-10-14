@@ -10,6 +10,7 @@ import { generateOrderCode } from "@/server/orders/code";
 import { transitionCustomRequest } from "@/server/requests/state-machine";
 import { validateBuilderDeliverableFile } from "@/server/storage/file-signatures";
 import { MILESTONE_STATUSES, type MilestoneStatus } from "@/types/database";
+import { publicEnv } from "@/lib/public-env";
 
 export async function updateMilestoneStatusAction(params: {
   requestId: string;
@@ -73,7 +74,7 @@ export async function updateMilestoneStatusAction(params: {
       .single();
 
     if (studentUser?.user?.email) {
-      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+      const siteUrl = publicEnv.NEXT_PUBLIC_SITE_URL;
       const requestUrl = `${siteUrl}/account/requests/${req.id}`;
 
       await dispatchEmail(
@@ -320,7 +321,7 @@ export async function markDeliveryAction(params: {
     .single();
 
   if (studentUser?.user?.email) {
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    const siteUrl = publicEnv.NEXT_PUBLIC_SITE_URL;
     const requestUrl = `${siteUrl}/account/requests/${req.id}`;
 
     await dispatchEmail(

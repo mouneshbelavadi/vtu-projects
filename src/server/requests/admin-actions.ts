@@ -7,6 +7,7 @@ import { logger } from "@/server/log";
 import { dispatchEmail } from "@/server/email/send";
 import { transitionCustomRequest } from "@/server/requests/state-machine";
 import { formatDate } from "@/lib/format";
+import { publicEnv } from "@/lib/public-env";
 
 const sendQuoteSchema = z.object({
   requestId: z.string().uuid("Invalid request ID"),
@@ -197,7 +198,7 @@ export async function sendQuoteAction(input: z.infer<typeof sendQuoteSchema>): P
     .single();
 
   if (studentUser?.user?.email) {
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    const siteUrl = publicEnv.NEXT_PUBLIC_SITE_URL;
     const requestUrl = `${siteUrl}/account/requests/${requestId}`;
 
     await dispatchEmail(
@@ -260,7 +261,7 @@ export async function declineRequestAction(params: {
     .single();
 
   if (studentUser?.user?.email) {
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    const siteUrl = publicEnv.NEXT_PUBLIC_SITE_URL;
     const requestUrl = `${siteUrl}/account/requests/${req.id}`;
 
     await dispatchEmail(

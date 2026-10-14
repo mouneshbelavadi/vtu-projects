@@ -5,10 +5,8 @@ import { rateLimit } from "@/server/security/rate-limit";
 import { AppError } from "@/server/errors";
 import { logger } from "@/server/log";
 
-export function hashIp(ip: string): string {
-  const salt = process.env.IP_HASH_SALT || "vtuadda_default_salt_2026";
-  return crypto.createHash("sha256").update(ip.trim() + salt).digest("hex");
-}
+import { hashIp } from "@/server/security/ip";
+export { hashIp };
 
 export interface CustomRequestDownloadResult {
   signedUrl: string;

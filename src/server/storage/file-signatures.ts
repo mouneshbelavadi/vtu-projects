@@ -112,45 +112,79 @@ export interface FileValidationResult {
   valid: boolean;
   contentType: string;
   error?: string;
+  errorMessage?: string;
 }
 
-export function validateCustomReferenceFile(buffer: Buffer, originalName: string): FileValidationResult {
+function failResult(msg: string): FileValidationResult {
+  return { valid: false, contentType: "", error: msg, errorMessage: msg };
+}
+
+export function validatePaymentProofBuffer(
+  buffer: Buffer,
+  _originalName?: string,
+  _declaredMime?: string
+): FileValidationResult {
+  if (!buffer || buffer.length === 0) {
+    return failResult("File is empty or corrupted");
+  }
   const MAX_SIZE = 3 * 1024 * 1024; // 3 MB
   if (buffer.length > MAX_SIZE) {
-    return { valid: false, contentType: "", error: "File exceeds 3 MB limit" };
+    return failResult("Payment screenshot must be 3 MB or less");
+  }
+  const format = detectImageSignature(buffer);
+  if (!format) {
+    return failResult("Image is corrupted or unsupported format. Allowed formats: PNG, JPEG, or WebP");
+  }
+  return {
+    valid: true,
+    contentType: `image/${format}`,
+  };
+}
+
+export function validateCustomReferenceFile(
+  buffer: Buffer,
+  originalName: string,
+  _declaredMime?: string
+): FileValidationResult {
+  const MAX_SIZE = 3 * 1024 * 1024; // 3 MB
+  if (!buffer || buffer.length === 0) {
+    return failResult("File is empty or corrupt");
+  }
+  if (buffer.length > MAX_SIZE) {
+    return failResult("File exceeds 3 MB limit");
   }
   if (buffer.length < 4) {
-    return { valid: false, contentType: "", error: "File is empty or corrupt" };
+    return failResult("File is empty or corrupt");
   }
 
   const ext = originalName.split(".").pop()?.toLowerCase() || "";
   if (BANNED_EXTENSIONS.has(ext)) {
-    return { valid: false, contentType: "", error: "Executable or unsafe file extension is prohibited" };
+    return failResult("Executable or unsafe file extension is prohibited");
   }
 
   if (isExecutableSignature(buffer)) {
-    return { valid: false, contentType: "", error: "Executable binary signatures are strictly prohibited" };
+    return failResult("Executable binary signatures are strictly prohibited");
   }
 
   if (ext === "png") {
     if (detectImageSignature(buffer) === "png") {
       return { valid: true, contentType: "image/png" };
     }
-    return { valid: false, contentType: "", error: "PNG magic byte signature verification failed" };
+    return failResult("PNG magic byte signature verification failed");
   }
 
   if (ext === "jpeg" || ext === "jpg") {
     if (detectImageSignature(buffer) === "jpeg") {
       return { valid: true, contentType: "image/jpeg" };
     }
-    return { valid: false, contentType: "", error: "JPEG magic byte signature verification failed" };
+    return failResult("JPEG magic byte signature verification failed");
   }
 
   if (ext === "pdf") {
     if (detectProjectFileSignature(buffer) === "pdf") {
       return { valid: true, contentType: "application/pdf" };
     }
-    return { valid: false, contentType: "", error: "PDF magic byte signature verification failed" };
+    return failResult("PDF magic byte signature verification failed");
   }
 
   if (ext === "docx") {
@@ -160,7 +194,7 @@ export function validateCustomReferenceFile(buffer: Buffer, originalName: string
         contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       };
     }
-    return { valid: false, contentType: "", error: "DOCX archive signature verification failed" };
+    return failResult("DOCX archive signature verification failed");
   }
 
   if (ext === "txt") {
@@ -168,14 +202,14 @@ export function validateCustomReferenceFile(buffer: Buffer, originalName: string
       // Disallow HTML disguised as text
       const sample = buffer.subarray(0, Math.min(buffer.length, 512)).toString("utf8").toLowerCase();
       if (sample.includes("<html") || sample.includes("<script") || sample.includes("<!doctype")) {
-        return { valid: false, contentType: "", error: "HTML or script content disguised as text is forbidden" };
+        return failResult("HTML or script content disguised as text is forbidden");
       }
       return { valid: true, contentType: "text/plain" };
     }
-    return { valid: false, contentType: "", error: "Text file contains binary or invalid characters" };
+    return failResult("Text file contains binary or invalid characters");
   }
 
-  return { valid: false, contentType: "", error: "Allowed reference formats: pdf, docx, png, jpeg, txt" };
+  return failResult("Allowed reference formats: pdf, docx, png, jpeg, txt");
 }
 
 export function validateBuilderDeliverableFile(buffer: Buffer, originalName: string): FileValidationResult {

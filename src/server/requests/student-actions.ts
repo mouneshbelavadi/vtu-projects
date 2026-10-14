@@ -8,6 +8,7 @@ import { logger } from "@/server/log";
 import { dispatchEmail } from "@/server/email/send";
 import { generateOrderCode } from "@/server/orders/code";
 import { transitionCustomRequest } from "@/server/requests/state-machine";
+import { publicEnv } from "@/lib/public-env";
 
 export async function acceptQuoteAction(params: {
   requestId: string;
@@ -367,7 +368,7 @@ export async function sendMessageAction(params: {
         .single();
 
       if (recipientUser?.user?.email) {
-        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+        const siteUrl = publicEnv.NEXT_PUBLIC_SITE_URL;
         const threadUrl = isOwner
           ? `${siteUrl}/builder/requests/${req.id}`
           : `${siteUrl}/account/requests/${req.id}`;
