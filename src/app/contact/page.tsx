@@ -5,8 +5,24 @@ import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ContactForm } from "./contact-form";
 
 export const metadata: Metadata = {
-  title: "Contact and Support | VTU Adda Projects",
-  description: "Get in touch with VTU Adda Projects support, view correspondence address, or reach out to our grievance officer.",
+  title: "Contact Support | VTU Adda Projects",
+  description:
+    "Get in touch with support, submit questions with order codes, or contact our grievance officer in Bengaluru.",
+  alternates: {
+    canonical: "https://projects.vtuadda.com/contact",
+  },
+  openGraph: {
+    title: "Contact Support | VTU Adda Projects",
+    description:
+      "Get in touch with support, submit questions with order codes, or contact our grievance officer in Bengaluru.",
+    url: "https://projects.vtuadda.com/contact",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Support | VTU Adda Projects",
+    description:
+      "Get in touch with support, submit questions with order codes, or contact our grievance officer in Bengaluru.",
+  },
 };
 
 export default async function ContactPage() {

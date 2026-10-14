@@ -26,16 +26,32 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+const isIndexingAllowed =
+  process.env.ALLOW_INDEXING === "true" &&
+  process.env.NEXT_PUBLIC_SITE_URL === "https://projects.vtuadda.com";
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://projects.vtuadda.com"),
   title: {
     default: "VTU Adda Projects",
     template: "%s | VTU Adda Projects",
   },
-  description: "Project store for VTU engineering students",
-  robots: {
-    index: false,
-    follow: false,
+  description: "Project kits, custom builds and mentoring for VTU engineering students",
+  robots: isIndexingAllowed
+    ? { index: true, follow: true }
+    : { index: false, follow: false },
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: process.env.NEXT_PUBLIC_SITE_URL || "https://projects.vtuadda.com",
+    siteName: "VTU Adda Projects",
+    title: "VTU Adda Projects",
+    description: "Project kits, custom builds and mentoring for VTU engineering students",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "VTU Adda Projects",
+    description: "Project kits, custom builds and mentoring for VTU engineering students",
   },
 };
 

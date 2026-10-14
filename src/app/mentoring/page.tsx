@@ -7,9 +7,24 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { LinkButton } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Mentoring Sessions | VTU Adda Project Hub",
+  title: "Engineering Project Mentoring | VTU Adda",
   description:
-    "Live one-to-one mentoring sessions for VTU engineering projects: code walkthroughs, viva practice, and report reviews.",
+    "Book 1-on-1 mentoring sessions for VTU engineering projects: code walkthroughs, viva preparation and report reviews.",
+  alternates: {
+    canonical: "https://projects.vtuadda.com/mentoring",
+  },
+  openGraph: {
+    title: "Engineering Project Mentoring | VTU Adda",
+    description:
+      "Book 1-on-1 mentoring sessions for VTU engineering projects: code walkthroughs, viva preparation and report reviews.",
+    url: "https://projects.vtuadda.com/mentoring",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Engineering Project Mentoring | VTU Adda",
+    description:
+      "Book 1-on-1 mentoring sessions for VTU engineering projects: code walkthroughs, viva preparation and report reviews.",
+  },
 };
 
 export default async function MentoringPage() {

@@ -4,8 +4,24 @@ import { Prose } from "@/components/ui/prose";
 import { TermsContent } from "@/content/legal/terms";
 
 export const metadata: Metadata = {
-  title: "Terms and Conditions | VTU Adda Projects",
-  description: "Terms and Conditions governing purchase of project kits, custom builds, technical mentoring, and intellectual property licences.",
+  title: "Terms and Conditions | VTU Adda",
+  description:
+    "Terms of service governing ready kit licences, manual UPI orders, custom projects, and Bengaluru jurisdiction.",
+  alternates: {
+    canonical: "https://projects.vtuadda.com/terms",
+  },
+  openGraph: {
+    title: "Terms and Conditions | VTU Adda",
+    description:
+      "Terms of service governing ready kit licences, manual UPI orders, custom projects, and Bengaluru jurisdiction.",
+    url: "https://projects.vtuadda.com/terms",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms and Conditions | VTU Adda",
+    description:
+      "Terms of service governing ready kit licences, manual UPI orders, custom projects, and Bengaluru jurisdiction.",
+  },
 };
 
 export default function TermsPage() {

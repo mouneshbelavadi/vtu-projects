@@ -71,6 +71,7 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const isProtectedPath =
     pathname.startsWith("/admin") ||
+    pathname.startsWith("/builder") ||
     pathname.startsWith("/account") ||
     pathname.startsWith("/checkout");
 
@@ -96,6 +97,22 @@ export async function middleware(request: NextRequest) {
   );
   response.headers.set("Cross-Origin-Opener-Policy", "same-origin");
   response.headers.delete("X-Powered-By");
+
+  // Indexing control: noindex on non-production hosts or until ALLOW_INDEXING=true
+  const host = request.headers.get("host") || "";
+  const isProdHost = host === "projects.vtuadda.com" || host.startsWith("projects.vtuadda.com:");
+  const isIndexingAllowed = isProdHost && process.env.ALLOW_INDEXING === "true";
+
+  if (!isIndexingAllowed || isProtectedPath) {
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
+
+  // Cache-Control: no-store for protected and user-specific paths
+  if (isProtectedPath) {
+    response.headers.set("Cache-Control", "no-store, max-age=0, must-revalidate");
+    response.headers.set("Pragma", "no-cache");
+    response.headers.set("Expires", "0");
+  }
 
   return response;
 }

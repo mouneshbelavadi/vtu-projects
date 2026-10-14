@@ -3,13 +3,26 @@ import Link from "next/link";
 import { LinkButton } from "@/components/ui/button";
 import { JsonLd } from "@/components/seo/json-ld";
 
+import { siteConfig } from "../../site.config";
+
 export const metadata: Metadata = {
-  title: "VTU Adda Projects | Engineering Kits for VTU Students",
+  title: "VTU Adda Projects | Engineering Kits",
   description:
-    "Mini project and major project kits for VTU engineering students with source code, setup guide, report template, presentation template and viva questions.",
-  robots: {
-    index: false,
-    follow: false,
+    "Mini and major project kits for VTU engineering students with source code, setup guide, report template and viva questions.",
+  alternates: {
+    canonical: siteConfig.siteUrl || "https://projects.vtuadda.com",
+  },
+  openGraph: {
+    title: "VTU Adda Projects | Engineering Kits",
+    description:
+      "Mini and major project kits for VTU engineering students with source code, setup guide, report template and viva questions.",
+    url: siteConfig.siteUrl || "https://projects.vtuadda.com",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "VTU Adda Projects | Engineering Kits",
+    description:
+      "Mini and major project kits for VTU engineering students with source code, setup guide, report template and viva questions.",
   },
 };
 
@@ -47,6 +60,14 @@ const FAQ_ITEMS = [
 ];
 
 export default function HomePage() {
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteConfig.businessName || "VTU Adda Projects",
+    url: siteConfig.siteUrl || "https://projects.vtuadda.com",
+    email: siteConfig.supportEmail || "support@vtuadda.com",
+  };
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -62,7 +83,7 @@ export default function HomePage() {
 
   return (
     <>
-      <JsonLd data={faqSchema} />
+      <JsonLd data={[organizationSchema, faqSchema]} />
 
       <div className="mx-auto max-w-container px-4 py-12 sm:px-6 sm:py-16 space-y-16">
         {/* Hero Section */}

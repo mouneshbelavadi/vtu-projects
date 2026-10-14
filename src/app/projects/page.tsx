@@ -10,12 +10,23 @@ import { ProjectCard } from "@/components/catalogue/project-card";
 import { Pagination } from "@/components/ui/pagination";
 
 export const metadata: Metadata = {
-  title: "Projects | VTU Adda",
+  title: "Engineering Project Kits | VTU Adda",
   description:
-    "Curated VTU mini project and major project kits with source code, setup guide, report template and viva questions.",
-  robots: {
-    index: false,
-    follow: false,
+    "Browse verified engineering project kits for VTU students with source code, report templates and viva questions.",
+  alternates: {
+    canonical: "https://projects.vtuadda.com/projects",
+  },
+  openGraph: {
+    title: "Engineering Project Kits | VTU Adda",
+    description:
+      "Browse verified engineering project kits for VTU students with source code, report templates and viva questions.",
+    url: "https://projects.vtuadda.com/projects",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Engineering Project Kits | VTU Adda",
+    description:
+      "Browse verified engineering project kits for VTU students with source code, report templates and viva questions.",
   },
 };
 

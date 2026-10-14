@@ -3,9 +3,24 @@ import { getUserOrNull } from "@/server/auth";
 import { RequestForm } from "./request-form";
 
 export const metadata = {
-  title: "Request a Custom Project | VTU Adda Project Hub",
+  title: "Custom Project Build Request | VTU Adda",
   description:
-    "Submit a custom engineering project request for VTU courses. We provide a written scope, milestone roadmap, and fixed quote.",
+    "Submit your custom VTU engineering project topic. Receive a written scope, milestone roadmap, and clear quote.",
+  alternates: {
+    canonical: "https://projects.vtuadda.com/request",
+  },
+  openGraph: {
+    title: "Custom Project Build Request | VTU Adda",
+    description:
+      "Submit your custom VTU engineering project topic. Receive a written scope, milestone roadmap, and clear quote.",
+    url: "https://projects.vtuadda.com/request",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Custom Project Build Request | VTU Adda",
+    description:
+      "Submit your custom VTU engineering project topic. Receive a written scope, milestone roadmap, and clear quote.",
+  },
 };
 
 export default async function RequestPage() {
