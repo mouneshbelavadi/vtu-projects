@@ -192,14 +192,14 @@ const DOMAINS = [
     kits: "9+ Kits",
     query: "robotics",
     tag: "Mechanical/EC",
-    description: "Autonomous pathfinding, motor control systems and computer vision bots",
+    description: "Autonomous pathfinding, motor control, and computer vision bots",
   },
   {
     name: "Database Management Systems",
     kits: "10+ Kits",
     query: "database",
     tag: "Core",
-    description: "Relational modeling, transaction management, indexing and ACID guarantees",
+    description: "Relational modeling, transaction indexing, and ACID guarantees",
   },
 ];
 
@@ -238,7 +238,7 @@ export default async function HomePage() {
     "@type": "Organization",
     name: siteConfig.businessName || "VTU Adda Projects",
     url: siteConfig.siteUrl || "https://projects.vtuadda.com",
-    email: siteConfig.supportEmail || "support@vtuadda.com",
+    email: siteConfig.supportEmail || "contact@vtuadda.com",
   };
 
   const faqSchema = {
@@ -301,20 +301,22 @@ export default async function HomePage() {
           <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <Link
               href="/projects?q=plant"
-              className="p-4.5 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer space-y-2 block"
+              className="p-4.5 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer flex flex-col justify-between space-y-2 block"
             >
-              <div className="flex items-center justify-between text-[11px]">
-                <span className="px-2 py-0.5 rounded-full bg-accent-weak text-accent font-semibold">
-                  Computer Vision
-                </span>
-                <span className="text-ink font-semibold">₹3,299</span>
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between text-[11px]">
+                  <span className="px-2 py-0.5 rounded-full bg-accent-weak text-accent font-semibold">
+                    Computer Vision
+                  </span>
+                  <span className="text-ink font-semibold">₹3,299</span>
+                </div>
+                <h3 className="font-display font-bold text-sm text-ink leading-snug hover:text-accent transition-colors">
+                  Plant Pathology Classifier
+                </h3>
+                <p className="text-xs text-ink-2 leading-relaxed">
+                  ResNet leaf lesion detection with PyTorch, Flask REST API, and offline dashboard.
+                </p>
               </div>
-              <h3 className="font-display font-bold text-sm text-ink leading-snug hover:text-accent transition-colors">
-                Plant Pathology Classifier
-              </h3>
-              <p className="text-xs text-ink-2 leading-relaxed line-clamp-2">
-                ResNet-based leaf lesion detection with PyTorch, Flask REST API, and offline inspection dashboard.
-              </p>
               <div className="text-[11px] font-semibold text-accent pt-1 flex items-center justify-between">
                 <span>View kit</span>
                 <span>&rarr;</span>
@@ -323,20 +325,22 @@ export default async function HomePage() {
 
             <Link
               href="/projects?q=energy"
-              className="p-4.5 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer space-y-2 block"
+              className="p-4.5 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer flex flex-col justify-between space-y-2 block"
             >
-              <div className="flex items-center justify-between text-[11px]">
-                <span className="px-2 py-0.5 rounded-full bg-accent-weak text-accent font-semibold">
-                  Smart Power & IoT
-                </span>
-                <span className="text-ink font-semibold">₹3,799</span>
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between text-[11px]">
+                  <span className="px-2 py-0.5 rounded-full bg-accent-weak text-accent font-semibold">
+                    Smart Power & IoT
+                  </span>
+                  <span className="text-ink font-semibold">₹3,799</span>
+                </div>
+                <h3 className="font-display font-bold text-sm text-ink leading-snug hover:text-accent transition-colors">
+                  Microgrid Energy Optimizer
+                </h3>
+                <p className="text-xs text-ink-2 leading-relaxed">
+                  ESP32 telemetry, LoRa peer transmission, and live solar consumption tracking.
+                </p>
               </div>
-              <h3 className="font-display font-bold text-sm text-ink leading-snug hover:text-accent transition-colors">
-                Microgrid Energy Optimizer
-              </h3>
-              <p className="text-xs text-ink-2 leading-relaxed line-clamp-2">
-                ESP32 telemetry, LoRa peer-to-peer transmission, live solar consumption analytics, and load scheduling.
-              </p>
               <div className="text-[11px] font-semibold text-accent pt-1 flex items-center justify-between">
                 <span>View kit</span>
                 <span>&rarr;</span>
@@ -345,20 +349,22 @@ export default async function HomePage() {
 
             <Link
               href="/projects?q=security"
-              className="p-4.5 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer space-y-2 block"
+              className="p-4.5 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer flex flex-col justify-between space-y-2 block"
             >
-              <div className="flex items-center justify-between text-[11px]">
-                <span className="px-2 py-0.5 rounded-full bg-warn-bg text-warn-text font-semibold">
-                  Cybersecurity
-                </span>
-                <span className="text-ink font-semibold">₹3,499</span>
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between text-[11px]">
+                  <span className="px-2 py-0.5 rounded-full bg-warn-bg text-warn-text font-semibold">
+                    Cybersecurity
+                  </span>
+                  <span className="text-ink font-semibold">₹3,499</span>
+                </div>
+                <h3 className="font-display font-bold text-sm text-ink leading-snug hover:text-accent transition-colors">
+                  Zero-Trust Access Gateway
+                </h3>
+                <p className="text-xs text-ink-2 leading-relaxed">
+                  Context-aware role access control, cryptographic session tokens, and audit logs.
+                </p>
               </div>
-              <h3 className="font-display font-bold text-sm text-ink leading-snug hover:text-accent transition-colors">
-                Zero-Trust Access Gateway
-              </h3>
-              <p className="text-xs text-ink-2 leading-relaxed line-clamp-2">
-                Context-aware role access control, cryptographic session tokens, and centralized audit telemetry.
-              </p>
               <div className="text-[11px] font-semibold text-accent pt-1 flex items-center justify-between">
                 <span>View kit</span>
                 <span>&rarr;</span>
@@ -367,20 +373,22 @@ export default async function HomePage() {
 
             <Link
               href="/projects?q=robotics"
-              className="p-4.5 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer space-y-2 block"
+              className="p-4.5 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer flex flex-col justify-between space-y-2 block"
             >
-              <div className="flex items-center justify-between text-[11px]">
-                <span className="px-2 py-0.5 rounded-full bg-accent-weak text-accent font-semibold">
-                  Robotics & Embedded
-                </span>
-                <span className="text-ink font-semibold">₹4,199</span>
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between text-[11px]">
+                  <span className="px-2 py-0.5 rounded-full bg-accent-weak text-accent font-semibold">
+                    Robotics & Embedded
+                  </span>
+                  <span className="text-ink font-semibold">₹4,199</span>
+                </div>
+                <h3 className="font-display font-bold text-sm text-ink leading-snug hover:text-accent transition-colors">
+                  Warehouse AGV Navigation
+                </h3>
+                <p className="text-xs text-ink-2 leading-relaxed">
+                  LiDAR SLAM mapping, obstacle avoidance, ROS2 nodes, and path planning simulator.
+                </p>
               </div>
-              <h3 className="font-display font-bold text-sm text-ink leading-snug hover:text-accent transition-colors">
-                Warehouse AGV Navigation
-              </h3>
-              <p className="text-xs text-ink-2 leading-relaxed line-clamp-2">
-                LiDAR SLAM mapping, ultrasonic obstacle avoidance, ROS2 communication, and path planning simulator.
-              </p>
               <div className="text-[11px] font-semibold text-accent pt-1 flex items-center justify-between">
                 <span>View kit</span>
                 <span>&rarr;</span>
@@ -481,7 +489,7 @@ export default async function HomePage() {
                   <h3 className="font-display font-bold text-sm text-ink group-hover:text-accent transition-colors">
                     {dom.name}
                   </h3>
-                  <p className="text-xs text-ink-2 leading-relaxed line-clamp-2">
+                  <p className="text-xs text-ink-2 leading-relaxed">
                     {dom.description}
                   </p>
                 </div>

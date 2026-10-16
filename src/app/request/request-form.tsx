@@ -237,8 +237,8 @@ export function RequestForm() {
           </h3>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-12">
+          <div className="sm:col-span-4">
             <label htmlFor="deadline" className="block text-sm font-semibold text-ink">
               Target Deadline <span className="text-rose-500 font-bold">*</span>
             </label>
@@ -249,15 +249,15 @@ export function RequestForm() {
               type="date"
               required
               min={minDate}
-              className="mt-2 w-full rounded-xl border border-rule bg-surface px-4 py-3 text-sm text-ink shadow-xs focus:border-indigo-600 focus:outline-none focus:ring-4 focus:ring-indigo-600/10 transition-all sm:text-base cursor-pointer"
+              className="mt-2 w-full rounded-xl border border-rule bg-surface px-3 sm:px-3.5 py-3 text-sm text-ink shadow-xs focus:border-indigo-600 focus:outline-none focus:ring-4 focus:ring-indigo-600/10 transition-all cursor-pointer"
             />
           </div>
 
-          <div>
+          <div className="sm:col-span-3">
             <label htmlFor="budget_inr" className="block text-sm font-semibold text-ink">
-              Budget in Rupees (Optional)
+              Budget (Optional)
             </label>
-            <p className="mt-1 text-xs text-ink-3">Target amount for the complete build.</p>
+            <p className="mt-1 text-xs text-ink-3">Target amount (INR).</p>
             <input
               id="budget_inr"
               name="budget_inr"
@@ -265,11 +265,11 @@ export function RequestForm() {
               min={0}
               step={100}
               placeholder="e.g. 5000"
-              className="mt-2 w-full rounded-xl border border-rule bg-surface px-4 py-3 text-sm text-ink placeholder:text-ink-4 shadow-xs focus:border-indigo-600 focus:outline-none focus:ring-4 focus:ring-indigo-600/10 transition-all sm:text-base"
+              className="mt-2 w-full rounded-xl border border-rule bg-surface px-3 sm:px-3.5 py-3 text-sm text-ink placeholder:text-ink-4 shadow-xs focus:border-indigo-600 focus:outline-none focus:ring-4 focus:ring-indigo-600/10 transition-all"
             />
           </div>
 
-          <div>
+          <div className="sm:col-span-5">
             <label htmlFor="team_size" className="block text-sm font-semibold text-ink">
               Team Size <span className="text-rose-500 font-bold">*</span>
             </label>
@@ -279,7 +279,7 @@ export function RequestForm() {
               name="team_size"
               required
               defaultValue="1"
-              className="mt-2 w-full rounded-xl border border-rule bg-surface px-4 py-3 text-sm text-ink shadow-xs focus:border-indigo-600 focus:outline-none focus:ring-4 focus:ring-indigo-600/10 transition-all sm:text-base cursor-pointer"
+              className="mt-2 w-full rounded-xl border border-rule bg-surface pl-3 sm:pl-3.5 pr-8 py-3 text-sm text-ink shadow-xs focus:border-indigo-600 focus:outline-none focus:ring-4 focus:ring-indigo-600/10 transition-all cursor-pointer"
             >
               <option value="1">1 student (Individual)</option>
               <option value="2">2 students</option>

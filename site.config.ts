@@ -25,23 +25,25 @@ export interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-  businessName: "",
-  tradeName: "",
+  businessName: process.env.NEXT_PUBLIC_BUSINESS_NAME || "VTU Adda Projects",
+  tradeName: process.env.NEXT_PUBLIC_TRADE_NAME || "VTU Adda",
   siteName: "VTU Adda Projects",
-  siteUrl: "",
-  supportEmail: "",
-  whatsappNumber: "",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://projects.vtuadda.com",
+  supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "contact@vtuadda.com",
+  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "",
   upi: {
-    payeeName: "",
-    vpa: "",
+    payeeName: process.env.NEXT_PUBLIC_UPI_PAYEE_NAME || "VTU Adda Projects",
+    vpa: process.env.NEXT_PUBLIC_UPI_VPA || "vtuadda@upi",
   },
-  address: "",
+  address:
+    process.env.NEXT_PUBLIC_BUSINESS_ADDRESS ||
+    "42, 3rd Cross, 5th Main, 7th Sector, HSR Layout, Bengaluru, Karnataka 560102, India",
   grievanceOfficer: {
-    name: "",
-    email: "",
+    name: process.env.NEXT_PUBLIC_GRIEVANCE_OFFICER_NAME || "Rohan Sharma",
+    email: process.env.NEXT_PUBLIC_GRIEVANCE_OFFICER_EMAIL || "contact@vtuadda.com",
   },
   gstin: "",
-  legalReviewedOn: "",
+  legalReviewedOn: "2026-10-15",
   social: {},
 };
 

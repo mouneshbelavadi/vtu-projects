@@ -136,7 +136,7 @@ describe("Prompt 11: Deployment & SEO Tests", () => {
       expect(res.headers.get("content-type")).toContain("text/plain");
 
       const body = await res.text();
-      expect(body).toContain(`Contact: mailto:${siteConfig.supportEmail || "support@vtuadda.com"}`);
+      expect(body).toContain(`Contact: mailto:${siteConfig.supportEmail || "contact@vtuadda.com"}`);
       expect(body).toContain("Preferred-Languages: en");
       expect(body).toContain("Canonical: ");
       expect(body).toContain("Expires: ");

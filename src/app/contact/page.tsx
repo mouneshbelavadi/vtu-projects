@@ -36,14 +36,14 @@ export const metadata: Metadata = {
 export default async function ContactPage() {
   const authUser = await getUserOrNull();
 
-  const supportEmail = siteConfig.supportEmail || "support@vtuadda.com";
+  const supportEmail = siteConfig.supportEmail || "contact@vtuadda.com";
   const whatsappNumber = siteConfig.whatsappNumber || "919876543210";
   const address =
     siteConfig.address ||
     "42, 3rd Cross, 5th Main, 7th Sector, HSR Layout, Bengaluru, Karnataka 560102, India";
   const grievanceOfficer = siteConfig.grievanceOfficer?.name || "Rohan Sharma";
   const grievanceEmail =
-    siteConfig.grievanceOfficer?.email || "grievance@vtuadda.com";
+    siteConfig.grievanceOfficer?.email || "contact@vtuadda.com";
 
   return (
     <div className="relative min-h-[calc(100vh-4rem)] bg-gradient-to-b from-surface-2/40 via-surface to-surface-2/20 py-10 sm:py-16">

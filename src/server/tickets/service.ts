@@ -139,7 +139,7 @@ export async function createSupportTicket(
 
   // 8. Send notification email to admin support
   try {
-    const adminEmail = siteConfig.supportEmail || "support@vtuadda.com";
+    const adminEmail = siteConfig.supportEmail || "contact@vtuadda.com";
     await sendEmail("ticket_admin", adminEmail, {
       ticketId,
       senderName: cleanName || "Guest",

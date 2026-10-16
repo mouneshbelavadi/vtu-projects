@@ -3,7 +3,7 @@ import { siteConfig } from "../../../../site.config";
 export const dynamic = "force-static";
 
 export async function GET() {
-  const contactEmail = siteConfig.supportEmail || "support@vtuadda.com";
+  const contactEmail = siteConfig.supportEmail || "contact@vtuadda.com";
   const siteUrl = siteConfig.siteUrl || "https://projects.vtuadda.com";
   // Expires one year from generation
   const expiresDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString();
