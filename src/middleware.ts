@@ -42,34 +42,9 @@ export async function middleware(request: NextRequest) {
 
   let user = null;
 
-  if (supabaseUrl && supabaseAnonKey) {
-    const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
-          );
-          response = NextResponse.next({
-            request: {
-              headers: requestHeaders,
-            },
-          });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options)
-          );
-        },
-      },
-    });
-
-    const { data } = await supabase.auth.getUser();
-    user = data.user;
-  }
-
+  // Check dev test auth cookie first for instant verification
   const devAuthCookie = request.cookies.get("vtu_dev_auth")?.value;
-  if (!user && (devAuthCookie === "admin" || devAuthCookie === "builder")) {
+  if (devAuthCookie === "admin" || devAuthCookie === "builder") {
     user = {
       id: "00000000-0000-0000-0000-000000000001",
       email: devAuthCookie === "admin" ? "admin@vtuadda.com" : "builder@vtuadda.com",
@@ -78,6 +53,40 @@ export async function middleware(request: NextRequest) {
       aud: "authenticated",
       created_at: new Date().toISOString(),
     } as any;
+  } else if (
+    supabaseUrl &&
+    supabaseAnonKey &&
+    !supabaseUrl.includes("mockdevproject")
+  ) {
+    const hasAuthCookie = request.cookies
+      .getAll()
+      .some((c) => c.name.startsWith("sb-") || c.name.includes("auth-token"));
+
+    if (hasAuthCookie) {
+      const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
+        cookies: {
+          getAll() {
+            return request.cookies.getAll();
+          },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value }) =>
+              request.cookies.set(name, value)
+            );
+            response = NextResponse.next({
+              request: {
+                headers: requestHeaders,
+              },
+            });
+            cookiesToSet.forEach(({ name, value, options }) =>
+              response.cookies.set(name, value, options)
+            );
+          },
+        },
+      });
+
+      const { data } = await supabase.auth.getUser();
+      user = data.user;
+    }
   }
 
   const pathname = request.nextUrl.pathname;

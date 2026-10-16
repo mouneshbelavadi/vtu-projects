@@ -40,6 +40,13 @@ export async function getUserOrNull(): Promise<AuthenticatedUser | null> {
       };
     }
 
+    const hasAuthCookie = cookieStore
+      .getAll()
+      .some((c) => c.name.startsWith("sb-") || c.name.includes("auth-token"));
+    if (!hasAuthCookie) {
+      return null;
+    }
+
     const supabase = await createClient();
     const {
       data: { user },
