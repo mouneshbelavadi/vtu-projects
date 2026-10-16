@@ -49,8 +49,8 @@ export default async function PaymentPage({ params }: PaymentPageProps) {
             { label: "Expired" },
           ]}
         />
-        <div className="rounded-md border border-rule bg-paper p-8 text-center space-y-4">
-          <h1 className="text-xl font-serif font-bold text-ink">
+        <div className="rounded-2xl border border-rule/80 bg-surface shadow-xs p-8 text-center space-y-4">
+          <h1 className="text-xl font-display font-bold text-ink">
             This order has expired.
           </h1>
           <p className="text-sm text-ink-2 max-w-md mx-auto leading-relaxed">
@@ -59,7 +59,7 @@ export default async function PaymentPage({ params }: PaymentPageProps) {
           <div className="pt-2">
             <Link
               href="/projects"
-              className="inline-flex h-9 items-center justify-center rounded-md bg-accent px-4 text-xs font-semibold text-surface transition-colors duration-120 hover:bg-accent-hover"
+              className="inline-flex h-11 items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-600 px-5 text-sm font-semibold text-white shadow-sm hover:shadow-md hover:shadow-indigo-500/25 transition-all"
             >
               Browse kits to start again
             </Link>
@@ -105,34 +105,34 @@ export default async function PaymentPage({ params }: PaymentPageProps) {
         <span className="text-xs font-mono uppercase tracking-wider text-ink-2">
           Order Code: {order.order_code}
         </span>
-        <h1 className="text-2xl font-serif font-bold tracking-tight text-ink sm:text-3xl">
+        <h1 className="text-2xl font-display font-extrabold tracking-tight text-ink sm:text-3xl">
           {kitTitle}
         </h1>
       </div>
 
       {/* Amount and QR Box */}
-      <div className="rounded-md border border-rule bg-surface p-6 sm:p-8 text-center space-y-6">
+      <div className="rounded-3xl border border-rule/80 bg-surface shadow-xs p-6 sm:p-8 text-center space-y-6">
         <div>
           <span className="text-xs font-semibold uppercase tracking-wider text-ink-2 block">
             Exact Amount to Pay
           </span>
-          <div className="mt-2 font-mono text-3xl sm:text-4xl font-bold text-ink">
+          <div className="mt-2 font-mono text-3xl sm:text-4xl font-extrabold text-ink">
             {formatInr(order.total_inr)}
           </div>
         </div>
 
         {/* QR Code */}
         {qrDataUri && (
-          <div className="flex flex-col items-center justify-center p-4 bg-paper rounded-md border border-rule max-w-[280px] mx-auto">
+          <div className="flex flex-col items-center justify-center p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-rule/80 max-w-[280px] mx-auto shadow-2xs">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={qrDataUri}
               alt={`UPI QR code for order ${order.order_code}`}
               width={240}
               height={240}
-              className="rounded"
+              className="rounded-xl"
             />
-            <span className="text-xs text-ink-2 mt-2">
+            <span className="text-xs text-ink-2 mt-2.5 font-medium">
               Scan with any UPI application
             </span>
           </div>
@@ -150,7 +150,7 @@ export default async function PaymentPage({ params }: PaymentPageProps) {
           <div className="block sm:hidden pt-2">
             <a
               href={instructions.notes}
-              className="inline-flex w-full h-10 items-center justify-center rounded-md bg-accent px-4 text-sm font-semibold text-surface transition-colors duration-120 hover:bg-accent-hover"
+              className="inline-flex w-full h-11 items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-600 px-4 text-sm font-semibold text-white shadow-sm hover:shadow-md hover:shadow-indigo-500/25 active:scale-[0.98] transition-all"
             >
               Open in your UPI app
             </a>

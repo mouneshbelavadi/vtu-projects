@@ -62,7 +62,7 @@ export default async function AccountOrdersPage({
 
       <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-4 border-b border-rule pb-6">
         <div>
-          <h1 className="text-2xl font-serif font-bold tracking-tight text-ink sm:text-3xl">
+          <h1 className="text-2xl font-display font-bold tracking-tight text-ink sm:text-3xl">
             My Orders
           </h1>
           <p className="text-sm text-ink-2 mt-1">
@@ -71,20 +71,20 @@ export default async function AccountOrdersPage({
         </div>
         <Link
           href="/projects"
-          className="inline-flex h-9 items-center justify-center rounded-md border border-rule px-4 text-xs font-semibold text-ink transition-colors duration-120 hover:bg-paper"
+          className="inline-flex h-9 items-center justify-center rounded-xl border border-rule px-4 text-xs font-semibold text-ink transition-colors duration-150 hover:bg-paper hover:border-accent/40"
         >
           Browse Catalogue
         </Link>
       </div>
 
       {queryStatus === "already_paid" && (
-        <div className="rounded-md border border-rule bg-paper p-4 text-sm text-ink">
+        <div className="rounded-2xl border border-rule/80 bg-paper/80 p-4 text-sm text-ink shadow-xs">
           You have already completed payment for this kit. See your active order below.
         </div>
       )}
 
       {orderList.length === 0 ? (
-        <div className="rounded-md border border-rule bg-surface p-12 text-center space-y-4">
+        <div className="rounded-3xl border border-rule/80 bg-surface/80 p-12 text-center space-y-4 shadow-xs">
           <p className="text-base text-ink font-medium">
             You have not placed any orders yet.
           </p>
@@ -94,7 +94,7 @@ export default async function AccountOrdersPage({
           <div className="pt-2">
             <Link
               href="/projects"
-              className="inline-flex h-9 items-center justify-center rounded-md bg-accent px-4 text-xs font-semibold text-surface transition-colors duration-120 hover:bg-accent-hover"
+              className="inline-flex h-9 items-center justify-center rounded-xl bg-accent px-4 text-xs font-semibold text-surface transition-colors duration-150 hover:bg-accent-hover shadow-xs"
             >
               Explore project kits
             </Link>
@@ -117,14 +117,14 @@ export default async function AccountOrdersPage({
             return (
               <div
                 key={order.id}
-                className="rounded-md border border-rule bg-surface p-6 space-y-4 transition-colors duration-120 hover:border-ink-2"
+                className="rounded-2xl border border-rule/80 bg-surface/80 p-6 space-y-4 transition-colors duration-150 hover:border-rule-strong shadow-xs"
               >
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 border-b border-rule pb-4">
                   <div className="space-y-1">
                     <span className="font-mono text-xs text-ink-2 uppercase tracking-wider">
                       {order.order_code}
                     </span>
-                    <h2 className="text-lg font-serif font-bold text-ink">
+                    <h2 className="text-lg font-display font-bold text-ink">
                       {kitTitle}
                     </h2>
                     <span className="text-xs text-ink-2 block">
@@ -155,7 +155,7 @@ export default async function AccountOrdersPage({
                 </div>
 
                 {order.status === "rejected" && rejectReason && (
-                  <div className="p-3 bg-danger-bg border border-danger rounded text-xs text-danger">
+                  <div className="p-3 bg-danger-bg border border-danger rounded-xl text-xs text-danger">
                     Reason: {rejectReason}
                   </div>
                 )}
@@ -182,7 +182,7 @@ export default async function AccountOrdersPage({
                     {order.status === "awaiting_payment" && (
                       <Link
                         href={`/checkout/${order.id}`}
-                        className="inline-flex h-8 items-center justify-center rounded-md bg-accent px-3 text-xs font-semibold text-surface transition-colors duration-120 hover:bg-accent-hover"
+                        className="inline-flex h-8 items-center justify-center rounded-xl bg-accent px-3 text-xs font-semibold text-surface transition-colors duration-150 hover:bg-accent-hover"
                       >
                         Pay now
                       </Link>
@@ -191,7 +191,7 @@ export default async function AccountOrdersPage({
                     {order.status === "rejected" && (
                       <Link
                         href={`/checkout/${order.id}`}
-                        className="inline-flex h-8 items-center justify-center rounded-md bg-accent px-3 text-xs font-semibold text-surface transition-colors duration-120 hover:bg-accent-hover"
+                        className="inline-flex h-8 items-center justify-center rounded-xl bg-accent px-3 text-xs font-semibold text-surface transition-colors duration-150 hover:bg-accent-hover"
                       >
                         Submit again
                       </Link>
@@ -200,7 +200,7 @@ export default async function AccountOrdersPage({
                     {order.status === "paid" && (
                       <Link
                         href={`/account/orders/${order.id}`}
-                        className="inline-flex h-8 items-center justify-center rounded-md border border-rule px-3 text-xs font-semibold text-ink transition-colors duration-120 hover:bg-paper"
+                        className="inline-flex h-8 items-center justify-center rounded-xl border border-rule px-3 text-xs font-semibold text-ink transition-colors duration-150 hover:bg-paper hover:border-accent/40"
                       >
                         Downloads
                       </Link>

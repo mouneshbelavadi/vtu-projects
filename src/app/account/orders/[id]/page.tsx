@@ -160,15 +160,15 @@ export default async function OrderDetailPage({
 
       {/* Rejection notice if present */}
       {order.status === "rejected" && latestPayment?.reject_reason && (
-        <div className="rounded-md border border-danger bg-danger-bg p-4 space-y-2 text-sm text-danger">
+        <div className="rounded-xl border border-danger bg-danger-bg p-4 space-y-2 text-sm text-danger">
           <strong className="block font-semibold">Payment verification rejected:</strong>
           <p>{latestPayment.reject_reason}</p>
         </div>
       )}
 
       {/* Dated Status Timeline */}
-      <div className="rounded-md border border-rule bg-surface p-6 space-y-6">
-        <h2 className="text-base font-serif font-bold text-ink">
+      <div className="rounded-2xl border border-rule/80 bg-surface/80 p-6 space-y-6 shadow-xs">
+        <h2 className="text-base font-display font-bold text-ink">
           Order Timeline
         </h2>
 
@@ -245,7 +245,7 @@ export default async function OrderDetailPage({
       <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-rule">
         <Link
           href={`/account/orders/${order.id}/slip`}
-          className="inline-flex h-9 items-center justify-center rounded-md border border-rule px-4 text-xs font-semibold text-ink transition-colors duration-120 hover:bg-paper"
+          className="inline-flex h-9 items-center justify-center rounded-xl border border-rule px-4 text-xs font-semibold text-ink transition-colors duration-150 hover:bg-paper hover:border-accent/40"
         >
           View printable order slip
         </Link>
@@ -254,7 +254,7 @@ export default async function OrderDetailPage({
           {order.status === "awaiting_payment" && (
             <Link
               href={`/checkout/${order.id}`}
-              className="inline-flex h-9 items-center justify-center rounded-md bg-accent px-4 text-xs font-semibold text-surface transition-colors duration-120 hover:bg-accent-hover"
+              className="inline-flex h-9 items-center justify-center rounded-xl bg-accent px-4 text-xs font-semibold text-surface transition-colors duration-150 hover:bg-accent-hover shadow-xs"
             >
               Pay now
             </Link>
@@ -263,7 +263,7 @@ export default async function OrderDetailPage({
           {order.status === "rejected" && (
             <Link
               href={`/checkout/${order.id}`}
-              className="inline-flex h-9 items-center justify-center rounded-md bg-accent px-4 text-xs font-semibold text-surface transition-colors duration-120 hover:bg-accent-hover"
+              className="inline-flex h-9 items-center justify-center rounded-xl bg-accent px-4 text-xs font-semibold text-surface transition-colors duration-150 hover:bg-accent-hover shadow-xs"
             >
               Submit again
             </Link>
@@ -274,7 +274,7 @@ export default async function OrderDetailPage({
               <form method="POST" action={`/api/orders/${order.id}/licence`}>
                 <button
                   type="submit"
-                  className="inline-flex h-9 items-center justify-center rounded-md border border-rule px-4 text-xs font-semibold text-ink transition-colors duration-120 hover:bg-paper"
+                  className="inline-flex h-9 items-center justify-center rounded-xl border border-rule px-4 text-xs font-semibold text-ink transition-colors duration-150 hover:bg-paper hover:border-accent/40"
                 >
                   Download licence slip
                 </button>
@@ -288,7 +288,7 @@ export default async function OrderDetailPage({
       {order.status === "paid" && (
         <div className="space-y-6 pt-4 border-t border-rule">
           <div>
-            <h2 className="text-lg font-serif font-bold text-ink">
+            <h2 className="text-lg font-display font-bold text-ink">
               Project Deliverables
             </h2>
             <p className="text-xs text-ink-2 mt-1">
@@ -297,7 +297,7 @@ export default async function OrderDetailPage({
           </div>
 
           {grantsWithFiles.length === 0 ? (
-            <div className="rounded-md border border-rule bg-surface p-6 text-sm text-ink-2">
+            <div className="rounded-2xl border border-rule/80 bg-surface/80 p-6 text-sm text-ink-2 shadow-xs">
               Your deliverables are being prepared. If your files do not appear shortly, please contact support.
             </div>
           ) : (
@@ -311,7 +311,7 @@ export default async function OrderDetailPage({
               return (
                 <div
                   key={grant.id}
-                  className="rounded-md border border-rule bg-surface p-6 space-y-4"
+                  className="rounded-2xl border border-rule/80 bg-surface/80 p-6 space-y-4 shadow-xs"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-rule pb-4">
                     <div>
@@ -329,7 +329,7 @@ export default async function OrderDetailPage({
                       ) : isExpired ? (
                         <Badge variant="warn">Access Expired</Badge>
                       ) : (
-                        <span className="font-mono text-xs font-semibold text-ink-2 bg-paper px-2.5 py-1 rounded-sm border border-rule">
+                        <span className="font-mono text-xs font-semibold text-ink-2 bg-paper px-2.5 py-1 rounded-lg border border-rule">
                           Downloads left: {downloadsLeft} of {grant.max_downloads}
                         </span>
                       )}
@@ -352,7 +352,7 @@ export default async function OrderDetailPage({
                               <span className="font-mono text-xs font-medium text-ink truncate">
                                 {file.original_name}
                               </span>
-                              <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded-sm bg-paper text-ink-3 border border-rule">
+                              <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded-md bg-paper text-ink-3 border border-rule">
                                 {file.kind}
                               </span>
                             </div>
@@ -369,9 +369,9 @@ export default async function OrderDetailPage({
                               <button
                                 type="submit"
                                 disabled={!canDownload}
-                                className={`inline-flex h-8 items-center justify-center rounded-md px-3 text-xs font-semibold transition-colors duration-120 ${
+                                className={`inline-flex h-8 items-center justify-center rounded-xl px-3 text-xs font-semibold transition-colors duration-150 ${
                                   canDownload
-                                    ? "bg-accent text-surface hover:bg-accent-hover cursor-pointer"
+                                    ? "bg-accent text-surface hover:bg-accent-hover cursor-pointer shadow-xs"
                                     : "bg-paper text-ink-3 border border-rule cursor-not-allowed"
                                 }`}
                               >
@@ -401,7 +401,7 @@ export default async function OrderDetailPage({
 
                     if (existingReview) {
                       return (
-                        <div className="pt-3 border-t border-rule mt-4 space-y-1 bg-paper p-3 rounded-md">
+                        <div className="pt-3 border-t border-rule mt-4 space-y-1 bg-paper/80 p-3.5 rounded-xl border border-rule">
                           <div className="flex items-center justify-between">
                             <span className="text-xs font-semibold text-ink">Your Review</span>
                             <Badge variant={existingReview.status === "approved" ? "success" : "warn"}>

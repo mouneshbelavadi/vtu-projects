@@ -167,7 +167,7 @@ export function ProjectCardSkeleton() {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-between p-5 pt-3.5 border-t border-rule/70 bg-slate-50/50">
+      <div className="flex items-center justify-between p-5 pt-3.5 border-t border-rule/70 bg-slate-50/50 dark:bg-slate-900/40">
         <div className="h-5 w-16 rounded-md bg-slate-200 dark:bg-slate-800" />
         <div className="h-8 w-20 rounded-xl bg-slate-200 dark:bg-slate-800" />
       </div>

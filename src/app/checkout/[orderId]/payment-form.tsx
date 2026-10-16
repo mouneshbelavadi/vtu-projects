@@ -43,8 +43,8 @@ export function PaymentForm({
   return (
     <div className="space-y-8">
       {/* Numbered Plain Instructions */}
-      <div className="rounded-md border border-rule bg-paper p-6 space-y-4">
-        <h2 className="text-base font-serif font-bold text-ink">
+      <div className="rounded-2xl border border-rule/80 bg-paper/80 p-6 space-y-4 shadow-xs">
+        <h2 className="text-base font-display font-bold text-ink">
           Payment Instructions
         </h2>
         <ol className="list-decimal list-inside space-y-2 text-sm text-ink-2 leading-relaxed">
@@ -70,7 +70,7 @@ export function PaymentForm({
       </div>
 
       {/* UPI ID Copy Action */}
-      <div className="rounded-md border border-rule bg-surface p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div className="rounded-2xl border border-rule/80 bg-surface/80 p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shadow-xs">
         <div>
           <span className="text-xs uppercase tracking-wider text-ink-2 font-medium block">
             UPI ID (VPA)
@@ -82,7 +82,7 @@ export function PaymentForm({
         <button
           type="button"
           onClick={handleCopyVpa}
-          className="inline-flex h-9 items-center justify-center rounded-md border border-rule px-4 text-xs font-semibold text-ink transition-colors duration-120 hover:bg-paper focus-visible:outline-2 focus-visible:outline-accent shrink-0"
+          className="inline-flex h-9 items-center justify-center rounded-xl border border-rule px-4 text-xs font-semibold text-ink transition-colors duration-150 hover:bg-paper hover:border-accent/40 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent/40 shrink-0"
         >
           {copied ? "Copied" : "Copy UPI ID"}
         </button>
@@ -144,7 +144,7 @@ export function PaymentForm({
             name="screenshot"
             type="file"
             accept="image/png, image/jpeg, image/webp"
-            className="block w-full text-xs text-ink-2 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border file:border-rule file:text-xs file:font-semibold file:bg-paper file:text-ink hover:file:bg-surface"
+            className="block w-full text-xs text-ink-2 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border file:border-rule file:text-xs file:font-semibold file:bg-surface file:text-ink hover:file:bg-paper hover:file:border-accent/40 file:transition-colors"
           />
         </FormField>
 

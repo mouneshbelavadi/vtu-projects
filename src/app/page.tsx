@@ -262,14 +262,14 @@ export default async function HomePage() {
         {/* Hero Section */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-rule bg-surface text-xs font-medium text-ink-2">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-rule/80 bg-surface/90 shadow-2xs text-xs font-medium text-ink-2">
               <span className="font-semibold text-accent">VTU 2022 & 2018 Schemes</span>
               <span className="text-rule-strong">•</span>
               <span>CSE, ISE, ECE, ME & Civil</span>
             </div>
 
             <div className="space-y-3">
-              <h1 className="font-serif text-3xl font-bold tracking-tight text-ink sm:text-4xl md:text-5xl leading-tight">
+              <h1 className="font-display text-3xl font-extrabold tracking-tight text-ink sm:text-4xl md:text-5xl leading-tight">
                 Build. Submit. Graduate.
               </h1>
               <p className="text-base text-ink-2 leading-relaxed sm:text-lg">
@@ -301,15 +301,15 @@ export default async function HomePage() {
           <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <Link
               href="/projects?q=attendance"
-              className="p-4 rounded-md border border-rule bg-surface hover:border-ink hover:bg-paper transition-all cursor-pointer space-y-2 block"
+              className="p-4.5 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer space-y-2 block"
             >
               <div className="flex items-center justify-between text-[11px]">
-                <span className="px-1.5 py-0.5 rounded-xs bg-accent-weak text-accent font-semibold">
+                <span className="px-2 py-0.5 rounded-full bg-accent-weak text-accent font-semibold">
                   Computer Vision
                 </span>
                 <span className="text-ink font-semibold">₹3,499</span>
               </div>
-              <h3 className="font-serif font-bold text-sm text-ink leading-snug hover:text-accent">
+              <h3 className="font-display font-bold text-sm text-ink leading-snug hover:text-accent transition-colors">
                 AI Attendance System
               </h3>
               <p className="text-xs text-ink-2 leading-relaxed line-clamp-2">
@@ -323,15 +323,15 @@ export default async function HomePage() {
 
             <Link
               href="/projects?q=voting"
-              className="p-4 rounded-md border border-rule bg-surface hover:border-ink hover:bg-paper transition-all cursor-pointer space-y-2 block"
+              className="p-4.5 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer space-y-2 block"
             >
               <div className="flex items-center justify-between text-[11px]">
-                <span className="px-1.5 py-0.5 rounded-xs bg-accent-weak text-accent font-semibold">
+                <span className="px-2 py-0.5 rounded-full bg-accent-weak text-accent font-semibold">
                   Web3 & Security
                 </span>
                 <span className="text-ink font-semibold">₹3,999</span>
               </div>
-              <h3 className="font-serif font-bold text-sm text-ink leading-snug hover:text-accent">
+              <h3 className="font-display font-bold text-sm text-ink leading-snug hover:text-accent transition-colors">
                 Blockchain Voting System
               </h3>
               <p className="text-xs text-ink-2 leading-relaxed line-clamp-2">
@@ -345,15 +345,15 @@ export default async function HomePage() {
 
             <Link
               href="/projects?q=iot"
-              className="p-4 rounded-md border border-rule bg-surface hover:border-ink hover:bg-paper transition-all cursor-pointer space-y-2 block"
+              className="p-4.5 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer space-y-2 block"
             >
               <div className="flex items-center justify-between text-[11px]">
-                <span className="px-1.5 py-0.5 rounded-xs bg-warn-bg text-warn-text font-semibold">
+                <span className="px-2 py-0.5 rounded-full bg-warn-bg text-warn-text font-semibold">
                   IoT & Embedded
                 </span>
                 <span className="text-ink font-semibold">₹4,299</span>
               </div>
-              <h3 className="font-serif font-bold text-sm text-ink leading-snug hover:text-accent">
+              <h3 className="font-display font-bold text-sm text-ink leading-snug hover:text-accent transition-colors">
                 Smart Campus IoT Monitor
               </h3>
               <p className="text-xs text-ink-2 leading-relaxed line-clamp-2">
@@ -367,15 +367,15 @@ export default async function HomePage() {
 
             <Link
               href="/projects?q=cloud"
-              className="p-4 rounded-md border border-rule bg-surface hover:border-ink hover:bg-paper transition-all cursor-pointer space-y-2 block"
+              className="p-4.5 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer space-y-2 block"
             >
               <div className="flex items-center justify-between text-[11px]">
-                <span className="px-1.5 py-0.5 rounded-xs bg-accent-weak text-accent font-semibold">
+                <span className="px-2 py-0.5 rounded-full bg-accent-weak text-accent font-semibold">
                   Cloud Systems
                 </span>
                 <span className="text-ink font-semibold">₹2,999</span>
               </div>
-              <h3 className="font-serif font-bold text-sm text-ink leading-snug hover:text-accent">
+              <h3 className="font-display font-bold text-sm text-ink leading-snug hover:text-accent transition-colors">
                 Cloud File Vault
               </h3>
               <p className="text-xs text-ink-2 leading-relaxed line-clamp-2">
@@ -391,23 +391,23 @@ export default async function HomePage() {
 
         {/* Live Metrics Counter Bar */}
         <section className="grid grid-cols-2 lg:grid-cols-4 gap-4 border-y border-rule py-6">
-          <div className="p-4 rounded-md border border-rule bg-surface text-center space-y-1">
-            <div className="text-2xl sm:text-3xl font-serif font-bold text-ink">140+</div>
+          <div className="p-5 rounded-2xl border border-rule/80 bg-surface text-center space-y-1.5 shadow-xs">
+            <div className="text-2xl sm:text-3xl font-display font-extrabold text-ink">140+</div>
             <div className="text-xs font-semibold text-ink-2">Live Project Kits</div>
             <div className="text-[11px] text-ink-3">Verified codebases and templates</div>
           </div>
-          <div className="p-4 rounded-md border border-rule bg-surface text-center space-y-1">
-            <div className="text-2xl sm:text-3xl font-serif font-bold text-ink">2,500+</div>
+          <div className="p-5 rounded-2xl border border-rule/80 bg-surface text-center space-y-1.5 shadow-xs">
+            <div className="text-2xl sm:text-3xl font-display font-extrabold text-ink">2,500+</div>
             <div className="text-xs font-semibold text-ink-2">Engineering Students</div>
             <div className="text-[11px] text-ink-3">Across 28+ VTU institutions</div>
           </div>
-          <div className="p-4 rounded-md border border-rule bg-surface text-center space-y-1">
-            <div className="text-2xl sm:text-3xl font-serif font-bold text-accent">Manual UPI</div>
+          <div className="p-5 rounded-2xl border border-rule/80 bg-surface text-center space-y-1.5 shadow-xs">
+            <div className="text-2xl sm:text-3xl font-display font-extrabold text-accent">Manual UPI</div>
             <div className="text-xs font-semibold text-ink-2">Direct Bank Verification</div>
             <div className="text-[11px] text-ink-3">No gateway convenience fees</div>
           </div>
-          <div className="p-4 rounded-md border border-rule bg-surface text-center space-y-1">
-            <div className="text-2xl sm:text-3xl font-serif font-bold text-ink">4.8 / 5</div>
+          <div className="p-5 rounded-2xl border border-rule/80 bg-surface text-center space-y-1.5 shadow-xs">
+            <div className="text-2xl sm:text-3xl font-display font-extrabold text-ink">4.8 / 5</div>
             <div className="text-xs font-semibold text-ink-2">Student Satisfaction</div>
             <div className="text-[11px] text-ink-3">Verified post-viva feedback</div>
           </div>
@@ -418,7 +418,7 @@ export default async function HomePage() {
           <section className="space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
               <div>
-                <h2 className="text-2xl font-serif font-bold text-ink">
+                <h2 className="text-2xl font-display font-bold text-ink">
                   Featured Project Packages
                 </h2>
                 <p className="text-sm text-ink-2 mt-1">
@@ -449,7 +449,7 @@ export default async function HomePage() {
         <section className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
             <div>
-              <h2 className="text-2xl font-serif font-bold text-ink">
+              <h2 className="text-2xl font-display font-bold text-ink">
                 Browse by Technical Domain
               </h2>
               <p className="text-sm text-ink-2 mt-1">
@@ -469,16 +469,16 @@ export default async function HomePage() {
               <Link
                 key={dom.name}
                 href={`/projects?q=${encodeURIComponent(dom.query)}`}
-                className="group p-4 rounded-md border border-rule bg-surface hover:border-ink hover:bg-paper transition-all cursor-pointer flex flex-col justify-between space-y-2 block"
+                className="group p-4.5 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer flex flex-col justify-between space-y-2 block"
               >
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between text-[11px]">
-                    <span className="px-1.5 py-0.2 rounded-xs bg-accent-weak text-accent font-semibold">
+                    <span className="px-2 py-0.5 rounded-full bg-accent-weak text-accent font-semibold">
                       {dom.tag}
                     </span>
                     <span className="text-ink-3 font-medium">{dom.kits}</span>
                   </div>
-                  <h3 className="font-serif font-bold text-sm text-ink group-hover:text-accent transition-colors">
+                  <h3 className="font-display font-bold text-sm text-ink group-hover:text-accent transition-colors">
                     {dom.name}
                   </h3>
                   <p className="text-xs text-ink-2 leading-relaxed line-clamp-2">
@@ -500,7 +500,7 @@ export default async function HomePage() {
             <span className="text-xs uppercase tracking-wider font-semibold text-accent">
               Custom Topics & Mentoring
             </span>
-            <h2 className="text-2xl font-serif font-bold text-ink leading-snug">
+            <h2 className="text-2xl font-display font-bold text-ink leading-snug">
               Can&apos;t find your exact project topic in the catalogue?
             </h2>
             <p className="text-sm text-ink-2 leading-relaxed">
@@ -539,7 +539,7 @@ export default async function HomePage() {
         <section className="space-y-6 border-t border-rule pt-12">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
             <div>
-              <h2 className="text-2xl font-serif font-bold text-ink">
+              <h2 className="text-2xl font-display font-bold text-ink">
                 Three ways to get help
               </h2>
               <p className="text-sm text-ink-2 mt-1">
@@ -557,7 +557,7 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Link
               href="/projects"
-              className="group flex flex-col justify-between p-6 rounded-md border border-rule bg-surface hover:border-ink hover:bg-paper transition-all cursor-pointer"
+              className="group flex flex-col justify-between p-6 sm:p-7 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer"
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
@@ -568,7 +568,7 @@ export default async function HomePage() {
                     &rarr;
                   </span>
                 </div>
-                <h3 className="font-serif font-bold text-ink text-lg group-hover:text-accent transition-colors">
+                <h3 className="font-display font-bold text-ink text-lg group-hover:text-accent transition-colors">
                   Project kits
                 </h3>
                 <p className="text-sm text-ink-2 leading-relaxed">
@@ -583,7 +583,7 @@ export default async function HomePage() {
 
             <Link
               href="/request"
-              className="group flex flex-col justify-between p-6 rounded-md border border-rule bg-surface hover:border-ink hover:bg-paper transition-all cursor-pointer"
+              className="group flex flex-col justify-between p-6 sm:p-7 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer"
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
@@ -594,7 +594,7 @@ export default async function HomePage() {
                     &rarr;
                   </span>
                 </div>
-                <h3 className="font-serif font-bold text-ink text-lg group-hover:text-accent transition-colors">
+                <h3 className="font-display font-bold text-ink text-lg group-hover:text-accent transition-colors">
                   Custom project
                 </h3>
                 <p className="text-sm text-ink-2 leading-relaxed">
@@ -609,7 +609,7 @@ export default async function HomePage() {
 
             <Link
               href="/mentoring"
-              className="group flex flex-col justify-between p-6 rounded-md border border-rule bg-surface hover:border-ink hover:bg-paper transition-all cursor-pointer"
+              className="group flex flex-col justify-between p-6 sm:p-7 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer"
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
@@ -620,7 +620,7 @@ export default async function HomePage() {
                     &rarr;
                   </span>
                 </div>
-                <h3 className="font-serif font-bold text-ink text-lg group-hover:text-accent transition-colors">
+                <h3 className="font-display font-bold text-ink text-lg group-hover:text-accent transition-colors">
                   Mentoring
                 </h3>
                 <p className="text-sm text-ink-2 leading-relaxed">
@@ -639,7 +639,7 @@ export default async function HomePage() {
         <section className="space-y-6 border-t border-rule pt-12">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
             <div>
-              <h2 className="text-2xl font-serif font-bold text-ink">
+              <h2 className="text-2xl font-display font-bold text-ink">
                 Complete deliverables in every kit
               </h2>
               <p className="text-sm text-ink-2 mt-1">
@@ -657,7 +657,7 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <Link
               href="/projects"
-              className="group p-5 rounded-md border border-rule bg-surface hover:border-ink hover:bg-paper transition-all space-y-2 block"
+              className="group p-6 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all space-y-2 block"
             >
               <div className="text-xs uppercase tracking-wider font-semibold text-accent">Deliverable 1</div>
               <div className="font-semibold text-ink text-base group-hover:text-accent transition-colors">
@@ -673,7 +673,7 @@ export default async function HomePage() {
 
             <Link
               href="/projects"
-              className="group p-5 rounded-md border border-rule bg-surface hover:border-ink hover:bg-paper transition-all space-y-2 block"
+              className="group p-6 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all space-y-2 block"
             >
               <div className="text-xs uppercase tracking-wider font-semibold text-accent">Deliverable 2</div>
               <div className="font-semibold text-ink text-base group-hover:text-accent transition-colors">
@@ -689,7 +689,7 @@ export default async function HomePage() {
 
             <Link
               href="/projects"
-              className="group p-5 rounded-md border border-rule bg-surface hover:border-ink hover:bg-paper transition-all space-y-2 block"
+              className="group p-6 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all space-y-2 block"
             >
               <div className="text-xs uppercase tracking-wider font-semibold text-accent">Deliverable 3</div>
               <div className="font-semibold text-ink text-base group-hover:text-accent transition-colors">
@@ -705,7 +705,7 @@ export default async function HomePage() {
 
             <Link
               href="/projects"
-              className="group p-5 rounded-md border border-rule bg-surface hover:border-ink hover:bg-paper transition-all space-y-2 block"
+              className="group p-6 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all space-y-2 block"
             >
               <div className="text-xs uppercase tracking-wider font-semibold text-accent">Deliverable 4</div>
               <div className="font-semibold text-ink text-base group-hover:text-accent transition-colors">
@@ -721,7 +721,7 @@ export default async function HomePage() {
 
             <Link
               href="/projects"
-              className="group p-5 rounded-md border border-rule bg-surface hover:border-ink hover:bg-paper transition-all space-y-2 block"
+              className="group p-6 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all space-y-2 block"
             >
               <div className="text-xs uppercase tracking-wider font-semibold text-accent">Deliverable 5</div>
               <div className="font-semibold text-ink text-base group-hover:text-accent transition-colors">
@@ -737,7 +737,7 @@ export default async function HomePage() {
 
             <Link
               href="/how-it-works"
-              className="group p-5 rounded-md border border-dashed border-rule-strong bg-surface hover:border-ink hover:bg-paper transition-all space-y-2 flex flex-col justify-between"
+              className="group p-6 rounded-2xl border border-dashed border-rule-strong bg-surface shadow-xs hover:border-brand-400 dark:hover:border-brand-600 hover:shadow-md hover:-translate-y-0.5 transition-all space-y-2 flex flex-col justify-between"
             >
               <div className="space-y-2">
                 <div className="text-xs uppercase tracking-wider font-semibold text-accent">Walkthrough</div>
@@ -758,7 +758,7 @@ export default async function HomePage() {
         {/* Engineering Streams & Semesters Quick Filter Pills */}
         <section className="space-y-6 border-t border-rule pt-12">
           <div>
-            <h2 className="text-2xl font-serif font-bold text-ink">
+            <h2 className="text-2xl font-display font-bold text-ink">
               Find projects for your branch and semester
             </h2>
             <p className="text-sm text-ink-2 mt-1">
@@ -766,94 +766,94 @@ export default async function HomePage() {
             </p>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             <span className="text-xs uppercase font-semibold text-ink-3 tracking-wider">
               Engineering Branches
             </span>
             <div className="flex flex-wrap gap-2.5">
               <Link
                 href="/projects?branch=computer_science"
-                className="px-3.5 py-1.5 rounded-md border border-rule bg-surface text-sm font-medium text-ink hover:border-ink hover:bg-paper hover:text-accent transition-all"
+                className="px-4 py-2 rounded-full border border-rule/80 bg-surface shadow-2xs text-xs font-semibold text-ink hover:border-brand-400 dark:hover:border-brand-600 hover:text-accent hover:bg-brand-50/50 dark:hover:bg-brand-950/40 transition-all"
               >
                 Computer Science (CSE)
               </Link>
               <Link
                 href="/projects?branch=information_science"
-                className="px-3.5 py-1.5 rounded-md border border-rule bg-surface text-sm font-medium text-ink hover:border-ink hover:bg-paper hover:text-accent transition-all"
+                className="px-4 py-2 rounded-full border border-rule/80 bg-surface shadow-2xs text-xs font-semibold text-ink hover:border-brand-400 dark:hover:border-brand-600 hover:text-accent hover:bg-brand-50/50 dark:hover:bg-brand-950/40 transition-all"
               >
                 Information Science (ISE)
               </Link>
               <Link
                 href="/projects?branch=electronics_communication"
-                className="px-3.5 py-1.5 rounded-md border border-rule bg-surface text-sm font-medium text-ink hover:border-ink hover:bg-paper hover:text-accent transition-all"
+                className="px-4 py-2 rounded-full border border-rule/80 bg-surface shadow-2xs text-xs font-semibold text-ink hover:border-brand-400 dark:hover:border-brand-600 hover:text-accent hover:bg-brand-50/50 dark:hover:bg-brand-950/40 transition-all"
               >
                 Electronics & Communication (ECE)
               </Link>
               <Link
                 href="/projects?branch=mechanical"
-                className="px-3.5 py-1.5 rounded-md border border-rule bg-surface text-sm font-medium text-ink hover:border-ink hover:bg-paper hover:text-accent transition-all"
+                className="px-4 py-2 rounded-full border border-rule/80 bg-surface shadow-2xs text-xs font-semibold text-ink hover:border-brand-400 dark:hover:border-brand-600 hover:text-accent hover:bg-brand-50/50 dark:hover:bg-brand-950/40 transition-all"
               >
                 Mechanical Engineering (ME)
               </Link>
               <Link
                 href="/projects?branch=civil"
-                className="px-3.5 py-1.5 rounded-md border border-rule bg-surface text-sm font-medium text-ink hover:border-ink hover:bg-paper hover:text-accent transition-all"
+                className="px-4 py-2 rounded-full border border-rule/80 bg-surface shadow-2xs text-xs font-semibold text-ink hover:border-brand-400 dark:hover:border-brand-600 hover:text-accent hover:bg-brand-50/50 dark:hover:bg-brand-950/40 transition-all"
               >
                 Civil Engineering (CV)
               </Link>
             </div>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             <span className="text-xs uppercase font-semibold text-ink-3 tracking-wider">
               Course Types & Semesters
             </span>
             <div className="flex flex-wrap gap-2.5">
               <Link
                 href="/projects?type=mini_project"
-                className="px-3.5 py-1.5 rounded-md border border-rule bg-surface text-sm font-medium text-ink hover:border-ink hover:bg-paper hover:text-accent transition-all"
+                className="px-4 py-2 rounded-full border border-rule/80 bg-surface shadow-2xs text-xs font-semibold text-ink hover:border-brand-400 dark:hover:border-brand-600 hover:text-accent hover:bg-brand-50/50 dark:hover:bg-brand-950/40 transition-all"
               >
                 Mini project
               </Link>
               <Link
                 href="/projects?type=project_phase_1"
-                className="px-3.5 py-1.5 rounded-md border border-rule bg-surface text-sm font-medium text-ink hover:border-ink hover:bg-paper hover:text-accent transition-all"
+                className="px-4 py-2 rounded-full border border-rule/80 bg-surface shadow-2xs text-xs font-semibold text-ink hover:border-brand-400 dark:hover:border-brand-600 hover:text-accent hover:bg-brand-50/50 dark:hover:bg-brand-950/40 transition-all"
               >
                 Project Phase I (7th Sem)
               </Link>
               <Link
                 href="/projects?type=major_project_phase_2"
-                className="px-3.5 py-1.5 rounded-md border border-rule bg-surface text-sm font-medium text-ink hover:border-ink hover:bg-paper hover:text-accent transition-all"
+                className="px-4 py-2 rounded-full border border-rule/80 bg-surface shadow-2xs text-xs font-semibold text-ink hover:border-brand-400 dark:hover:border-brand-600 hover:text-accent hover:bg-brand-50/50 dark:hover:bg-brand-950/40 transition-all"
               >
                 Major Project Phase II (8th Sem)
               </Link>
               <Link
                 href="/projects?type=capstone"
-                className="px-3.5 py-1.5 rounded-md border border-rule bg-surface text-sm font-medium text-ink hover:border-ink hover:bg-paper hover:text-accent transition-all"
+                className="px-4 py-2 rounded-full border border-rule/80 bg-surface shadow-2xs text-xs font-semibold text-ink hover:border-brand-400 dark:hover:border-brand-600 hover:text-accent hover:bg-brand-50/50 dark:hover:bg-brand-950/40 transition-all"
               >
                 Capstone Project
               </Link>
               <Link
                 href="/projects?semester=5"
-                className="px-3.5 py-1.5 rounded-md border border-rule bg-surface text-sm font-medium text-ink hover:border-ink hover:bg-paper hover:text-accent transition-all"
+                className="px-4 py-2 rounded-full border border-rule/80 bg-surface shadow-2xs text-xs font-semibold text-ink hover:border-brand-400 dark:hover:border-brand-600 hover:text-accent hover:bg-brand-50/50 dark:hover:bg-brand-950/40 transition-all"
               >
                 Semester 5
               </Link>
               <Link
                 href="/projects?semester=6"
-                className="px-3.5 py-1.5 rounded-md border border-rule bg-surface text-sm font-medium text-ink hover:border-ink hover:bg-paper hover:text-accent transition-all"
+                className="px-4 py-2 rounded-full border border-rule/80 bg-surface shadow-2xs text-xs font-semibold text-ink hover:border-brand-400 dark:hover:border-brand-600 hover:text-accent hover:bg-brand-50/50 dark:hover:bg-brand-950/40 transition-all"
               >
                 Semester 6
               </Link>
               <Link
                 href="/projects?semester=7"
-                className="px-3.5 py-1.5 rounded-md border border-rule bg-surface text-sm font-medium text-ink hover:border-ink hover:bg-paper hover:text-accent transition-all"
+                className="px-4 py-2 rounded-full border border-rule/80 bg-surface shadow-2xs text-xs font-semibold text-ink hover:border-brand-400 dark:hover:border-brand-600 hover:text-accent hover:bg-brand-50/50 dark:hover:bg-brand-950/40 transition-all"
               >
                 Semester 7
               </Link>
               <Link
                 href="/projects?semester=8"
-                className="px-3.5 py-1.5 rounded-md border border-rule bg-surface text-sm font-medium text-ink hover:border-ink hover:bg-paper hover:text-accent transition-all"
+                className="px-4 py-2 rounded-full border border-rule/80 bg-surface shadow-2xs text-xs font-semibold text-ink hover:border-brand-400 dark:hover:border-brand-600 hover:text-accent hover:bg-brand-50/50 dark:hover:bg-brand-950/40 transition-all"
               >
                 Semester 8
               </Link>
@@ -864,7 +864,7 @@ export default async function HomePage() {
         {/* Student Feedback Across Colleges */}
         <section className="space-y-6 border-t border-rule pt-12">
           <div>
-            <h2 className="text-2xl font-serif font-bold text-ink">
+            <h2 className="text-2xl font-display font-bold text-ink">
               Feedback from VTU engineering students
             </h2>
             <p className="text-sm text-ink-2 mt-1">
@@ -876,7 +876,7 @@ export default async function HomePage() {
             {STUDENT_FEEDBACK.map((fb, idx) => (
               <div
                 key={idx}
-                className="p-5 rounded-md border border-rule bg-surface space-y-3 flex flex-col justify-between"
+                className="p-6 rounded-2xl border border-rule/80 bg-surface shadow-xs space-y-4 flex flex-col justify-between hover:shadow-md transition-all"
               >
                 <p className="text-sm text-ink-2 leading-relaxed italic">
                   &ldquo;{fb.text}&rdquo;
@@ -892,10 +892,10 @@ export default async function HomePage() {
 
         {/* How we work */}
         <section className="space-y-4 border-t border-rule pt-12">
-          <h2 className="text-2xl font-serif font-bold text-ink">
+          <h2 className="text-2xl font-display font-bold text-ink">
             How we work
           </h2>
-          <div className="p-6 rounded-md border border-rule bg-surface space-y-3 max-w-3xl">
+          <div className="p-6 sm:p-8 rounded-2xl border border-rule/80 bg-surface shadow-xs space-y-4 max-w-3xl">
             <p className="text-sm text-ink-2 leading-relaxed">
               Kits are for learning, reference and guided customisation. You must follow your college department and VTU academic rules, and you must understand every component of your project to defend it in your viva voce. We do not take exam work, lab records or copied work.
             </p>
@@ -919,7 +919,7 @@ export default async function HomePage() {
         {/* Questions (accessible disclosure list, no animation) */}
         <section className="space-y-6 border-t border-rule pt-12">
           <div>
-            <h2 className="text-2xl font-serif font-bold text-ink">
+            <h2 className="text-2xl font-display font-bold text-ink">
               Frequently asked questions
             </h2>
             <p className="text-sm text-ink-2 mt-1">
@@ -931,15 +931,15 @@ export default async function HomePage() {
             {FAQ_ITEMS.map((item, idx) => (
               <details
                 key={idx}
-                className="group rounded-md border border-rule bg-surface p-4"
+                className="group rounded-2xl border border-rule/80 bg-surface p-5 shadow-xs transition-all"
               >
-                <summary className="font-medium text-ink text-sm cursor-pointer list-none flex items-center justify-between">
+                <summary className="font-semibold text-ink text-sm cursor-pointer list-none flex items-center justify-between">
                   <span>{item.question}</span>
-                  <span className="text-ink-3 text-xs group-open:rotate-180 transition-transform">
+                  <span className="text-ink-3 text-xs group-open:rotate-180 transition-transform duration-200">
                     ▼
                   </span>
                 </summary>
-                <div className="mt-3 text-sm text-ink-2 leading-relaxed pt-2 border-t border-rule-subtle">
+                <div className="mt-3 text-sm text-ink-2 leading-relaxed pt-3 border-t border-rule/70">
                   {item.answerJsx}
                 </div>
               </details>

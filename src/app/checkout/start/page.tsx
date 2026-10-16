@@ -58,8 +58,8 @@ export default async function CheckoutStartPage({
               { label: "Checkout" },
             ]}
           />
-          <div className="rounded-md border border-rule bg-paper p-8 text-center space-y-4">
-            <h1 className="text-xl font-serif font-bold text-ink">
+          <div className="rounded-2xl border border-rule/80 bg-paper/80 p-8 text-center space-y-4 shadow-xs">
+            <h1 className="text-xl font-display font-bold text-ink">
               Kit Not Available
             </h1>
             <p className="text-sm text-ink-2 max-w-md mx-auto leading-relaxed">
@@ -86,7 +86,7 @@ export default async function CheckoutStartPage({
       />
 
       <div className="space-y-1">
-        <h1 className="text-2xl font-serif font-bold tracking-tight text-ink sm:text-3xl">
+        <h1 className="text-2xl font-display font-bold tracking-tight text-ink sm:text-3xl">
           Order Checkout
         </h1>
         <p className="text-sm text-ink-2">

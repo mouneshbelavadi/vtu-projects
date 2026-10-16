@@ -39,13 +39,13 @@ export function CheckoutStartForm({
       )}
 
       {/* Kit Summary Card */}
-      <div className="rounded-md border border-rule bg-surface p-6 space-y-4">
+      <div className="rounded-2xl border border-rule/80 bg-surface/80 p-6 space-y-4 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 border-b border-rule pb-4">
           <div>
             <span className="text-xs font-semibold uppercase tracking-wider text-ink-2">
               Selected Kit
             </span>
-            <h2 className="text-xl font-serif font-bold text-ink mt-1">
+            <h2 className="text-xl font-display font-bold text-ink mt-1">
               {projectTitle}
             </h2>
           </div>
@@ -59,7 +59,7 @@ export function CheckoutStartForm({
 
       {/* Optional Display Name (shown only if missing from profile) */}
       {needsDisplayName && (
-        <div className="rounded-md border border-rule bg-surface p-6 space-y-4">
+        <div className="rounded-2xl border border-rule/80 bg-surface/80 p-6 space-y-4 shadow-xs">
           <FormField
             id="displayName"
             label="Your name or nickname"
@@ -78,7 +78,7 @@ export function CheckoutStartForm({
       )}
 
       {/* Optional Coupon Code */}
-      <div className="rounded-md border border-rule bg-surface p-6 space-y-4">
+      <div className="rounded-2xl border border-rule/80 bg-surface/80 p-6 space-y-4 shadow-xs">
         <FormField
           id="couponCode"
           label="Coupon code (optional)"
@@ -96,14 +96,14 @@ export function CheckoutStartForm({
       </div>
 
       {/* Academic Integrity Acknowledgement */}
-      <div className="rounded-md border border-rule bg-paper p-6 space-y-4">
+      <div className="rounded-2xl border border-rule/80 bg-paper/80 p-6 space-y-4 shadow-xs">
         <div className="flex items-start gap-3">
           <input
             id="ackIntegrity"
             name="ackIntegrity"
             type="checkbox"
             required
-            className="mt-1 h-4 w-4 rounded border-rule text-accent focus:ring-accent"
+            className="mt-1 h-4 w-4 rounded-md border-rule text-accent focus:ring-accent"
           />
           <label htmlFor="ackIntegrity" className="text-sm text-ink leading-relaxed">
             I will follow my college and VTU rules, I will use this kit to learn and customise it, and I will be able to explain the project myself.

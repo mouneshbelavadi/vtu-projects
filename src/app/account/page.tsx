@@ -24,21 +24,21 @@ export default async function AccountPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <Link
           href="/account/orders"
-          className="p-3.5 rounded-md border border-rule bg-surface hover:border-rule-strong hover:bg-paper transition-colors block text-sm"
+          className="p-4 rounded-2xl border border-rule/80 bg-surface/80 hover:border-rule-strong hover:bg-paper transition-colors block text-sm shadow-xs"
         >
           <span className="font-semibold text-ink block">My orders</span>
           <span className="text-xs text-ink-3">Project kits & payments</span>
         </Link>
         <Link
           href="/account/requests"
-          className="p-3.5 rounded-md border border-rule bg-surface hover:border-rule-strong hover:bg-paper transition-colors block text-sm"
+          className="p-4 rounded-2xl border border-rule/80 bg-surface/80 hover:border-rule-strong hover:bg-paper transition-colors block text-sm shadow-xs"
         >
           <span className="font-semibold text-ink block">Custom requests</span>
           <span className="text-xs text-ink-3">Milestones & deliverables</span>
         </Link>
         <Link
           href="/account/bookings"
-          className="p-3.5 rounded-md border border-rule bg-surface hover:border-rule-strong hover:bg-paper transition-colors block text-sm"
+          className="p-4 rounded-2xl border border-rule/80 bg-surface/80 hover:border-rule-strong hover:bg-paper transition-colors block text-sm shadow-xs"
         >
           <span className="font-semibold text-ink block">Mentoring bookings</span>
           <span className="text-xs text-ink-3">Live sessions & links</span>

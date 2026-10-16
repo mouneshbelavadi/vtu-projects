@@ -48,7 +48,7 @@ export function AccountDataTools() {
   return (
     <Card className="p-6 border-rule bg-surface space-y-4">
       <div className="border-b border-rule pb-3">
-        <h2 className="font-serif text-lg font-bold text-ink">Account Privacy and Data Tools</h2>
+        <h2 className="font-display text-lg font-bold text-ink">Account Privacy and Data Tools</h2>
         <p className="text-xs text-ink-2 mt-0.5">
           Download a machine-readable archive of your personal records or submit an account deletion request.
         </p>
@@ -73,7 +73,7 @@ export function AccountDataTools() {
         <a
           href="/api/account/export"
           download
-          className="inline-flex h-9 items-center justify-center rounded-md border border-rule bg-paper px-4 text-xs font-semibold text-ink hover:bg-paper/80 transition-colors"
+          className="inline-flex h-9 items-center justify-center rounded-xl border border-rule bg-paper px-4 text-xs font-semibold text-ink hover:bg-paper/80 transition-colors"
         >
           Download my data
         </a>

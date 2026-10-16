@@ -76,7 +76,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     >
       <body className="flex min-h-screen flex-col bg-paper font-sans text-ink antialiased selection:bg-brand-600 selection:text-white">
         <Header user={headerUser} />
-        <div className="flex-1">{children}</div>
+        <main id="main-content" tabIndex={-1} className="flex-1 outline-hidden">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

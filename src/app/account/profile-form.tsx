@@ -23,7 +23,7 @@ export function ProfileForm({ email, initialProfile }: ProfileFormProps) {
     <Card className="p-6 md:p-8">
       <form action={formAction} className="space-y-6">
         <div>
-          <h2 className="text-lg font-semibold text-ink font-serif">Account Profile</h2>
+          <h2 className="text-lg font-semibold text-ink font-display">Account Profile</h2>
           <p className="mt-1 text-sm text-ink-2">
             Update your display name and optional contact phone number.
           </p>

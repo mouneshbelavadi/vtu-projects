@@ -70,7 +70,7 @@ export function RequestCancellationButton({
         className="max-w-md"
       >
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="bg-paper p-3 rounded-md border border-rule text-xs text-ink-2 space-y-1">
+          <div className="bg-paper/80 p-3.5 rounded-xl border border-rule text-xs text-ink-2 space-y-1 shadow-xs">
             <div>
               <strong>Session:</strong> {tierName}
             </div>

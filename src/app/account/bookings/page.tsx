@@ -50,7 +50,7 @@ export default async function AccountBookingsPage() {
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-rule pb-4">
         <div>
-          <h1 className="font-serif text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+          <h1 className="font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
             My Mentoring Bookings
           </h1>
           <p className="mt-1 text-sm text-ink-2">
@@ -100,7 +100,7 @@ export default async function AccountBookingsPage() {
               <Card key={b.id} className="p-5 border border-rule bg-surface space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                   <div>
-                    <h2 className="text-base font-serif font-bold text-ink">
+                    <h2 className="text-base font-display font-bold text-ink">
                       {tierName}
                     </h2>
                     <p className="text-sm font-mono text-ink-2 mt-0.5">
@@ -121,7 +121,7 @@ export default async function AccountBookingsPage() {
 
                 {/* Meeting Link: Display ONLY when booking is confirmed */}
                 {isConfirmed && (
-                  <div className="rounded-md border border-rule bg-paper p-3 text-sm">
+                  <div className="rounded-xl border border-rule bg-paper p-3 text-sm">
                     <span className="font-semibold text-ink block mb-1">
                       Meeting link:
                     </span>

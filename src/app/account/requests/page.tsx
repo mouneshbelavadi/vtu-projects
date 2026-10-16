@@ -11,15 +11,15 @@ export const metadata = {
 };
 
 const STATUS_LABELS: Record<CustomRequestStatus, { label: string; badgeClass: string }> = {
-  submitted: { label: "Submitted", badgeClass: "bg-[#FBFAF7] text-[#5F6670] border-[#DDD9D0]" },
-  under_review: { label: "Under review", badgeClass: "bg-[#FFF4D6] text-[#6B4700] border-[#DDD9D0]" },
-  quoted: { label: "Quote ready", badgeClass: "bg-[#E6F3EA] text-[#1E6B3C] border-[#DDD9D0]" },
-  accepted: { label: "Accepted", badgeClass: "bg-[#E4F0EC] text-[#0B5D4B] border-[#DDD9D0]" },
-  in_progress: { label: "In progress", badgeClass: "bg-[#E4F0EC] text-[#0B5D4B] border-[#DDD9D0]" },
-  delivered: { label: "Final files ready (balance due)", badgeClass: "bg-[#FFF4D6] text-[#6B4700] border-[#DDD9D0]" },
-  completed: { label: "Completed", badgeClass: "bg-[#E6F3EA] text-[#1E6B3C] border-[#DDD9D0]" },
-  declined: { label: "Declined", badgeClass: "bg-[#FBE9E7] text-[#A12B2B] border-[#DDD9D0]" },
-  cancelled: { label: "Cancelled", badgeClass: "bg-[#FBFAF7] text-[#5F6670] border-[#DDD9D0]" },
+  submitted: { label: "Submitted", badgeClass: "bg-surface text-ink-2 border-rule" },
+  under_review: { label: "Under review", badgeClass: "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/30" },
+  quoted: { label: "Quote ready", badgeClass: "bg-accent/10 text-accent border-accent/30" },
+  accepted: { label: "Accepted", badgeClass: "bg-accent/10 text-accent border-accent/30" },
+  in_progress: { label: "In progress", badgeClass: "bg-accent/10 text-accent border-accent/30" },
+  delivered: { label: "Final files ready (balance due)", badgeClass: "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/30" },
+  completed: { label: "Completed", badgeClass: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30" },
+  declined: { label: "Declined", badgeClass: "bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-500/30" },
+  cancelled: { label: "Cancelled", badgeClass: "bg-surface text-ink-2 border-rule" },
 };
 
 export default async function AccountRequestsPage() {
@@ -44,30 +44,30 @@ export default async function AccountRequestsPage() {
         ]}
       />
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-[#DDD9D0] pb-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-rule pb-4">
         <div>
-          <h1 className="text-[22px] font-bold text-[#17191C]">My Project Requests</h1>
-          <p className="mt-1 text-[13px] text-[#5F6670]">
+          <h1 className="text-2xl font-display font-bold text-ink">My Project Requests</h1>
+          <p className="mt-1 text-sm text-ink-2">
             Track quotes, milestone progress, and deliverables for your custom builds.
           </p>
         </div>
         <Link
           href="/request"
-          className="inline-flex items-center justify-center rounded-[6px] bg-[#0B5D4B] px-4 py-2 text-[14px] font-semibold text-[#FFFFFF] hover:bg-[#084A3C]"
+          className="inline-flex items-center justify-center rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-surface hover:bg-accent-hover transition-colors shadow-xs"
         >
           Submit new request
         </Link>
       </div>
 
       {!requests || requests.length === 0 ? (
-        <div className="rounded-[6px] border border-[#DDD9D0] bg-[#FFFFFF] p-8 text-center">
-          <p className="text-[14px] text-[#5F6670]">
+        <div className="rounded-3xl border border-rule/80 bg-surface/80 p-8 text-center shadow-xs">
+          <p className="text-sm text-ink-2">
             You have not submitted any custom project requests yet.
           </p>
           <div className="mt-4">
             <Link
               href="/request"
-              className="inline-block rounded-[6px] bg-[#0B5D4B] px-4 py-2 text-[14px] font-semibold text-[#FFFFFF] hover:bg-[#084A3C]"
+              className="inline-block rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-surface hover:bg-accent-hover transition-colors shadow-xs"
             >
               Request a custom project
             </Link>
@@ -78,43 +78,43 @@ export default async function AccountRequestsPage() {
           {requests.map((req) => {
             const statusInfo = STATUS_LABELS[req.status as CustomRequestStatus] || {
               label: req.status,
-              badgeClass: "bg-[#FBFAF7] text-[#5F6670] border-[#DDD9D0]",
+              badgeClass: "bg-surface text-ink-2 border-rule",
             };
 
             return (
               <div
                 key={req.id}
-                className="rounded-[6px] border border-[#DDD9D0] bg-[#FFFFFF] p-5 transition-colors hover:border-[#B9B4A8]"
+                className="rounded-2xl border border-rule/80 bg-surface/80 p-5 transition-colors hover:border-rule-strong shadow-xs"
               >
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                   <div>
-                    <h2 className="text-[16px] font-bold text-[#17191C]">
+                    <h2 className="text-base font-display font-bold text-ink">
                       <Link
                         href={`/account/requests/${req.id}`}
-                        className="hover:text-[#0B5D4B] hover:underline"
+                        className="hover:text-accent hover:underline"
                       >
                         {req.title}
                       </Link>
                     </h2>
-                    <p className="mt-1 text-[13px] text-[#5F6670]">
+                    <p className="mt-1 text-xs text-ink-2">
                       {req.branch} · Semester {req.semester} · Submitted {formatDate(req.created_at)}
                     </p>
                   </div>
                   <span
-                    className={`inline-block whitespace-nowrap rounded-[4px] border px-2.5 py-1 text-[12px] font-semibold ${statusInfo.badgeClass}`}
+                    className={`inline-block whitespace-nowrap rounded-full border px-2.5 py-0.5 text-xs font-semibold ${statusInfo.badgeClass}`}
                   >
                     {statusInfo.label}
                   </span>
                 </div>
 
                 {req.status === "declined" && req.declined_reason && (
-                  <div className="mt-3 rounded-[4px] border border-[#DDD9D0] bg-[#FBE9E7] p-2.5 text-[13px] text-[#A12B2B]">
+                  <div className="mt-3 rounded-xl border border-rose-500/30 bg-rose-500/10 p-2.5 text-xs text-rose-700 dark:text-rose-400">
                     <strong>Reason:</strong> {req.declined_reason}
                   </div>
                 )}
 
                 {req.quote_total_inr && (
-                  <div className="mt-3 flex items-center gap-4 text-[13px] text-[#4A5058]">
+                  <div className="mt-3 flex items-center gap-4 text-xs text-ink-2">
                     <span>
                       Total: <strong>{formatInr(req.quote_total_inr)}</strong>
                     </span>
@@ -129,7 +129,7 @@ export default async function AccountRequestsPage() {
                 <div className="mt-4 flex items-center justify-end">
                   <Link
                     href={`/account/requests/${req.id}`}
-                    className="text-[13px] font-semibold text-[#0B5D4B] hover:underline"
+                    className="text-xs font-semibold text-accent hover:underline"
                   >
                     View details and milestones &rarr;
                   </Link>
