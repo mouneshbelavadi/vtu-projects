@@ -36,10 +36,10 @@ export function RequirementMatcher() {
     <div className="rounded-2xl border border-rule/80 bg-surface p-6 sm:p-7 shadow-xs space-y-4">
       <div className="space-y-1">
         <h3 className="font-display text-lg font-bold text-ink">
-          Match by Your Project Requirements
+          Project Scope & Topic Explorer
         </h3>
         <p className="text-xs text-ink-2 leading-relaxed">
-          Tell us your domain and title idea. Find an existing kit immediately or request a custom milestone build.
+          Specify your department and topic concept to find verified curriculum kits or initiate a custom project inquiry.
         </p>
       </div>
 
@@ -69,7 +69,7 @@ export function RequirementMatcher() {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="e.g. Smart Attendance with Face Recognition or Solar Tracker"
+            placeholder="e.g. Real-time driver drowsiness alert or LoRa water quality monitor"
             className="w-full h-11 px-3.5 rounded-xl border border-rule bg-surface text-sm text-ink placeholder:text-ink-3 shadow-xs focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/10 transition-all"
           />
         </div>
@@ -82,7 +82,7 @@ export function RequirementMatcher() {
             value={requirements}
             onChange={(e) => setRequirements(e.target.value)}
             rows={2}
-            placeholder="e.g. Python, OpenCV, Flask, SQLite, requires report and viva questions..."
+            placeholder="e.g. PyTorch, YOLOv8, FastAPI, ESP32, includes synopsis and viva preparation notes..."
             className="w-full p-3.5 rounded-xl border border-rule bg-surface text-sm text-ink placeholder:text-ink-3 shadow-xs focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/10 transition-all resize-none"
           />
         </div>

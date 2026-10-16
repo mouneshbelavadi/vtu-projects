@@ -133,3 +133,40 @@ export async function verifyLoginCode(
   const safeTarget = validateSafeRedirect(rawNext, "/");
   redirect(safeTarget);
 }
+
+export type TestLoginState = {
+  status: "idle" | "error";
+  message?: string;
+};
+
+export async function loginWithTestCredentials(
+  _prevState: TestLoginState,
+  formData: FormData
+): Promise<TestLoginState> {
+  const email = String(formData.get("email") || "").trim().toLowerCase();
+  const password = String(formData.get("password") || "").trim();
+  const rawNext = formData.get("next");
+
+  if (email === "admin@vtuadda.com" && password === "admin123") {
+    const { cookies } = await import("next/headers");
+    const cookieStore = await cookies();
+    cookieStore.set("vtu_dev_auth", "admin", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+      sameSite: "lax",
+    });
+
+    const safeTarget = validateSafeRedirect(
+      typeof rawNext === "string" ? rawNext : undefined,
+      "/admin"
+    );
+    redirect(safeTarget);
+  }
+
+  return {
+    status: "error",
+    message: "Invalid credentials. Use test account: admin@vtuadda.com with password admin123",
+  };
+}

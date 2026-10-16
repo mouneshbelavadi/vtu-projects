@@ -1,13 +1,13 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { requestLoginCode, verifyLoginCode } from "./actions";
+import { requestLoginCode, verifyLoginCode, loginWithTestCredentials } from "./actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { FormField } from "@/components/ui/form-field";
 import { Alert } from "@/components/ui/alert";
 import { createBrowserClientInstance } from "@/lib/supabase/browser";
-import { GraduationCap, ArrowRight, KeyRound, Mail } from "lucide-react";
+import { GraduationCap, ArrowRight, KeyRound, Mail, ShieldCheck } from "lucide-react";
 
 interface LoginFormProps {
   nextTarget: string;
@@ -44,6 +44,11 @@ export function LoginForm({ nextTarget }: LoginFormProps) {
 
   const [verifyState, verifyAction, isVerifyPending] = useActionState(
     verifyLoginCode,
+    { status: "idle" }
+  );
+
+  const [testState, testAction, isTestPending] = useActionState(
+    loginWithTestCredentials,
     { status: "idle" }
   );
 
@@ -219,6 +224,80 @@ export function LoginForm({ nextTarget }: LoginFormProps) {
             </div>
           </form>
         )}
+
+        {/* Or Test Account Divider */}
+        <div className="relative flex items-center justify-center">
+          <div className="w-full border-t border-rule" />
+          <span className="absolute bg-surface px-3 text-xs uppercase tracking-wider text-ink-3 font-semibold">
+            Or use test account
+          </span>
+        </div>
+
+        {/* Hardcoded Test Admin Section */}
+        <div className="rounded-2xl border border-indigo-500/20 bg-indigo-50/50 dark:bg-indigo-950/20 p-5 space-y-4">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold uppercase tracking-wider text-accent flex items-center gap-1.5">
+              <ShieldCheck className="h-4 w-4" />
+              Testing Credentials
+            </span>
+            <span className="text-[11px] font-mono font-semibold text-accent bg-accent/10 px-2 py-0.5 rounded-full border border-accent/20">
+              Hardcoded Ready
+            </span>
+          </div>
+
+          <p className="text-xs text-ink-2 leading-relaxed">
+            Ready for testing the admin panel without email setup. Sign in with the pre-filled admin credentials below.
+          </p>
+
+          {testState.status === "error" && (
+            <Alert variant="error" title="Sign-in failed">
+              {testState.message}
+            </Alert>
+          )}
+
+          <form action={testAction} className="space-y-3">
+            <input type="hidden" name="next" value={nextTarget} />
+
+            <div className="space-y-1">
+              <label htmlFor="test-email" className="block text-xs font-semibold text-ink">
+                Admin Email
+              </label>
+              <Input
+                id="test-email"
+                name="email"
+                type="email"
+                required
+                defaultValue="admin@vtuadda.com"
+                className="h-10 rounded-xl px-3 font-mono text-xs focus:ring-4 focus:ring-indigo-600/10 focus:border-indigo-600"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label htmlFor="test-password" className="block text-xs font-semibold text-ink">
+                Admin Password
+              </label>
+              <Input
+                id="test-password"
+                name="password"
+                type="password"
+                required
+                defaultValue="admin123"
+                className="h-10 rounded-xl px-3 font-mono text-xs focus:ring-4 focus:ring-indigo-600/10 focus:border-indigo-600"
+              />
+            </div>
+
+            <Button
+              type="submit"
+              variant="primary"
+              size="md"
+              className="w-full h-11 rounded-xl font-semibold shadow-md hover:shadow-indigo-500/25 active:scale-[0.99] transition-all gap-2"
+              isLoading={isTestPending}
+            >
+              <ShieldCheck className="h-4 w-4" />
+              <span>Sign in as Admin (Test Account)</span>
+            </Button>
+          </form>
+        </div>
       </div>
     </div>
   );

@@ -9,7 +9,9 @@ export async function POST(request: Request) {
   await supabase.auth.signOut();
 
   const url = new URL("/", request.url);
-  return NextResponse.redirect(url, { status: 303 });
+  const response = NextResponse.redirect(url, { status: 303 });
+  response.cookies.delete("vtu_dev_auth");
+  return response;
 }
 
 export async function GET() {

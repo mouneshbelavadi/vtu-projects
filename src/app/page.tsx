@@ -263,17 +263,17 @@ export default async function HomePage() {
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-rule/80 bg-surface/90 shadow-2xs text-xs font-medium text-ink-2">
-              <span className="font-semibold text-accent">VTU 2022 & 2018 Schemes</span>
+              <span className="font-semibold text-accent">VTU Curriculum Aligned</span>
               <span className="text-rule-strong">•</span>
-              <span>CSE, ISE, ECE, ME & Civil</span>
+              <span>2022 & 2018 Schemes • All Branches</span>
             </div>
 
             <div className="space-y-3">
               <h1 className="font-display text-3xl font-extrabold tracking-tight text-ink sm:text-4xl md:text-5xl leading-tight">
-                Build. Submit. Graduate.
+                Build with Clarity. Present with Confidence.
               </h1>
               <p className="text-base text-ink-2 leading-relaxed sm:text-lg">
-                Ready-to-run engineering project kits with source code, report templates, PPT presentations, and viva questions. Verified by hand before file release.
+                Complete engineering project packages tailored for VTU undergraduate curricula. Includes verified source code, IEEE format reports, presentation slide decks, and viva oral preparation banks.
               </p>
             </div>
 
@@ -300,20 +300,20 @@ export default async function HomePage() {
           {/* Right Column: Interactive Featured Preview Cards */}
           <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <Link
-              href="/projects?q=attendance"
+              href="/projects?q=plant"
               className="p-4.5 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer space-y-2 block"
             >
               <div className="flex items-center justify-between text-[11px]">
                 <span className="px-2 py-0.5 rounded-full bg-accent-weak text-accent font-semibold">
                   Computer Vision
                 </span>
-                <span className="text-ink font-semibold">₹3,499</span>
+                <span className="text-ink font-semibold">₹3,299</span>
               </div>
               <h3 className="font-display font-bold text-sm text-ink leading-snug hover:text-accent transition-colors">
-                AI Attendance System
+                Plant Pathology Classifier
               </h3>
               <p className="text-xs text-ink-2 leading-relaxed line-clamp-2">
-                Face recognition with OpenCV, SQLite records and automated report generator.
+                ResNet-based leaf lesion detection with PyTorch, Flask REST API, and offline inspection dashboard.
               </p>
               <div className="text-[11px] font-semibold text-accent pt-1 flex items-center justify-between">
                 <span>View kit</span>
@@ -322,20 +322,20 @@ export default async function HomePage() {
             </Link>
 
             <Link
-              href="/projects?q=voting"
+              href="/projects?q=energy"
               className="p-4.5 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer space-y-2 block"
             >
               <div className="flex items-center justify-between text-[11px]">
                 <span className="px-2 py-0.5 rounded-full bg-accent-weak text-accent font-semibold">
-                  Web3 & Security
+                  Smart Power & IoT
                 </span>
-                <span className="text-ink font-semibold">₹3,999</span>
+                <span className="text-ink font-semibold">₹3,799</span>
               </div>
               <h3 className="font-display font-bold text-sm text-ink leading-snug hover:text-accent transition-colors">
-                Blockchain Voting System
+                Microgrid Energy Optimizer
               </h3>
               <p className="text-xs text-ink-2 leading-relaxed line-clamp-2">
-                Decentralized Ethereum ballots, tamper-evident audit ledger and React portal.
+                ESP32 telemetry, LoRa peer-to-peer transmission, live solar consumption analytics, and load scheduling.
               </p>
               <div className="text-[11px] font-semibold text-accent pt-1 flex items-center justify-between">
                 <span>View kit</span>
@@ -344,20 +344,20 @@ export default async function HomePage() {
             </Link>
 
             <Link
-              href="/projects?q=iot"
+              href="/projects?q=security"
               className="p-4.5 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer space-y-2 block"
             >
               <div className="flex items-center justify-between text-[11px]">
                 <span className="px-2 py-0.5 rounded-full bg-warn-bg text-warn-text font-semibold">
-                  IoT & Embedded
+                  Cybersecurity
                 </span>
-                <span className="text-ink font-semibold">₹4,299</span>
+                <span className="text-ink font-semibold">₹3,499</span>
               </div>
               <h3 className="font-display font-bold text-sm text-ink leading-snug hover:text-accent transition-colors">
-                Smart Campus IoT Monitor
+                Zero-Trust Access Gateway
               </h3>
               <p className="text-xs text-ink-2 leading-relaxed line-clamp-2">
-                ESP32 telemetry sensors, MQTT broker communication and real-time dashboard.
+                Context-aware role access control, cryptographic session tokens, and centralized audit telemetry.
               </p>
               <div className="text-[11px] font-semibold text-accent pt-1 flex items-center justify-between">
                 <span>View kit</span>
@@ -366,20 +366,20 @@ export default async function HomePage() {
             </Link>
 
             <Link
-              href="/projects?q=cloud"
+              href="/projects?q=robotics"
               className="p-4.5 rounded-2xl border border-rule/80 bg-surface shadow-xs hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer space-y-2 block"
             >
               <div className="flex items-center justify-between text-[11px]">
                 <span className="px-2 py-0.5 rounded-full bg-accent-weak text-accent font-semibold">
-                  Cloud Systems
+                  Robotics & Embedded
                 </span>
-                <span className="text-ink font-semibold">₹2,999</span>
+                <span className="text-ink font-semibold">₹4,199</span>
               </div>
               <h3 className="font-display font-bold text-sm text-ink leading-snug hover:text-accent transition-colors">
-                Cloud File Vault
+                Warehouse AGV Navigation
               </h3>
               <p className="text-xs text-ink-2 leading-relaxed line-clamp-2">
-                AES-256 encrypted file storage, role permissions and timed access links.
+                LiDAR SLAM mapping, ultrasonic obstacle avoidance, ROS2 communication, and path planning simulator.
               </p>
               <div className="text-[11px] font-semibold text-accent pt-1 flex items-center justify-between">
                 <span>View kit</span>
@@ -389,27 +389,27 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* Live Metrics Counter Bar */}
+        {/* Value Commitments & Standards Bar */}
         <section className="grid grid-cols-2 lg:grid-cols-4 gap-4 border-y border-rule py-6">
           <div className="p-5 rounded-2xl border border-rule/80 bg-surface text-center space-y-1.5 shadow-xs">
-            <div className="text-2xl sm:text-3xl font-display font-extrabold text-ink">140+</div>
-            <div className="text-xs font-semibold text-ink-2">Live Project Kits</div>
-            <div className="text-[11px] text-ink-3">Verified codebases and templates</div>
+            <div className="text-xl sm:text-2xl font-display font-extrabold text-ink">IEEE Aligned</div>
+            <div className="text-xs font-semibold text-ink-2">Standard Documentation</div>
+            <div className="text-[11px] text-ink-3">Synopsis, 70+ page report and slides</div>
           </div>
           <div className="p-5 rounded-2xl border border-rule/80 bg-surface text-center space-y-1.5 shadow-xs">
-            <div className="text-2xl sm:text-3xl font-display font-extrabold text-ink">2,500+</div>
-            <div className="text-xs font-semibold text-ink-2">Engineering Students</div>
-            <div className="text-[11px] text-ink-3">Across 28+ VTU institutions</div>
+            <div className="text-xl sm:text-2xl font-display font-extrabold text-ink">Viva Ready</div>
+            <div className="text-xs font-semibold text-ink-2">Oral Defense Prep</div>
+            <div className="text-[11px] text-ink-3">Common examiner questions and answers</div>
           </div>
           <div className="p-5 rounded-2xl border border-rule/80 bg-surface text-center space-y-1.5 shadow-xs">
-            <div className="text-2xl sm:text-3xl font-display font-extrabold text-accent">Manual UPI</div>
-            <div className="text-xs font-semibold text-ink-2">Direct Bank Verification</div>
-            <div className="text-[11px] text-ink-3">No gateway convenience fees</div>
+            <div className="text-xl sm:text-2xl font-display font-extrabold text-accent">Direct UPI</div>
+            <div className="text-xs font-semibold text-ink-2">Zero Surcharges</div>
+            <div className="text-[11px] text-ink-3">Manual bank review with instant delivery</div>
           </div>
           <div className="p-5 rounded-2xl border border-rule/80 bg-surface text-center space-y-1.5 shadow-xs">
-            <div className="text-2xl sm:text-3xl font-display font-extrabold text-ink">4.8 / 5</div>
-            <div className="text-xs font-semibold text-ink-2">Student Satisfaction</div>
-            <div className="text-[11px] text-ink-3">Verified post-viva feedback</div>
+            <div className="text-xl sm:text-2xl font-display font-extrabold text-ink">Reproducible</div>
+            <div className="text-xs font-semibold text-ink-2">Clean Architecture</div>
+            <div className="text-[11px] text-ink-3">Step-by-step setup and environment guide</div>
           </div>
         </section>
 
@@ -419,10 +419,10 @@ export default async function HomePage() {
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
               <div>
                 <h2 className="text-2xl font-display font-bold text-ink">
-                  Featured Project Packages
+                  Curated VTU Project Kits
                 </h2>
                 <p className="text-sm text-ink-2 mt-1">
-                  Popular ready-to-run kits complete with source code, report documents, slides and viva prep.
+                  Exemplary project packages featuring modular source code, IEEE format reports, and viva preparation banks.
                 </p>
               </div>
               <Link
@@ -450,10 +450,10 @@ export default async function HomePage() {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
             <div>
               <h2 className="text-2xl font-display font-bold text-ink">
-                Browse by Technical Domain
+                Explore Technical Specializations
               </h2>
               <p className="text-sm text-ink-2 mt-1">
-                Choose your focus technology domain to jump directly into matching project kits.
+                Select a technology focus to discover syllabus-aligned engineering project codebases and complete viva kits.
               </p>
             </div>
             <Link
@@ -501,10 +501,10 @@ export default async function HomePage() {
               Custom Topics & Mentoring
             </span>
             <h2 className="text-2xl font-display font-bold text-ink leading-snug">
-              Can&apos;t find your exact project topic in the catalogue?
+              Need a Project Built Around Your College Topic?
             </h2>
             <p className="text-sm text-ink-2 leading-relaxed">
-              Tell us your problem statement, semester and deadline. Our engineering team reviews the scope and either finds the closest verified codebase or prepares a custom milestone proposal.
+              Share your specific synopsis, guide guidelines, or college deadline. Our engineering mentors verify feasibility and provide an itemized milestone plan.
             </p>
             <div className="space-y-2 pt-2 text-xs text-ink-2">
               <div className="flex items-center gap-2">
