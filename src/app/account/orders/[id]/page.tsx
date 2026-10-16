@@ -5,7 +5,7 @@ import { createClient } from "@/server/supabase/server";
 import { formatInr, formatDate, formatBytes } from "@/lib/format";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Badge } from "@/components/ui/badge";
-import { ORDER_STATUS_LABELS } from "../page";
+import { ORDER_STATUS_LABELS } from "@/lib/orders";
 import { OrderReviewForm } from "./order-review-form";
 
 export const metadata = {

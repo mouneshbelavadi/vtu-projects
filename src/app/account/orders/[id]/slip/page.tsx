@@ -4,7 +4,7 @@ import { requireUser } from "@/server/auth";
 import { createClient } from "@/server/supabase/server";
 import { siteConfig } from "../../../../../../site.config";
 import { formatInr, formatDate } from "@/lib/format";
-import { ORDER_STATUS_LABELS } from "../../page";
+import { ORDER_STATUS_LABELS } from "@/lib/orders";
 import { PrintButton } from "./print-button";
 
 export const metadata = {

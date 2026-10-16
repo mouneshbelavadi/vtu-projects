@@ -9,16 +9,7 @@ export const metadata = {
   title: "My Orders | VTU Adda Projects",
   description: "View and track the status of your project kit orders.",
 };
-
-export const ORDER_STATUS_LABELS: Record<string, string> = {
-  awaiting_payment: "Waiting for your payment",
-  pending_verification: "We are checking your payment",
-  paid: "Payment verified",
-  rejected: "Payment not accepted",
-  expired: "Order expired",
-  refunded: "Refunded",
-  cancelled: "Cancelled",
-};
+import { ORDER_STATUS_LABELS } from "@/lib/orders";
 
 interface OrdersPageProps {
   searchParams: Promise<{ status?: string }>;
