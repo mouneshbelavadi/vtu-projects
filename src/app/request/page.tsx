@@ -133,7 +133,7 @@ export default async function RequestPage() {
                 {/* Connecting vertical line */}
                 <div
                   aria-hidden="true"
-                  className="absolute left-[19px] top-3 bottom-3 w-0.5 bg-gradient-to-b from-indigo-200 via-indigo-100 to-transparent"
+                  className="absolute left-[24px] -translate-x-1/2 top-4 bottom-4 w-0.5 bg-gradient-to-b from-indigo-200 via-indigo-100 to-transparent"
                 />
 
                 {/* Step 1 */}

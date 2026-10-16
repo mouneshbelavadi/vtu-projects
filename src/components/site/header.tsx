@@ -59,24 +59,23 @@ export const Header: React.FC<HeaderProps> = ({ user = null }) => {
 
       <header
         className={cn(
-          "sticky top-0 z-40 w-full transition-all duration-200",
-          isScrolled
-            ? "border-b border-slate-200/80 bg-white/85 backdrop-blur-md shadow-xs dark:border-slate-800 dark:bg-slate-950/85"
-            : "border-b border-transparent bg-white/60 backdrop-blur-sm dark:bg-slate-950/60"
+          "sticky top-0 z-40 w-full transition-all duration-200 border-b border-rule",
+          "bg-white/98 dark:bg-slate-950/98 backdrop-blur-md",
+          isScrolled ? "shadow-sm shadow-slate-900/5" : ""
         )}
       >
-        <div className="mx-auto flex max-w-container items-center justify-between px-4 py-3.5 sm:px-6">
-          <div className="flex items-center gap-8">
+        <div className="mx-auto flex max-w-container items-center justify-between px-3.5 py-3 sm:px-6 sm:py-3.5">
+          <div className="flex items-center gap-4 lg:gap-8 min-w-0">
             {/* Logo with Gradient Mark */}
             <Link
               href="/"
-              className="group flex items-center gap-2.5 rounded-lg focus-visible:outline-2 focus-visible:outline-accent"
+              className="group flex items-center gap-2 rounded-lg focus-visible:outline-2 focus-visible:outline-accent shrink-0"
             >
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-600 text-white shadow-sm shadow-indigo-500/30 group-hover:shadow-indigo-500/50 group-hover:scale-105 transition-all duration-200">
-                <Sparkles className="h-4.5 w-4.5" strokeWidth={2.25} />
+              <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-600 text-white shadow-sm shadow-indigo-500/30 group-hover:shadow-indigo-500/50 group-hover:scale-105 transition-all duration-200 shrink-0">
+                <Sparkles className="h-4 w-4 sm:h-4.5 sm:w-4.5" strokeWidth={2.25} />
               </div>
               <div className="flex flex-col">
-                <span className="font-display text-lg sm:text-xl font-extrabold tracking-tight text-ink">
+                <span className="font-display text-base sm:text-xl font-extrabold tracking-tight text-ink whitespace-nowrap">
                   VTU Adda{" "}
                   <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
                     Projects
@@ -87,7 +86,7 @@ export const Header: React.FC<HeaderProps> = ({ user = null }) => {
 
             {/* Desktop Navigation Links */}
             {navItems.length > 0 && (
-              <nav aria-label="Main Navigation" className="hidden items-center gap-1 lg:gap-1.5 md:flex">
+              <nav aria-label="Main Navigation" className="hidden items-center gap-1 xl:gap-1.5 lg:flex">
                 {navItems.map((item) => {
                   const isActive =
                     pathname === item.href ||
@@ -98,7 +97,7 @@ export const Header: React.FC<HeaderProps> = ({ user = null }) => {
                       key={item.href}
                       href={item.href}
                       className={cn(
-                        "relative px-3.5 py-1.5 text-sm font-medium transition-all duration-200 rounded-lg",
+                        "relative px-3 py-1.5 text-sm font-medium transition-all duration-200 rounded-lg whitespace-nowrap",
                         isActive
                           ? "text-brand-600 dark:text-brand-400 font-semibold bg-brand-50/80 dark:bg-brand-950/50"
                           : "text-ink-2 hover:text-ink hover:bg-slate-100/70 dark:hover:bg-slate-800/50"
@@ -115,10 +114,10 @@ export const Header: React.FC<HeaderProps> = ({ user = null }) => {
             )}
           </div>
 
-          {/* Desktop Right Actions */}
-          <div className="flex items-center gap-3">
+          {/* Right Actions */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             {user ? (
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-1.5 sm:gap-2.5">
                 <Link
                   href="/account/orders"
                   className={cn(
@@ -133,7 +132,7 @@ export const Header: React.FC<HeaderProps> = ({ user = null }) => {
                 <Link
                   href="/account"
                   className={cn(
-                    "inline-flex h-9 max-w-[140px] sm:max-w-[180px] items-center gap-1.5 rounded-xl border border-rule bg-surface px-3 text-xs font-semibold text-ink shadow-xs truncate",
+                    "inline-flex h-8 sm:h-9 max-w-[105px] xs:max-w-[130px] sm:max-w-[160px] items-center gap-1.5 rounded-xl border border-rule bg-surface px-2.5 sm:px-3 text-xs font-semibold text-ink shadow-xs truncate",
                     "transition-all duration-200 hover:border-rule-strong hover:bg-slate-50 dark:hover:bg-slate-800/60 active:scale-98"
                   )}
                   title={user.displayName || user.email}
@@ -146,13 +145,13 @@ export const Header: React.FC<HeaderProps> = ({ user = null }) => {
                   <button
                     type="submit"
                     className={cn(
-                      "inline-flex h-9 items-center gap-1 rounded-xl border border-rule bg-surface px-2.5 text-xs font-semibold text-ink-2 shadow-xs cursor-pointer",
+                      "inline-flex h-8 sm:h-9 items-center gap-1 rounded-xl border border-rule bg-surface px-2 sm:px-2.5 text-xs font-semibold text-ink-2 shadow-xs cursor-pointer",
                       "transition-all duration-200 hover:border-danger hover:text-danger hover:bg-danger-bg active:scale-98"
                     )}
                     title="Sign out"
                   >
                     <LogOut className="h-3.5 w-3.5" />
-                    <span className="hidden sm:inline">Sign out</span>
+                    <span className="hidden md:inline">Sign out</span>
                   </button>
                 </form>
               </div>
@@ -160,7 +159,7 @@ export const Header: React.FC<HeaderProps> = ({ user = null }) => {
               <Link
                 href="/login"
                 className={cn(
-                  "inline-flex h-9 min-h-[36px] items-center justify-center rounded-xl font-semibold text-xs sm:text-sm text-white px-4 sm:px-5",
+                  "inline-flex h-8.5 sm:h-9 min-h-[34px] items-center justify-center rounded-xl font-semibold text-xs sm:text-sm text-white px-3.5 sm:px-5",
                   "bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-600 shadow-sm shadow-indigo-500/25",
                   "transition-all duration-200 hover:shadow-md hover:shadow-indigo-500/35 hover:brightness-105 active:scale-98"
                 )}
@@ -177,15 +176,15 @@ export const Header: React.FC<HeaderProps> = ({ user = null }) => {
                 aria-expanded={mobileMenuOpen}
                 aria-controls="mobile-navigation"
                 className={cn(
-                  "inline-flex h-9 w-9 items-center justify-center rounded-xl border border-rule bg-surface text-ink md:hidden shadow-xs cursor-pointer",
+                  "inline-flex h-8.5 w-8.5 sm:h-9 sm:w-9 items-center justify-center rounded-xl border border-rule bg-surface text-ink lg:hidden shadow-xs cursor-pointer",
                   "transition-all duration-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-rule-strong"
                 )}
                 aria-label="Toggle navigation menu"
               >
                 {mobileMenuOpen ? (
-                  <X className="h-5 w-5" strokeWidth={2} />
+                  <X className="h-4.5 w-4.5 sm:h-5 sm:w-5" strokeWidth={2} />
                 ) : (
-                  <Menu className="h-5 w-5" strokeWidth={2} />
+                  <Menu className="h-4.5 w-4.5 sm:h-5 sm:w-5" strokeWidth={2} />
                 )}
               </button>
             )}
@@ -194,10 +193,10 @@ export const Header: React.FC<HeaderProps> = ({ user = null }) => {
 
         {/* Mobile Animated Slide-in Drawer */}
         {mobileMenuOpen && navItems.length > 0 && (
-          <div className="fixed inset-0 top-[57px] z-50 md:hidden animate-fade-in">
+          <div className="fixed inset-0 top-[54px] sm:top-[57px] z-50 lg:hidden animate-fade-in">
             {/* Backdrop Overlay */}
             <div
-              className="fixed inset-0 top-[57px] bg-slate-950/40 backdrop-blur-sm"
+              className="fixed inset-0 top-[54px] sm:top-[57px] bg-slate-950/40 backdrop-blur-sm"
               onClick={() => setMobileMenuOpen(false)}
             />
 
@@ -205,7 +204,7 @@ export const Header: React.FC<HeaderProps> = ({ user = null }) => {
             <nav
               id="mobile-navigation"
               aria-label="Mobile Navigation"
-              className="relative border-b border-rule bg-surface p-5 shadow-xl space-y-4"
+              className="relative border-b border-rule bg-surface p-5 shadow-xl space-y-4 max-h-[calc(100vh-60px)] overflow-y-auto"
             >
               <div className="flex flex-col gap-1">
                 {navItems.map((item) => {

@@ -13,7 +13,7 @@ export default async function AccountPage() {
   const authUser = await requireUser("/account");
 
   return (
-    <div className="mx-auto max-w-2xl py-8 px-4 sm:px-6 space-y-6">
+    <div className="mx-auto max-w-2xl pt-8 pb-24 sm:pt-10 sm:pb-32 px-4 sm:px-6 space-y-8">
       <Breadcrumbs
         items={[
           { label: "Home", href: "/" },

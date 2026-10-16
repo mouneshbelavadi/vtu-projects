@@ -171,6 +171,15 @@ create table if not exists public.categories (
   unique (kind, slug)
 );
 
+-- Helper function to convert array to string with immutable volatility for generated tsvector
+create or replace function public.immutable_array_to_string(arr text[], sep text)
+returns text
+language sql
+immutable
+as $$
+  select coalesce(array_to_string(arr, sep), '');
+$$;
+
 -- 4. projects
 create table if not exists public.projects (
   id uuid primary key default gen_random_uuid(),
@@ -196,7 +205,7 @@ create table if not exists public.projects (
       coalesce(title, '') || ' ' ||
       coalesce(summary, '') || ' ' ||
       coalesce(description, '') || ' ' ||
-      array_to_string(tech_stack, ' ')
+      public.immutable_array_to_string(tech_stack, ' ')
     )
   ) stored
 );

@@ -318,13 +318,13 @@ export default function HowItWorksPage() {
           </div>
 
           {/* Path 1 Animated Timeline */}
-          <div className="relative pl-3 sm:pl-6 space-y-6 sm:space-y-8 before:absolute before:left-[27px] sm:before:left-[35px] before:top-6 before:bottom-6 before:w-0.5 before:bg-gradient-to-b before:from-indigo-500 before:via-indigo-300 before:to-indigo-100">
+          <div className="relative pl-3 sm:pl-6 space-y-6 sm:space-y-8 before:absolute before:left-[36px] sm:before:left-[52px] before:-translate-x-1/2 before:top-6 sm:before:top-7 before:bottom-6 sm:before:bottom-7 before:w-0.5 before:bg-gradient-to-b before:from-indigo-500 before:via-indigo-300 before:to-indigo-100">
             {PATH_1_STEPS.map((step) => {
               const IconComp = step.icon;
               return (
                 <div key={step.number} className="relative flex items-start gap-4 sm:gap-6 group">
                   {/* Large Numbered Gradient Circle */}
-                  <div className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-600 text-white font-extrabold text-sm sm:text-base shadow-md ring-4 ring-indigo-500/10 z-10 transition-transform duration-300 group-hover:scale-105">
+                  <div className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-600 text-white font-extrabold text-sm sm:text-base shadow-md ring-4 ring-paper z-10 transition-transform duration-300 group-hover:scale-105">
                     {step.number}
                   </div>
 
@@ -372,13 +372,13 @@ export default function HowItWorksPage() {
           </div>
 
           {/* Path 2 Animated Timeline */}
-          <div className="relative pl-3 sm:pl-6 space-y-6 sm:space-y-8 before:absolute before:left-[27px] sm:before:left-[35px] before:top-6 before:bottom-6 before:w-0.5 before:bg-gradient-to-b before:from-indigo-500 before:via-indigo-300 before:to-indigo-100">
+          <div className="relative pl-3 sm:pl-6 space-y-6 sm:space-y-8 before:absolute before:left-[36px] sm:before:left-[52px] before:-translate-x-1/2 before:top-6 sm:before:top-7 before:bottom-6 sm:before:bottom-7 before:w-0.5 before:bg-gradient-to-b before:from-indigo-500 before:via-indigo-300 before:to-indigo-100">
             {PATH_2_STEPS.map((step) => {
               const IconComp = step.icon;
               return (
                 <div key={step.number} className="relative flex items-start gap-4 sm:gap-6 group">
                   {/* Large Numbered Gradient Circle */}
-                  <div className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-600 text-white font-extrabold text-sm sm:text-base shadow-md ring-4 ring-indigo-500/10 z-10 transition-transform duration-300 group-hover:scale-105">
+                  <div className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-600 text-white font-extrabold text-sm sm:text-base shadow-md ring-4 ring-paper z-10 transition-transform duration-300 group-hover:scale-105">
                     {step.number}
                   </div>
 
@@ -426,13 +426,13 @@ export default function HowItWorksPage() {
           </div>
 
           {/* Path 3 Animated Timeline */}
-          <div className="relative pl-3 sm:pl-6 space-y-6 sm:space-y-8 before:absolute before:left-[27px] sm:before:left-[35px] before:top-6 before:bottom-6 before:w-0.5 before:bg-gradient-to-b before:from-indigo-500 before:via-indigo-300 before:to-indigo-100">
+          <div className="relative pl-3 sm:pl-6 space-y-6 sm:space-y-8 before:absolute before:left-[36px] sm:before:left-[52px] before:-translate-x-1/2 before:top-6 sm:before:top-7 before:bottom-6 sm:before:bottom-7 before:w-0.5 before:bg-gradient-to-b before:from-indigo-500 before:via-indigo-300 before:to-indigo-100">
             {PATH_3_STEPS.map((step) => {
               const IconComp = step.icon;
               return (
                 <div key={step.number} className="relative flex items-start gap-4 sm:gap-6 group">
                   {/* Large Numbered Gradient Circle */}
-                  <div className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-600 text-white font-extrabold text-sm sm:text-base shadow-md ring-4 ring-indigo-500/10 z-10 transition-transform duration-300 group-hover:scale-105">
+                  <div className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-600 text-white font-extrabold text-sm sm:text-base shadow-md ring-4 ring-paper z-10 transition-transform duration-300 group-hover:scale-105">
                     {step.number}
                   </div>
 

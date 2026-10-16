@@ -390,24 +390,24 @@ export default async function HomePage() {
         </section>
 
         {/* Value Commitments & Standards Bar */}
-        <section className="grid grid-cols-2 lg:grid-cols-4 gap-4 border-y border-rule py-6">
-          <div className="p-5 rounded-2xl border border-rule/80 bg-surface text-center space-y-1.5 shadow-xs">
-            <div className="text-xl sm:text-2xl font-display font-extrabold text-ink">IEEE Aligned</div>
+        <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 border-y border-rule py-6">
+          <div className="p-3.5 sm:p-5 rounded-2xl border border-rule/80 bg-surface text-center space-y-1.5 shadow-xs">
+            <div className="text-lg sm:text-2xl font-display font-extrabold text-ink">IEEE Aligned</div>
             <div className="text-xs font-semibold text-ink-2">Standard Documentation</div>
             <div className="text-[11px] text-ink-3">Synopsis, 70+ page report and slides</div>
           </div>
-          <div className="p-5 rounded-2xl border border-rule/80 bg-surface text-center space-y-1.5 shadow-xs">
-            <div className="text-xl sm:text-2xl font-display font-extrabold text-ink">Viva Ready</div>
+          <div className="p-3.5 sm:p-5 rounded-2xl border border-rule/80 bg-surface text-center space-y-1.5 shadow-xs">
+            <div className="text-lg sm:text-2xl font-display font-extrabold text-ink">Viva Ready</div>
             <div className="text-xs font-semibold text-ink-2">Oral Defense Prep</div>
             <div className="text-[11px] text-ink-3">Common examiner questions and answers</div>
           </div>
-          <div className="p-5 rounded-2xl border border-rule/80 bg-surface text-center space-y-1.5 shadow-xs">
-            <div className="text-xl sm:text-2xl font-display font-extrabold text-accent">Direct UPI</div>
+          <div className="p-3.5 sm:p-5 rounded-2xl border border-rule/80 bg-surface text-center space-y-1.5 shadow-xs">
+            <div className="text-lg sm:text-2xl font-display font-extrabold text-accent">Direct UPI</div>
             <div className="text-xs font-semibold text-ink-2">Zero Surcharges</div>
             <div className="text-[11px] text-ink-3">Manual bank review with instant delivery</div>
           </div>
-          <div className="p-5 rounded-2xl border border-rule/80 bg-surface text-center space-y-1.5 shadow-xs">
-            <div className="text-xl sm:text-2xl font-display font-extrabold text-ink">Reproducible</div>
+          <div className="p-3.5 sm:p-5 rounded-2xl border border-rule/80 bg-surface text-center space-y-1.5 shadow-xs">
+            <div className="text-lg sm:text-2xl font-display font-extrabold text-ink">Reproducible</div>
             <div className="text-xs font-semibold text-ink-2">Clean Architecture</div>
             <div className="text-[11px] text-ink-3">Step-by-step setup and environment guide</div>
           </div>
