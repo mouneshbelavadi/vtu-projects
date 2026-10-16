@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { LegalPageLayout } from "@/components/legal/legal-page-layout";
 import { Prose } from "@/components/ui/prose";
-import { TermsContent } from "@/content/legal/terms";
+import { TermsContent, termsTocItems } from "@/content/legal/terms";
 
 export const metadata: Metadata = {
   title: "Terms and Conditions | VTU Adda",
@@ -26,17 +26,16 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <div className="mx-auto max-w-4xl py-10 px-4 sm:px-6 space-y-6">
-      <Breadcrumbs
-        items={[
-          { label: "Home", href: "/" },
-          { label: "Terms and Conditions" },
-        ]}
-      />
-
-      <Prose className="mx-auto">
+    <LegalPageLayout
+      breadcrumbItems={[
+        { label: "Home", href: "/" },
+        { label: "Terms and Conditions" },
+      ]}
+      tocItems={termsTocItems}
+    >
+      <Prose>
         <TermsContent />
       </Prose>
-    </div>
+    </LegalPageLayout>
   );
 }

@@ -3,18 +3,27 @@ import Link from "next/link";
 
 export const refundLastUpdated = "14 October 2026";
 
+export const refundTocItems = [
+  { id: "overview", label: "1. Overview" },
+  { id: "ready-project-kits", label: "2. Ready Project Kits" },
+  { id: "custom-project-requests", label: "3. Custom Project Requests" },
+  { id: "technical-mentoring-sessions", label: "4. Technical Mentoring Sessions" },
+  { id: "how-to-request-refund", label: "5. How to Request a Refund" },
+  { id: "refund-method-timelines", label: "6. Refund Method and Timelines" },
+];
+
 export function RefundContent() {
   return (
     <>
       <h1>Refund and Cancellation Policy</h1>
       <p className="text-xs text-ink-3">Last updated: {refundLastUpdated}</p>
 
-      <h2>1. Overview</h2>
+      <h2 id="overview">1. Overview</h2>
       <p>
         We aim to provide clear and fair refund conditions for our digital products and educational services. Because our project kits are digital deliverables that cannot be physically returned, distinct rules apply to each service category.
       </p>
 
-      <h2>2. Ready Project Kits</h2>
+      <h2 id="ready-project-kits">2. Ready Project Kits</h2>
       <p>
         Refund eligibility for downloadable project kits is determined as follows:
       </p>
@@ -27,7 +36,7 @@ export function RefundContent() {
         </li>
       </ul>
 
-      <h2>3. Custom Project Requests</h2>
+      <h2 id="custom-project-requests">3. Custom Project Requests</h2>
       <p>
         Custom build requests involve dedicated engineering time:
       </p>
@@ -43,7 +52,7 @@ export function RefundContent() {
         </li>
       </ul>
 
-      <h2>4. Technical Mentoring Sessions</h2>
+      <h2 id="technical-mentoring-sessions">4. Technical Mentoring Sessions</h2>
       <p>
         Mentoring slots occupy dedicated mentor availability:
       </p>
@@ -62,7 +71,7 @@ export function RefundContent() {
         </li>
       </ul>
 
-      <h2>5. How to Request a Refund</h2>
+      <h2 id="how-to-request-refund">5. How to Request a Refund</h2>
       <p>To request a refund, follow these straightforward steps:</p>
       <ol>
         <li>
@@ -77,7 +86,7 @@ export function RefundContent() {
         <li>State clearly the reason for your refund request and attach any relevant error screenshots or details.</li>
       </ol>
 
-      <h2>6. Refund Method and Timelines</h2>
+      <h2 id="refund-method-timelines">6. Refund Method and Timelines</h2>
       <p>
         All refunds are processed manually by our finance team:
       </p>

@@ -2,18 +2,31 @@ import React from "react";
 
 export const privacyLastUpdated = "14 October 2026";
 
+export const privacyTocItems = [
+  { id: "who-we-are", label: "1. Who We Are" },
+  { id: "personal-data", label: "2. Personal Data We Collect" },
+  { id: "why-we-use-data", label: "3. Why We Use Your Data" },
+  { id: "third-party-providers", label: "4. Third-Party Service Providers and Data Residency" },
+  { id: "data-retention", label: "5. Data Retention" },
+  { id: "users-under-18", label: "6. Users Under 18" },
+  { id: "cookies-and-tracking", label: "7. Cookies and Tracking" },
+  { id: "your-rights", label: "8. Your Rights: Access, Export, and Deletion" },
+  { id: "data-security", label: "9. Data Security" },
+  { id: "grievance-redressal", label: "10. Grievance Redressal" },
+];
+
 export function PrivacyContent() {
   return (
     <>
       <h1>Privacy Policy</h1>
       <p className="text-xs text-ink-3">Last updated: {privacyLastUpdated}</p>
 
-      <h2>1. Who We Are</h2>
+      <h2 id="who-we-are">1. Who We Are</h2>
       <p>
         VTU Adda Projects is an independent educational platform based in Bengaluru, Karnataka, India. We provide downloadable project kits, custom project support, and one-on-one technical mentoring for engineering students.
       </p>
 
-      <h2>2. Personal Data We Collect</h2>
+      <h2 id="personal-data">2. Personal Data We Collect</h2>
       <p>
         We only collect information necessary to deliver our services, process manual payments, and communicate with you. The personal data collected includes:
       </p>
@@ -44,7 +57,7 @@ export function PrivacyContent() {
         <strong>We do not ask for or store your college name.</strong>
       </p>
 
-      <h2>3. Why We Use Your Data</h2>
+      <h2 id="why-we-use-data">3. Why We Use Your Data</h2>
       <p>We process your personal information for the following specific purposes:</p>
       <ul>
         <li>To authenticate your sign-in and protect your account.</li>
@@ -56,7 +69,7 @@ export function PrivacyContent() {
         <li>To comply with statutory financial accounting and tax obligations in India.</li>
       </ul>
 
-      <h2>4. Third-Party Service Providers and Data Residency</h2>
+      <h2 id="third-party-providers">4. Third-Party Service Providers and Data Residency</h2>
       <p>
         We do not sell, rent, or trade your personal data. We rely on reputable infrastructure providers to operate the service:
       </p>
@@ -75,7 +88,7 @@ export function PrivacyContent() {
         </li>
       </ul>
 
-      <h2>5. Data Retention</h2>
+      <h2 id="data-retention">5. Data Retention</h2>
       <p>We keep personal data only for as long as needed:</p>
       <ul>
         <li>
@@ -92,17 +105,17 @@ export function PrivacyContent() {
         </li>
       </ul>
 
-      <h2>6. Users Under 18</h2>
+      <h2 id="users-under-18">6. Users Under 18</h2>
       <p>
         Our platform is intended for users who are at least 18 years of age. Students aged 17 enrolled in an undergraduate engineering programme may access the platform only with the consent and supervision of a parent or legal guardian.
       </p>
 
-      <h2>7. Cookies and Tracking</h2>
+      <h2 id="cookies-and-tracking">7. Cookies and Tracking</h2>
       <p>
         We use only essential cookies required for authentication and security tokens. We do not use advertising cookies, marketing trackers, or third-party behavioral analytics scripts.
       </p>
 
-      <h2>8. Your Rights: Access, Export, and Deletion</h2>
+      <h2 id="your-rights">8. Your Rights: Access, Export, and Deletion</h2>
       <p>
         Under applicable Indian data protection laws, you have the right to access, correct, export, or delete your personal data:
       </p>
@@ -118,12 +131,12 @@ export function PrivacyContent() {
         </li>
       </ul>
 
-      <h2>9. Data Security</h2>
+      <h2 id="data-security">9. Data Security</h2>
       <p>
         We protect your data using industry standard technical safeguards, including PostgreSQL Row Level Security (RLS) policies, encryption in transit using TLS 1.3, encrypted database storage at rest, and time-limited signed URLs for all private file downloads.
       </p>
 
-      <h2>10. Grievance Redressal</h2>
+      <h2 id="grievance-redressal">10. Grievance Redressal</h2>
       <p>
         If you have questions, concerns, or grievances regarding the processing of your personal data, you may contact our designated Grievance Officer:
       </p>

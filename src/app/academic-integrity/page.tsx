@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { LegalPageLayout } from "@/components/legal/legal-page-layout";
 import { Prose } from "@/components/ui/prose";
-import { AcademicIntegrityContent } from "@/content/legal/academic-integrity";
+import {
+  AcademicIntegrityContent,
+  academicIntegrityTocItems,
+} from "@/content/legal/academic-integrity";
 
 export const metadata: Metadata = {
   title: "Academic Integrity Policy | VTU Adda",
@@ -26,17 +29,16 @@ export const metadata: Metadata = {
 
 export default function AcademicIntegrityPage() {
   return (
-    <div className="mx-auto max-w-4xl py-10 px-4 sm:px-6 space-y-6">
-      <Breadcrumbs
-        items={[
-          { label: "Home", href: "/" },
-          { label: "Academic Integrity" },
-        ]}
-      />
-
-      <Prose className="mx-auto">
+    <LegalPageLayout
+      breadcrumbItems={[
+        { label: "Home", href: "/" },
+        { label: "Academic Integrity" },
+      ]}
+      tocItems={academicIntegrityTocItems}
+    >
+      <Prose>
         <AcademicIntegrityContent />
       </Prose>
-    </div>
+    </LegalPageLayout>
   );
 }
