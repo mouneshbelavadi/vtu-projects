@@ -6,7 +6,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 }
 
 /**
- * Accessible Input primitive with 6px radius, flat border, and visible focus.
+ * Modern Input primitive with 12px corner radius, focus glow, and error state.
  */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type = "text", hasError = false, disabled, ...props }, ref) => {
@@ -16,12 +16,13 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         ref={ref}
         disabled={disabled}
         className={cn(
-          "h-11 min-h-[44px] w-full rounded-md border bg-surface px-3 text-base text-ink",
-          "transition-colors duration-120",
-          hasError ? "border-danger" : "border-rule-strong hover:border-ink-2",
-          "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
-          "disabled:cursor-not-allowed disabled:bg-paper disabled:opacity-50",
-          "placeholder:text-ink-3",
+          "h-11 min-h-[44px] w-full rounded-xl border bg-surface px-4 text-sm text-ink",
+          "placeholder:text-ink-3 transition-all duration-200 shadow-xs",
+          hasError
+            ? "border-danger focus:border-danger focus:ring-4 focus:ring-danger/10"
+            : "border-rule hover:border-rule-strong focus:border-accent focus:ring-4 focus:ring-accent/10",
+          "focus:outline-none",
+          "disabled:cursor-not-allowed disabled:bg-slate-100/60 dark:disabled:bg-slate-800/40 disabled:opacity-60",
           className
         )}
         {...props}

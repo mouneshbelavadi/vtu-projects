@@ -3,47 +3,103 @@
 @tailwind utilities;
 
 :root {
-  --color-paper: #fbfaf7;
+  --color-paper: #f8fafc;
   --color-surface: #ffffff;
-  --color-ink: #17191c;
-  --color-ink-2: #4a5058;
-  --color-ink-3: #5f6670;
-  --color-rule: #ddd9d0;
-  --color-rule-strong: #b9b4a8;
-  --color-accent: #0b5d4b;
-  --color-accent-hover: #084a3c;
-  --color-accent-weak: #e4f0ec;
-  --color-warn-text: #6b4700;
-  --color-warn-bg: #fff4d6;
-  --color-danger: #a12b2b;
-  --color-danger-bg: #fbe9e7;
-  --color-success: #1e6b3c;
-  --color-success-bg: #e6f3ea;
+  --color-ink: #0f172a;
+  --color-ink-2: #475569;
+  --color-ink-3: #94a3b8;
+  --color-rule: #e2e8f0;
+  --color-rule-strong: #cbd5e1;
+  --color-accent: #4f46e5;
+  --color-accent-hover: #4338ca;
+  --color-accent-weak: #eef2ff;
+  --color-cyan: #06b6d4;
+  --color-warn-text: #b45309;
+  --color-warn-bg: #fef3c7;
+  --color-danger: #ef4444;
+  --color-danger-bg: #fee2e2;
+  --color-success: #10b981;
+  --color-success-bg: #d1fae5;
+}
+
+.dark {
+  --color-paper: #0b0f19;
+  --color-surface: #131a29;
+  --color-ink: #f8fafc;
+  --color-ink-2: #cbd5e1;
+  --color-ink-3: #64748b;
+  --color-rule: #1e293b;
+  --color-rule-strong: #334155;
+  --color-accent: #6366f1;
+  --color-accent-hover: #818cf8;
+  --color-accent-weak: #1e1b4b;
+  --color-cyan: #22d3ee;
+  --color-warn-text: #fde68a;
+  --color-warn-bg: #451a03;
+  --color-danger: #f87171;
+  --color-danger-bg: #450a0a;
+  --color-success: #34d399;
+  --color-success-bg: #064e3b;
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: var(--color-paper);
     color: var(--color-ink);
-    font-family: var(--font-ibm-plex-sans), system-ui, sans-serif;
+    font-family: var(--font-sans), Inter, system-ui, sans-serif;
   }
 
   h1,
   h2,
   h3,
-  h4 {
-    font-family: var(--font-source-serif), Georgia, serif;
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display), Plus Jakarta Sans, system-ui, sans-serif;
     color: var(--color-ink);
+    letter-spacing: -0.02em;
   }
 
-  /* Universal focus visible outline: 2px accent with 2px offset */
+  /* Custom selection color */
+  ::selection {
+    background-color: #4f46e5;
+    color: #ffffff;
+  }
+
+  /* Universal focus visible outline */
   :focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
   }
+
+  /* Styled modern scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    background: #334155;
+  }
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+  }
 }
 
-/* Restricted motion: 120ms color/opacity transitions only; disabled under prefers-reduced-motion */
+/* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,

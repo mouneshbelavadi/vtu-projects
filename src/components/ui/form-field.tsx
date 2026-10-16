@@ -20,7 +20,7 @@ export interface FormFieldProps {
 }
 
 /**
- * FormField wrapper coordinating labels, accessible help text, and validation error messages.
+ * Modern FormField wrapper coordinating labels, accessible help text, and validation error messages.
  * Supports both direct ReactNode children and a render function.
  */
 export const FormField: React.FC<FormFieldProps> = ({
@@ -39,7 +39,7 @@ export const FormField: React.FC<FormFieldProps> = ({
 
   return (
     <div className={cn("flex flex-col gap-1.5", className)}>
-      <label htmlFor={id} className="text-sm font-medium text-ink">
+      <label htmlFor={id} className="text-sm font-semibold text-ink">
         {label}
         {required && (
           <span className="ml-1 text-danger" aria-hidden="true">
@@ -59,13 +59,13 @@ export const FormField: React.FC<FormFieldProps> = ({
         : children}
 
       {errorText && (
-        <p id={errorId} className="text-sm text-danger" role="alert">
+        <p id={errorId} className="text-xs font-medium text-danger animate-fade-in" role="alert">
           {errorText}
         </p>
       )}
 
       {helpText && !errorText && (
-        <p id={helpId} className="text-sm text-ink-3">
+        <p id={helpId} className="text-xs text-ink-3">
           {helpText}
         </p>
       )}

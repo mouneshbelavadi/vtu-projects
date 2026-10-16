@@ -6,7 +6,7 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
 }
 
 /**
- * Textarea primitive adhering to the 6px radius rule and flat surface tokens.
+ * Modern Textarea primitive with 12px corner radius, focus glow, and error state.
  */
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, hasError = false, disabled, rows = 4, ...props }, ref) => {
@@ -16,12 +16,13 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         rows={rows}
         disabled={disabled}
         className={cn(
-          "w-full rounded-md border bg-surface p-3 text-base text-ink",
-          "resize-y transition-colors duration-120",
-          hasError ? "border-danger" : "border-rule-strong hover:border-ink-2",
-          "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
-          "disabled:cursor-not-allowed disabled:bg-paper disabled:opacity-50",
-          "placeholder:text-ink-3",
+          "w-full rounded-xl border bg-surface p-3.5 text-sm text-ink",
+          "placeholder:text-ink-3 resize-y transition-all duration-200 shadow-xs",
+          hasError
+            ? "border-danger focus:border-danger focus:ring-4 focus:ring-danger/10"
+            : "border-rule hover:border-rule-strong focus:border-accent focus:ring-4 focus:ring-accent/10",
+          "focus:outline-none",
+          "disabled:cursor-not-allowed disabled:bg-slate-100/60 dark:disabled:bg-slate-800/40 disabled:opacity-60",
           className
         )}
         {...props}

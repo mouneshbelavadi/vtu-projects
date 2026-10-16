@@ -6,7 +6,8 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * Card component adhering to flat surface styling, 1px border rule, 6px radius, and zero shadows.
+ * Modern Card component with 20px (rounded-2xl) radius, soft layered shadow,
+ * 1px subtle border, and smooth transition.
  */
 export const Card: React.FC<CardProps> = ({
   as: Component = "div",
@@ -16,7 +17,10 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <Component
-      className={cn("rounded-md border border-rule bg-surface p-6 text-ink shadow-none", className)}
+      className={cn(
+        "rounded-2xl border border-rule/80 bg-surface p-6 text-ink shadow-sm transition-all duration-200",
+        className
+      )}
       {...props}
     >
       {children}
