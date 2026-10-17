@@ -12,10 +12,22 @@ if (supabaseUrl) {
 }
 
 const nextConfig = {
+  compress: true,
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
   reactStrictMode: true,
   transpilePackages: ["lucide-react"],
+  experimental: {
+    optimizePackageImports: [
+      "lucide-react",
+      "@radix-ui/react-dialog",
+      "@radix-ui/react-select",
+      "@radix-ui/react-tabs",
+      "@radix-ui/react-tooltip",
+      "@radix-ui/react-checkbox",
+      "@radix-ui/react-radio-group",
+    ],
+  },
   images: {
     remotePatterns: [
       {

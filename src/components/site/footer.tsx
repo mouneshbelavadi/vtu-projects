@@ -1,8 +1,5 @@
-"use client";
-
 import * as React from "react";
 import Link from "next/link";
-import { siteConfig } from "../../../site.config";
 
 function SparklesIcon({
   className = "h-4.5 w-4.5",
@@ -102,10 +99,11 @@ function filterLinks(links: FooterLink[], isProd: boolean): FooterLink[] {
  * - 4-column organized navigation links with micro-hover interactions
  * - Divider and copyright status row
  */
-export const Footer: React.FC = () => {
+export function Footer() {
   const isProd = process.env.NODE_ENV === "production";
   const currentYear = new Date().getFullYear();
-  const businessName = siteConfig.businessName || "VTU Adda Projects";
+  const businessName =
+    process.env.NEXT_PUBLIC_BUSINESS_NAME || "VTU Adda Projects";
 
   const visibleStore = filterLinks(storeLinks, isProd);
   const visibleHelp = filterLinks(helpLinks, isProd);
