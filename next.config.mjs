@@ -15,6 +15,7 @@ const nextConfig = {
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
   reactStrictMode: true,
+  transpilePackages: ["lucide-react"],
   images: {
     remotePatterns: [
       {
@@ -49,8 +50,10 @@ const nextConfig = {
       },
     ];
   },
-  webpack: (config) => {
-    config.devtool = false;
+  webpack: (config, { dev }) => {
+    if (!dev) {
+      config.devtool = false;
+    }
     return config;
   },
 };

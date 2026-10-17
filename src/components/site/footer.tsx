@@ -1,7 +1,58 @@
+"use client";
+
 import * as React from "react";
 import Link from "next/link";
-import { Sparkles, MessageSquare } from "lucide-react";
 import { siteConfig } from "../../../site.config";
+
+function SparklesIcon({
+  className = "h-4.5 w-4.5",
+  strokeWidth = 2.25,
+}: {
+  className?: string;
+  strokeWidth?: number;
+}) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+      <path d="M5 3v4" />
+      <path d="M19 17v4" />
+      <path d="M3 5h4" />
+      <path d="M17 19h4" />
+    </svg>
+  );
+}
+
+function MessageSquareIcon({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    </svg>
+  );
+}
 
 interface FooterLink {
   label: string;
@@ -76,7 +127,7 @@ export const Footer: React.FC = () => {
           <div className="space-y-4 lg:col-span-4">
             <Link href="/" className="inline-flex items-center gap-2.5">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-sm shadow-indigo-500/30">
-                <Sparkles className="h-4.5 w-4.5" strokeWidth={2.25} />
+                <SparklesIcon className="h-4.5 w-4.5" strokeWidth={2.25} />
               </div>
               <span className="font-display text-lg font-extrabold tracking-tight text-white">
                 VTU Adda <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">Projects</span>
@@ -128,7 +179,7 @@ export const Footer: React.FC = () => {
                 className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-800 bg-slate-900/60 transition-colors hover:border-slate-700 hover:text-white"
                 aria-label="Community discussion"
               >
-                <MessageSquare className="h-4 w-4" />
+                <MessageSquareIcon className="h-4 w-4" />
               </a>
             </div>
           </div>
